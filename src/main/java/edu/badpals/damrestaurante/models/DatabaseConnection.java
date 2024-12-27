@@ -30,7 +30,8 @@ public class DatabaseConnection {
 
             System.out.println("Conectados a Firestore");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error al conectar a Firestore" + e.getMessage());
+//            e.printStackTrace();
         }
 
     }

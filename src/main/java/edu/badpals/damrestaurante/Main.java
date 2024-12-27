@@ -25,8 +25,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        DatabaseConnection db = new DatabaseConnection();
-        db.connect();
+//        DatabaseConnection db = new DatabaseConnection();
+//        db.connect();
+
+
         launch();
     }
 }
