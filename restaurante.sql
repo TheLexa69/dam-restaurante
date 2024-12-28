@@ -152,6 +152,7 @@ constraint pk_idAlergeno primary key (id_alergeno)
 
 
 create table if not exists carta_alergenos(
+id_carta_alergenos int not null primary key auto_increment,
 id_alergeno int not null,
 id_comida int not null
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
