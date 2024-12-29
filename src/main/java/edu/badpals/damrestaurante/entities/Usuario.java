@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Usuario", schema = "luachea", catalog = "")
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -34,8 +33,8 @@ public class Usuario {
     @Column(name = "id_rol", nullable = false)
     private int idRol;
     @Basic
-    @Column(name = "estado_usuario", nullable = false)
-    private Object estadoUsuario;
+    @Column(name = "usuario_activado", nullable = false)
+    private byte usuarioActivado;
     @Basic
     @Column(name = "NIF", nullable = true, length = 9)
     private String nif;
@@ -116,12 +115,12 @@ public class Usuario {
         this.idRol = idRol;
     }
 
-    public Object getEstadoUsuario() {
-        return estadoUsuario;
+    public byte getUsuarioActivado() {
+        return usuarioActivado;
     }
 
-    public void setEstadoUsuario(Object estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
+    public void setUsuarioActivado(byte usuarioActivado) {
+        this.usuarioActivado = usuarioActivado;
     }
 
     public String getNif() {
@@ -169,11 +168,11 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return idUsuario == usuario.idUsuario && idRol == usuario.idRol && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido1, usuario.apellido1) && Objects.equals(apellido2, usuario.apellido2) && Objects.equals(correo, usuario.correo) && Objects.equals(fecha, usuario.fecha) && Objects.equals(numTelef, usuario.numTelef) && Objects.equals(estadoUsuario, usuario.estadoUsuario) && Objects.equals(nif, usuario.nif) && Objects.equals(direccion, usuario.direccion) && Objects.equals(cp, usuario.cp) && Objects.equals(img, usuario.img) && Objects.equals(contraseña, usuario.contraseña);
+        return idUsuario == usuario.idUsuario && idRol == usuario.idRol && usuarioActivado == usuario.usuarioActivado && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido1, usuario.apellido1) && Objects.equals(apellido2, usuario.apellido2) && Objects.equals(correo, usuario.correo) && Objects.equals(fecha, usuario.fecha) && Objects.equals(numTelef, usuario.numTelef) && Objects.equals(nif, usuario.nif) && Objects.equals(direccion, usuario.direccion) && Objects.equals(cp, usuario.cp) && Objects.equals(img, usuario.img) && Objects.equals(contraseña, usuario.contraseña);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUsuario, nombre, apellido1, apellido2, correo, fecha, numTelef, idRol, estadoUsuario, nif, direccion, cp, img, contraseña);
+        return Objects.hash(idUsuario, nombre, apellido1, apellido2, correo, fecha, numTelef, idRol, usuarioActivado, nif, direccion, cp, img, contraseña);
     }
 }

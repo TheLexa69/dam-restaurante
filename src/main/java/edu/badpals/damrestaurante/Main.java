@@ -29,6 +29,8 @@ public class Main extends Application {
 //        db.connect();
 
 
-        launch();
+//        launch();
+        DatabaseConnection db = new DatabaseConnection();
+        db.getCarta();
     }
 }

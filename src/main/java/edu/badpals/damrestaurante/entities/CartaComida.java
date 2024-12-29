@@ -35,7 +35,7 @@ public class CartaComida {
     private double precio;
     @Basic
     @Column(name = "disponible", nullable = false)
-    private Object disponible;
+    private byte disponible;
     @Basic
     @Column(name = "img", nullable = false, length = 100)
     private String img;
@@ -104,11 +104,11 @@ public class CartaComida {
         this.precio = precio;
     }
 
-    public Object getDisponible() {
+    public byte getDisponible() {
         return disponible;
     }
 
-    public void setDisponible(Object disponible) {
+    public void setDisponible(byte disponible) {
         this.disponible = disponible;
     }
 
@@ -125,7 +125,7 @@ public class CartaComida {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartaComida that = (CartaComida) o;
-        return idComida == that.idComida && tipo == that.tipo && Double.compare(precio, that.precio) == 0 && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(subtipo, that.subtipo) && Objects.equals(fechaInicio, that.fechaInicio) && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(disponible, that.disponible) && Objects.equals(img, that.img);
+        return idComida == that.idComida && tipo == that.tipo && Double.compare(precio, that.precio) == 0 && disponible == that.disponible && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(subtipo, that.subtipo) && Objects.equals(fechaInicio, that.fechaInicio) && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(img, that.img);
     }
 
     @Override

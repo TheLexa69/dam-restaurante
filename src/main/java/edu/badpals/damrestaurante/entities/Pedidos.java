@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Pedidos", schema = "luachea", catalog = "")
 public class Pedidos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -20,7 +19,7 @@ public class Pedidos {
     private Date fecha;
     @Basic
     @Column(name = "enviado", nullable = false)
-    private Object enviado;
+    private byte enviado;
     @Basic
     @Column(name = "restaurante", nullable = false, length = 10)
     private String restaurante;
@@ -49,11 +48,11 @@ public class Pedidos {
         this.fecha = fecha;
     }
 
-    public Object getEnviado() {
+    public byte getEnviado() {
         return enviado;
     }
 
-    public void setEnviado(Object enviado) {
+    public void setEnviado(byte enviado) {
         this.enviado = enviado;
     }
 
@@ -70,7 +69,7 @@ public class Pedidos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pedidos pedidos = (Pedidos) o;
-        return idPed == pedidos.idPed && idUsuario == pedidos.idUsuario && Objects.equals(fecha, pedidos.fecha) && Objects.equals(enviado, pedidos.enviado) && Objects.equals(restaurante, pedidos.restaurante);
+        return idPed == pedidos.idPed && idUsuario == pedidos.idUsuario && enviado == pedidos.enviado && Objects.equals(fecha, pedidos.fecha) && Objects.equals(restaurante, pedidos.restaurante);
     }
 
     @Override

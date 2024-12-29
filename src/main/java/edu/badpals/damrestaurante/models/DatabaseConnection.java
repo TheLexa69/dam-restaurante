@@ -5,11 +5,15 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.auth.Credentials;
-
+import edu.badpals.damrestaurante.entities.CartaComida;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseConnection {
 
@@ -17,7 +21,7 @@ public class DatabaseConnection {
 
 
     public static void connect() {
-        try{
+        try {
             FileInputStream refreshToken = new FileInputStream("dam-restaurante.json");
 
             FirebaseOptions options = FirebaseOptions.builder()
@@ -34,5 +38,19 @@ public class DatabaseConnection {
 //            e.printStackTrace();
         }
 
+    }
+
+    public EntityManager connectEm() {
+        return Persistence.createEntityManagerFactory("default").createEntityManager();
+    }
+
+    public List<CartaComida> getCarta() {
+        EntityManager em = connectEm();
+
+        Query query = em.createQuery("select cc from CartaComida cc");
+        List<CartaComida> carta = query.getResultList();
+
+        em.close();
+        return carta;
     }
 }

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Subtipo", schema = "luachea", catalog = "")
 public class Subtipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

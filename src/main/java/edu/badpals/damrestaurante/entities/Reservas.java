@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Reservas", schema = "luachea", catalog = "")
 public class Reservas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -26,10 +25,10 @@ public class Reservas {
     private Date fechaReserva;
     @Basic
     @Column(name = "turno", nullable = true)
-    private Object turno;
+    private Turno turno;
     @Basic
     @Column(name = "reservaAceptada", nullable = true)
-    private Object reservaAceptada;
+    private Byte reservaAceptada;
 
     public int getIdReservas() {
         return idReservas;
@@ -71,19 +70,19 @@ public class Reservas {
         this.fechaReserva = fechaReserva;
     }
 
-    public Object getTurno() {
+    public Turno getTurno() {
         return turno;
     }
 
-    public void setTurno(Object turno) {
+    public void setTurno(Turno turno) {
         this.turno = turno;
     }
 
-    public Object getReservaAceptada() {
+    public Byte getReservaAceptada() {
         return reservaAceptada;
     }
 
-    public void setReservaAceptada(Object reservaAceptada) {
+    public void setReservaAceptada(Byte reservaAceptada) {
         this.reservaAceptada = reservaAceptada;
     }
 

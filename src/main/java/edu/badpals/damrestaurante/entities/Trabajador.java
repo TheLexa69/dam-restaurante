@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Trabajador", schema = "luachea", catalog = "")
 public class Trabajador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -41,10 +40,10 @@ public class Trabajador {
     private int idRol;
     @Basic
     @Column(name = "estado_trabajador", nullable = false)
-    private Object estadoTrabajador;
+    private Boolean estadoTrabajador;
     @Basic
     @Column(name = "trabajando", nullable = false)
-    private Object trabajando;
+    private byte trabajando;
     @Basic
     @Column(name = "contraseña", nullable = false, length = 255)
     private String contraseña;
@@ -129,19 +128,19 @@ public class Trabajador {
         this.idRol = idRol;
     }
 
-    public Object getEstadoTrabajador() {
+    public Boolean getEstadoTrabajador() {
         return estadoTrabajador;
     }
 
-    public void setEstadoTrabajador(Object estadoTrabajador) {
+    public void setEstadoTrabajador(Boolean estadoTrabajador) {
         this.estadoTrabajador = estadoTrabajador;
     }
 
-    public Object getTrabajando() {
+    public byte getTrabajando() {
         return trabajando;
     }
 
-    public void setTrabajando(Object trabajando) {
+    public void setTrabajando(byte trabajando) {
         this.trabajando = trabajando;
     }
 
@@ -158,7 +157,7 @@ public class Trabajador {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trabajador that = (Trabajador) o;
-        return idTrabajador == that.idTrabajador && idRol == that.idRol && Objects.equals(nieTrabajador, that.nieTrabajador) && Objects.equals(pasaporteTrabajador, that.pasaporteTrabajador) && Objects.equals(nombre, that.nombre) && Objects.equals(apellido1, that.apellido1) && Objects.equals(apellido2, that.apellido2) && Objects.equals(correo, that.correo) && Objects.equals(fecha, that.fecha) && Objects.equals(numTelef, that.numTelef) && Objects.equals(estadoTrabajador, that.estadoTrabajador) && Objects.equals(trabajando, that.trabajando) && Objects.equals(contraseña, that.contraseña);
+        return idTrabajador == that.idTrabajador && idRol == that.idRol && trabajando == that.trabajando && Objects.equals(nieTrabajador, that.nieTrabajador) && Objects.equals(pasaporteTrabajador, that.pasaporteTrabajador) && Objects.equals(nombre, that.nombre) && Objects.equals(apellido1, that.apellido1) && Objects.equals(apellido2, that.apellido2) && Objects.equals(correo, that.correo) && Objects.equals(fecha, that.fecha) && Objects.equals(numTelef, that.numTelef) && Objects.equals(estadoTrabajador, that.estadoTrabajador) && Objects.equals(contraseña, that.contraseña);
     }
 
     @Override
