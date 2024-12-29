@@ -40,7 +40,7 @@ create table if not exists carta_comida(
     fecha_inicio date not null,
     fecha_fin date null,
     precio float not null,
-    disponible  enum('si','no') not null default 'si',
+    disponible  boolean not null default true,
     img varchar(100) not null,
     constraint pk_id primary key (id_comida)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
