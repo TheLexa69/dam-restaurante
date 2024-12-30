@@ -11,6 +11,7 @@ module edu.badpals.damrestaurante {
     requires com.google.auth;
 
     opens edu.badpals.damrestaurante to javafx.fxml;
+    opens edu.badpals.damrestaurante.controllers to javafx.fxml;
     exports edu.badpals.damrestaurante;
 
     requires java.sql;

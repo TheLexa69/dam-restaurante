@@ -19,7 +19,7 @@ public class DatabaseConnection {
 
     public static Firestore db;
 
-
+    //Firebase
     public static void connect() {
         try {
             FileInputStream refreshToken = new FileInputStream("dam-restaurante.json");

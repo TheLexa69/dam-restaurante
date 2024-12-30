@@ -1,0 +1,15 @@
+.root {
+    -fx-font-size: 15px;
+    -fx-padding: 10px;
+}
+
+#vboxIndex{
+    -fx-background-color: rgba(17, 20, 37, 1);
+}
+
+
+#btnInicio, #btnReservas, #btnCarrito, #btnCarta, #btnPerfil{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
