@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,8 @@ public class Alergenos {
     @Basic
     @Column(name = "img", nullable = true, length = 100)
     private String img;
+    @OneToMany(mappedBy = "alergenosByIdAlergeno")
+    private Collection<CartaAlergenos> cartaAlergenosByIdAlergeno;
 
     public int getIdAlergeno() {
         return idAlergeno;
@@ -64,4 +67,23 @@ public class Alergenos {
     public int hashCode() {
         return Objects.hash(idAlergeno, nombreAlergeno, descripcion, img);
     }
+
+    public Collection<CartaAlergenos> getCartaAlergenosByIdAlergeno() {
+        return cartaAlergenosByIdAlergeno;
+    }
+
+    public void setCartaAlergenosByIdAlergeno(Collection<CartaAlergenos> cartaAlergenosByIdAlergeno) {
+        this.cartaAlergenosByIdAlergeno = cartaAlergenosByIdAlergeno;
+    }
+
+    @Override
+    public String toString() {
+        return "Alergenos{" +
+                "idAlergeno=" + idAlergeno +
+                ", nombreAlergeno='" + nombreAlergeno + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", img='" + img + '\'' +
+                '}';
+    }
+
 }

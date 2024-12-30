@@ -12,10 +12,10 @@ public class PedProd {
     @Column(name = "id_ped_prod", nullable = false)
     private int idPedProd;
     @Basic
-    @Column(name = "id_ped", nullable = false)
+    @Column(name = "id_ped", nullable = false, insertable = false, updatable = false)
     private int idPed;
     @Basic
-    @Column(name = "id_prod", nullable = false)
+    @Column(name = "id_prod", nullable = false, insertable = false, updatable = false)
     private int idProd;
     @Basic
     @Column(name = "cantidad", nullable = false)
@@ -23,6 +23,12 @@ public class PedProd {
     @Basic
     @Column(name = "precio", nullable = false, precision = 0)
     private double precio;
+    @ManyToOne
+    @JoinColumn(name = "id_ped", referencedColumnName = "id_ped", nullable = false)
+    private Pedidos pedidosByIdPed;
+    @ManyToOne
+    @JoinColumn(name = "id_prod", referencedColumnName = "id_comida", nullable = false)
+    private CartaComida cartaComidaByIdProd;
 
     public int getIdPedProd() {
         return idPedProd;
@@ -75,5 +81,32 @@ public class PedProd {
     @Override
     public int hashCode() {
         return Objects.hash(idPedProd, idPed, idProd, cantidad, precio);
+    }
+
+    public Pedidos getPedidosByIdPed() {
+        return pedidosByIdPed;
+    }
+
+    public void setPedidosByIdPed(Pedidos pedidosByIdPed) {
+        this.pedidosByIdPed = pedidosByIdPed;
+    }
+
+    public CartaComida getCartaComidaByIdProd() {
+        return cartaComidaByIdProd;
+    }
+
+    public void setCartaComidaByIdProd(CartaComida cartaComidaByIdProd) {
+        this.cartaComidaByIdProd = cartaComidaByIdProd;
+    }
+
+    @Override
+    public String toString() {
+        return "PedProd{" +
+                "idPedProd=" + idPedProd +
+                ", idPed=" + idPed +
+                ", idProd=" + idProd +
+                ", cantidad=" + cantidad +
+                ", precio=" + precio +
+                '}';
     }
 }

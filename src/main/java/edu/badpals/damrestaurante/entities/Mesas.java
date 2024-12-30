@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,8 @@ public class Mesas {
     @Basic
     @Column(name = "enumMesa", nullable = false, length = 20)
     private String enumMesa;
+    @OneToMany(mappedBy = "mesasByIdMesa")
+    private Collection<Reservas> reservasByIdMesa;
 
     public int getIdMesa() {
         return idMesa;
@@ -41,5 +44,21 @@ public class Mesas {
     @Override
     public int hashCode() {
         return Objects.hash(idMesa, enumMesa);
+    }
+
+    public Collection<Reservas> getReservasByIdMesa() {
+        return reservasByIdMesa;
+    }
+
+    public void setReservasByIdMesa(Collection<Reservas> reservasByIdMesa) {
+        this.reservasByIdMesa = reservasByIdMesa;
+    }
+
+    @Override
+    public String toString() {
+        return "Mesas{" +
+                "idMesa=" + idMesa +
+                ", enumMesa='" + enumMesa + '\'' +
+                '}';
     }
 }

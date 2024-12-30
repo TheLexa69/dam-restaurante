@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,8 @@ public class Roles {
     @Basic
     @Column(name = "nombre_rol", nullable = false, length = 100)
     private String nombreRol;
+    @OneToMany(mappedBy = "rolesByIdRol")
+    private Collection<UsuarioActual> usuarioActualsByIdRol;
 
     public int getIdRol() {
         return idRol;
@@ -41,5 +44,21 @@ public class Roles {
     @Override
     public int hashCode() {
         return Objects.hash(idRol, nombreRol);
+    }
+
+    public Collection<UsuarioActual> getUsuarioActualsByIdRol() {
+        return usuarioActualsByIdRol;
+    }
+
+    public void setUsuarioActualsByIdRol(Collection<UsuarioActual> usuarioActualsByIdRol) {
+        this.usuarioActualsByIdRol = usuarioActualsByIdRol;
+    }
+
+    @Override
+    public String toString() {
+        return "Roles{" +
+                "idRol=" + idRol +
+                ", nombreRol='" + nombreRol + '\'' +
+                '}';
     }
 }

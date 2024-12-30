@@ -12,13 +12,13 @@ public class Reservas {
     @Column(name = "id_reservas", nullable = false)
     private int idReservas;
     @Basic
-    @Column(name = "id_usuario", nullable = true)
+    @Column(name = "id_usuario", nullable = true, insertable = false, updatable = false)
     private Integer idUsuario;
     @Basic
-    @Column(name = "id_restaurante", nullable = true, length = 10)
+    @Column(name = "id_restaurante", nullable = true, length = 10, insertable = false, updatable = false)
     private String idRestaurante;
     @Basic
-    @Column(name = "id_mesa", nullable = true)
+    @Column(name = "id_mesa", nullable = true, insertable = false, updatable = false)
     private Integer idMesa;
     @Basic
     @Column(name = "fecha_reserva", nullable = false)
@@ -29,6 +29,15 @@ public class Reservas {
     @Basic
     @Column(name = "reservaAceptada", nullable = true)
     private Byte reservaAceptada;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    private UsuarioActual usuarioActualByIdUsuario;
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante", referencedColumnName = "cif")
+    private Empresa empresaByIdRestaurante;
+    @ManyToOne
+    @JoinColumn(name = "id_mesa", referencedColumnName = "id_mesa")
+    private Mesas mesasByIdMesa;
 
     public int getIdReservas() {
         return idReservas;
@@ -97,5 +106,42 @@ public class Reservas {
     @Override
     public int hashCode() {
         return Objects.hash(idReservas, idUsuario, idRestaurante, idMesa, fechaReserva, turno, reservaAceptada);
+    }
+
+    public UsuarioActual getUsuarioActualByIdUsuario() {
+        return usuarioActualByIdUsuario;
+    }
+
+    public void setUsuarioActualByIdUsuario(UsuarioActual usuarioActualByIdUsuario) {
+        this.usuarioActualByIdUsuario = usuarioActualByIdUsuario;
+    }
+
+    public Empresa getEmpresaByIdRestaurante() {
+        return empresaByIdRestaurante;
+    }
+
+    public void setEmpresaByIdRestaurante(Empresa empresaByIdRestaurante) {
+        this.empresaByIdRestaurante = empresaByIdRestaurante;
+    }
+
+    public Mesas getMesasByIdMesa() {
+        return mesasByIdMesa;
+    }
+
+    public void setMesasByIdMesa(Mesas mesasByIdMesa) {
+        this.mesasByIdMesa = mesasByIdMesa;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservas{" +
+                "idReservas=" + idReservas +
+                ", idUsuario=" + idUsuario +
+                ", idRestaurante='" + idRestaurante + '\'' +
+                ", idMesa=" + idMesa +
+                ", fechaReserva=" + fechaReserva +
+                ", turno=" + turno +
+                ", reservaAceptada=" + reservaAceptada +
+                '}';
     }
 }
