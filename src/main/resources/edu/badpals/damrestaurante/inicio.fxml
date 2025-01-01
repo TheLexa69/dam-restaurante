@@ -1,51 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="523.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
-      <children>
-            <Button fx:id="btnInicio" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#onBtnClickInicio" text="Inicio" />
-            <Button fx:id="btnCarta" layoutX="69.0" layoutY="16.0" mnemonicParsing="false" onAction="#onBtnClickCarta" text="Carta" />
-            <Button fx:id="btnReservas" layoutX="124.0" layoutY="16.0" mnemonicParsing="false" onAction="#onBtnClickReservas" text="Reservas" />
-            <ImageView fx:id="imgIndexRestaurante" fitHeight="271.0" fitWidth="640.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
-      </children>
-    </AnchorPane>
-  </children>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+<VBox fx:id="vboxIndex" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.IndexController">
+    <stylesheets>
+        <URL value="@./styles.css" />
+    </stylesheets>
+    <children>
+        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="523.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+            <effect>
+                <DropShadow radius="10" offsetX="5" offsetY="5" color="black"/>
+            </effect>
+            <children>
+                <ImageView fx:id="imgCarrousel" fitHeight="301.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+                    <clip>
+                        <Rectangle width="640" height="301" arcWidth="30" arcHeight="30"/>
+                    </clip>
+                </ImageView>
+            </children>
+        </StackPane>
+        <AnchorPane prefHeight="100.0" prefWidth="640.0">
+            <children>
+                <Button fx:id="btnInicio" layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
+                    <graphic>
+                        <ImageView fx:id="imgIndexHome" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/64/home_106630.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnCarta" layoutX="150.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBtnClickCarta">
+                    <graphic>
+                        <ImageView fx:id="imgCarta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/carta.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnReservas" layoutX="250.0" layoutY="25.0" mnemonicParsing="false" onAction="#onBtnClickReservas">
+                    <graphic>
+                        <ImageView fx:id="imgReservas" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/512/doc_106706.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnCarrito" layoutX="350.0" layoutY="25.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fx:id="imgCarrito" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/512/cart_106649.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnPerfil" layoutX="578.0" layoutY="28.0" mnemonicParsing="false">
+                    <graphic>
+                        <ImageView fx:id="imgPerfil" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/perfil.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>
+

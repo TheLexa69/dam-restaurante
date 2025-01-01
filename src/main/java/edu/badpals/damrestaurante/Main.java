@@ -1,45 +1,35 @@
 package edu.badpals.damrestaurante;
 
-import edu.badpals.damrestaurante.entities.Usuario;
-import edu.badpals.damrestaurante.entities.CartaComida;
-import edu.badpals.damrestaurante.entities.Pedidos;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
-import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 
 public class Main extends Application {
-    EntityManager em = DatabaseConnection.connectEm();
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 650, 400);
+        stage.setTitle("T is Restaurant");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
-    EntityManager em = DatabaseConnection.connectEm();
 //        DatabaseConnection db = new DatabaseConnection();
 //        db.connect();
-
-
-//        launch();
-        List<CartaComida> comida = DatabaseConnection.getCarta(em);
-//        for (CartaComida c : comida){
-//            System.out.println(c);
-//        }
-
-        List<Usuario> usuarios = DatabaseConnection.getUsers(em);
-        for (Usuario c : usuarios){
-            System.out.println(c);
-        }
-        em.close();
+        System.out.println("Aplicacion iniciada");
+        launch();
+//        DatabaseConnection db = new DatabaseConnection();
+//        db.getCarta();
     }
 }
