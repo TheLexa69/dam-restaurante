@@ -22,7 +22,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("T is Restaurant");
-            stage.setMaximized(true);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

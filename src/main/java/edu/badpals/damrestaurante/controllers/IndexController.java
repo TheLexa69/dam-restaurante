@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -27,9 +29,6 @@ public class IndexController {
     private Button btnReservas;
 
     @FXML
-    private GridPane gridPaneMenu;
-
-    @FXML
     private ImageView imgCarrito;
 
     @FXML
@@ -48,9 +47,33 @@ public class IndexController {
     private ImageView imgReservas;
 
     @FXML
+    private Separator sepCarrito;
+
+    @FXML
+    private Separator sepComedor;
+
+    @FXML
+    private Separator sepHome;
+
+    @FXML
+    private Separator sepPerfil;
+
+    @FXML
+    private Separator sepReservas;
+
+    @FXML
+    private Label txtCarrousel;
+
+    @FXML
+    private Label txtInfoCarrousel;
+
+    @FXML
     private VBox vboxIndex;
 
     private String[] images;
+    private String[] textoComida;
+    private String[] comidaCarta;
+
     private int currentIndex = 0;
 
     class SliderThread extends Thread {
@@ -61,7 +84,9 @@ public class IndexController {
                     Thread.sleep(5000); // Contador de 5 segundos para cambiar la imagen
                     Platform.runLater(() -> {
                         imgCarrousel.setImage(new Image(images[currentIndex]));
-                        currentIndex = (currentIndex + 1) % images.length; // Avanza y reinicia si es necesario
+                        txtCarrousel.setText(comidaCarta[currentIndex]);
+                        txtInfoCarrousel.setText(textoComida[currentIndex]);
+                        currentIndex = (currentIndex + 1) % images.length; // Avanzamos y reiniciamos si es necesario
                     });
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -72,9 +97,8 @@ public class IndexController {
 
     @FXML
     public void initialize() {
-
-
         System.out.println("Inicializando...");
+        inHome();
         images = new String[]{
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/arroz_marisco.JPG").toExternalForm(),
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/brownie.JPG").toExternalForm(),
@@ -82,8 +106,24 @@ public class IndexController {
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/fabada.JPG").toExternalForm()
         };
 
+        comidaCarta = new String[]{
+                "Arroz con marisco",
+                "Brownie",
+                "Cachopo",
+                "Fabada"
+        };
+
+        textoComida = new String[]{
+                "Arroz con Calamares, Mejillones, Langostinos y Almejas",
+                "Brownie Rock Slide con Helado de Vainilla",
+                "Cachopo de Ternera, Jamón Serrano, Setas y Queso Oveja Trufado",
+                "Fabada"
+        };
+
         // Aqui enseñamos la primera imagen inmediatamente sin tener que esperar los 5 segundos
         imgCarrousel.setImage(new Image(images[currentIndex]));
+        txtCarrousel.setText(comidaCarta[currentIndex]);
+        txtInfoCarrousel.setText(textoComida[currentIndex]);
         currentIndex++;
 
         // Iniciamos el hilo del carrusel
@@ -105,5 +145,13 @@ public class IndexController {
     @FXML
     void onBtnClickReservas(ActionEvent event) {
         System.out.println("Botón Reservas pulsado");
+    }
+
+    public void inHome(){
+        sepHome.setVisible(true);
+        sepReservas.setVisible(false);
+        sepCarrito.setVisible(false);
+        sepPerfil.setVisible(false);
+        sepComedor.setVisible(false);
     }
 }
