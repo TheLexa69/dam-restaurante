@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class IndexController {
@@ -24,6 +25,9 @@ public class IndexController {
 
     @FXML
     private Button btnReservas;
+
+    @FXML
+    private GridPane gridPaneMenu;
 
     @FXML
     private ImageView imgCarrito;
@@ -47,14 +51,14 @@ public class IndexController {
     private VBox vboxIndex;
 
     private String[] images;
-    private int currentIndex = 0; // Índice para rastrear la imagen actual
+    private int currentIndex = 0;
 
     class SliderThread extends Thread {
         @Override
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(5000); // Espera 5 segundos antes de cambiar la imagen
+                    Thread.sleep(5000); // Contador de 5 segundos para cambiar la imagen
                     Platform.runLater(() -> {
                         imgCarrousel.setImage(new Image(images[currentIndex]));
                         currentIndex = (currentIndex + 1) % images.length; // Avanza y reinicia si es necesario
@@ -68,6 +72,8 @@ public class IndexController {
 
     @FXML
     public void initialize() {
+
+
         System.out.println("Inicializando...");
         images = new String[]{
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/arroz_marisco.JPG").toExternalForm(),
@@ -76,13 +82,13 @@ public class IndexController {
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/fabada.JPG").toExternalForm()
         };
 
-        // Mostrar la primera imagen inmediatamente
+        // Aqui enseñamos la primera imagen inmediatamente sin tener que esperar los 5 segundos
         imgCarrousel.setImage(new Image(images[currentIndex]));
-        currentIndex++; // Avanzar al siguiente índice
+        currentIndex++;
 
-        // Iniciar el hilo del carrusel
+        // Iniciamos el hilo del carrusel
         SliderThread sliderThread = new SliderThread();
-        sliderThread.setDaemon(true); // Asegura que el hilo se detenga al cerrar la aplicación
+        sliderThread.setDaemon(true); // Al cerrar la aplicacion el hilo demonio se detiene
         sliderThread.start();
     }
 
