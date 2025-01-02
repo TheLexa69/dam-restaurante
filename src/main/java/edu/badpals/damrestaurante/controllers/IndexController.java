@@ -47,10 +47,28 @@ public class IndexController {
     private ImageView imgReservas;
 
     @FXML
+    private Label lblContacto;
+
+    @FXML
+    private Label lblDireccion;
+
+    @FXML
+    private Label lblDireccionCompleta;
+
+    @FXML
+    private Label lblTfno;
+
+    @FXML
+    private Label lblTfnoNumber;
+
+    @FXML
     private Separator sepCarrito;
 
     @FXML
     private Separator sepComedor;
+
+    @FXML
+    private Separator sepDir;
 
     @FXML
     private Separator sepHome;
@@ -60,6 +78,9 @@ public class IndexController {
 
     @FXML
     private Separator sepReservas;
+
+    @FXML
+    private Separator sepTfno;
 
     @FXML
     private Label txtCarrousel;
@@ -98,7 +119,7 @@ public class IndexController {
     @FXML
     public void initialize() {
         System.out.println("Inicializando...");
-        inHome();
+        controlSeparadores(true, false, false, false, false);
         images = new String[]{
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/arroz_marisco.JPG").toExternalForm(),
                 getClass().getResource("/edu/badpals/damrestaurante/images/comida/brownie.JPG").toExternalForm(),
@@ -135,23 +156,68 @@ public class IndexController {
     @FXML
     void onBtnClickCarta(ActionEvent event) {
         System.out.println("Botón Carta pulsado");
+        showCarta();
     }
 
     @FXML
     void onBtnClickInicio(ActionEvent event) {
         System.out.println("Botón Inicio pulsado");
+        showHideHome(true);
+        controlSeparadores(true, false, false, false, false);
+    }
+
+    @FXML
+    void onBtnClickPerfil(ActionEvent event) {
+        System.out.println("Botón Perfil pulsado");
+        controlSeparadores(false, false, false, false, true);
     }
 
     @FXML
     void onBtnClickReservas(ActionEvent event) {
         System.out.println("Botón Reservas pulsado");
+        controlSeparadores(false, false, true, false, false);
     }
 
-    public void inHome(){
-        sepHome.setVisible(true);
-        sepReservas.setVisible(false);
-        sepCarrito.setVisible(false);
-        sepPerfil.setVisible(false);
-        sepComedor.setVisible(false);
+    @FXML
+    void onBtnClickCarrito(ActionEvent event) {
+        System.out.println("Botón Carrito pulsado");
+        controlSeparadores(false, false, false, true, false);
     }
+
+    //
+    public void showCarta(){
+        controlSeparadores(false, true, false, false, false);  //SEPARADOR DE CARTA
+
+        showHideHome(false);  //ESCONDEMOS LOS ELEMENTOS DEL INICIO
+//        showHideCarta(true);
+//        showHideReservas(false);
+//        showHideCarrito(false);
+//        showHidePerfil(false);
+    }
+
+
+    //ESCONDEMOS O ENSEÑAMOS LOS ELEMENTOS DEL INICIO
+    public void showHideHome(Boolean estado){
+        imgCarrousel.setVisible(estado);
+        txtCarrousel.setVisible(estado);
+        txtInfoCarrousel.setVisible(estado);
+        lblDireccion.setVisible(estado);
+        lblContacto.setVisible(estado);
+        sepDir.setVisible(estado);
+        lblDireccion.setVisible(estado);
+        lblDireccionCompleta.setVisible(estado);
+        lblTfno.setVisible(estado);
+        sepTfno.setVisible(estado);
+        lblTfnoNumber.setVisible(estado);
+    }
+
+    //CONTROL SEPARADORES
+    public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil){
+        sepHome.setVisible(estadoSepHome);
+        sepComedor.setVisible(estadoSepComedor);
+        sepReservas.setVisible(estadoSepReservas);
+        sepCarrito.setVisible(estadoSepCarrito);
+        sepPerfil.setVisible(estadoSepPerfil);
+    }
+
 }

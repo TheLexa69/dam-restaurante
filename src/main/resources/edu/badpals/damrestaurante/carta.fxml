@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="663.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.IndexController">
+    <stylesheets>
+        <URL value="@./styles.css" />
+    </stylesheets>
+    <children>
+        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="545.0" prefWidth="656.0" VBox.vgrow="NEVER">
+
+        </StackPane>
+        <AnchorPane prefHeight="100.0" prefWidth="640.0">
+            <children>
+                <Button fx:id="btnInicio" layoutX="10.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
+                    <graphic>
+                        <ImageView fx:id="imgIndexHome" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/64/home_106630.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnCarta" layoutX="110.0" layoutY="34.0" mnemonicParsing="false" onAction="#onBtnClickCarta">
+                    <graphic>
+                        <ImageView fx:id="imgCarta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/carta.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnReservas" layoutX="210.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickReservas">
+                    <graphic>
+                        <ImageView fx:id="imgReservas" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/512/doc_106706.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnCarrito" layoutX="310.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickCarrito">
+                    <graphic>
+                        <ImageView fx:id="imgCarrito" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/512/cart_106649.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnPerfil" layoutX="578.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickPerfil">
+                    <graphic>
+                        <ImageView fx:id="imgPerfil" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/perfil.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Separator fx:id="sepHome" layoutX="10.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+                <Separator fx:id="sepComedor" layoutX="105.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+                <Separator fx:id="sepReservas" layoutX="209.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+                <Separator fx:id="sepCarrito" layoutX="311.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+                <Separator fx:id="sepPerfil" layoutX="573.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>
