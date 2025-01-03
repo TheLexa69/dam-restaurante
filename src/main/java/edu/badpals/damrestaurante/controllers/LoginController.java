@@ -11,9 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaView;
 
+import java.io.File;
 import java.io.IOException;
 
 public class LoginController {
@@ -23,6 +27,9 @@ public class LoginController {
 
     @FXML
     private Button btnUsuarioRegistrarse;
+
+    @FXML
+    private MediaView mediaView;
 
     @FXML
     private ImageView imgBackgroundLogin;
@@ -37,6 +44,33 @@ public class LoginController {
     private PasswordField txtUsuarioPwd;
 
 //    private SQLCommands sqlCommands = new SQLCommands();
+
+    private MediaPlayer mediaPlayer;
+
+    @FXML
+    public void initialize() {
+        try {
+            String videoPath = "src/main/resources/edu/badpals/damrestaurante/videos/video_introductorio.mp4";
+            File videoFile = new File(videoPath);
+            System.out.println("Absolute path: " + videoFile.getAbsolutePath()); // Print the absolute path for debugging
+            if (videoFile.exists()) {
+                Media media = new Media(videoFile.toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Reproducir en bucle
+                mediaPlayer.setMute(true); // Silenciar el audio
+                mediaView.setMediaPlayer(mediaPlayer);
+                mediaPlayer.play();
+            } else {
+                showAlert("Error", "El archivo de video no se encuentra en la ruta especificada.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar el video.");
+        }
+    }
+
+
+
 
     @FXML
     void onBtnClickUsuarioLogin(ActionEvent event) {
@@ -72,23 +106,23 @@ public class LoginController {
         }
     }
 
-    private void redirectToIndex() {
-        try {
-            // Cargar el archivo FXML de la vista del índice
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/apibrawlstars/View/ViewIndex.fxml"));
-            Parent root = loader.load();
-
-            // Obtener el Stage actual desde cualquier componente
-            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
-
-            // Cambiar la escena del Stage actual
-            currentStage.setScene(new Scene(root));
-            currentStage.setTitle("Pantalla Principal");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla principal.");
-        }
-    }
+//    private void redirectToIndex() {
+//        try {
+//            // Cargar el archivo FXML de la vista del índice
+//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
+//            Parent root = loader.load();
+//
+//            // Obtener el Stage actual desde cualquier componente
+//            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
+//
+//            // Cambiar la escena del Stage actual
+//            currentStage.setScene(new Scene(root));
+//            currentStage.setTitle("Pantalla Principal");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            showAlert("Error", "No se pudo cargar la pantalla principal.");
+//        }
+//    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
