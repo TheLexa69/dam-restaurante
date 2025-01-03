@@ -2,33 +2,78 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox fx:id="vboxIndex" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.IndexController">
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="663.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.IndexController">
     <stylesheets>
         <URL value="@./styles.css" />
     </stylesheets>
     <children>
-        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="523.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="341.0" prefWidth="846.0" VBox.vgrow="NEVER">
             <effect>
-                <DropShadow radius="10" offsetX="5" offsetY="5" color="black"/>
+                <DropShadow color="black" offsetX="5" offsetY="5" radius="10" />
             </effect>
             <children>
                 <ImageView fx:id="imgCarrousel" fitHeight="301.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
                     <clip>
-                        <Rectangle width="640" height="301" arcWidth="30" arcHeight="30"/>
+                        <Rectangle arcHeight="30" arcWidth="30" height="301" width="640" />
                     </clip>
                 </ImageView>
             </children>
         </StackPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+              <Label fx:id="txtCarrousel" contentDisplay="CENTER" layoutX="168.0" layoutY="14.0" prefHeight="21.0" prefWidth="321.0" style="-fx-alignment: center;" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtInfoCarrousel" layoutX="108.0" layoutY="47.0" prefHeight="21.0" prefWidth="442.0" style="-fx-alignment: center;" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblContacto" layoutX="29.0" layoutY="109.0" prefHeight="30.0" prefWidth="205.0" text="Contacta con nosotros" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDireccion" layoutX="29.0" layoutY="145.0" text="Dirección" textFill="WHITE" />
+            <Separator fx:id="sepDir" layoutX="29.0" layoutY="170.0" prefHeight="8.0" prefWidth="352.0" />
+            <Label fx:id="lblDireccionCompleta" layoutX="29.0" layoutY="179.0" prefHeight="21.0" prefWidth="352.0" text="Avenida de Galicia, 101, Teis, 36216 Vigo, Pontevedra" textFill="#9e9e9e" />
+            <Label fx:id="lblTfno" layoutX="464.0" layoutY="145.0" text="Teléfono" textFill="WHITE" />
+            <Separator fx:id="sepTfno" layoutX="464.0" layoutY="172.0" prefHeight="0.0" prefWidth="159.0" />
+            <Label fx:id="lblTfnoNumber" layoutX="464.0" layoutY="181.0" prefHeight="21.0" prefWidth="159.0" text="886 12 04 64" textFill="#9e9e9e" />
+         </children>
+      </AnchorPane>
+<!--        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">-->
+<!--            <content>-->
+<!--                <GridPane fx:id="gridPaneMenu">-->
+<!--                    <columnConstraints>-->
+<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                    </columnConstraints>-->
+<!--                    <rowConstraints>-->
+<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+<!--                    </rowConstraints>-->
+<!--                </GridPane>-->
+<!--            </content>-->
+<!--        </ScrollPane>-->
         <AnchorPane prefHeight="100.0" prefWidth="640.0">
             <children>
-                <Button fx:id="btnInicio" layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
+                <Button fx:id="btnInicio" layoutX="10.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
                     <graphic>
                         <ImageView fx:id="imgIndexHome" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -37,7 +82,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnCarta" layoutX="150.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBtnClickCarta">
+                <Button fx:id="btnCarta" layoutX="110.0" layoutY="34.0" mnemonicParsing="false" onAction="#onBtnClickCarta">
                     <graphic>
                         <ImageView fx:id="imgCarta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -46,7 +91,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnReservas" layoutX="250.0" layoutY="25.0" mnemonicParsing="false" onAction="#onBtnClickReservas">
+                <Button fx:id="btnReservas" layoutX="210.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickReservas">
                     <graphic>
                         <ImageView fx:id="imgReservas" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -55,7 +100,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnCarrito" layoutX="350.0" layoutY="25.0" mnemonicParsing="false">
+                <Button fx:id="btnCarrito" layoutX="310.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickCarrito">
                     <graphic>
                         <ImageView fx:id="imgCarrito" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -64,7 +109,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnPerfil" layoutX="578.0" layoutY="28.0" mnemonicParsing="false">
+                <Button fx:id="btnPerfil" layoutX="578.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickPerfil">
                     <graphic>
                         <ImageView fx:id="imgPerfil" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -73,8 +118,12 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Separator fx:id="sepHome" layoutX="10.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+            <Separator fx:id="sepComedor" layoutX="105.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+            <Separator fx:id="sepReservas" layoutX="209.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+            <Separator fx:id="sepCarrito" layoutX="311.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
+            <Separator fx:id="sepPerfil" layoutX="573.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
             </children>
         </AnchorPane>
     </children>
 </VBox>
-

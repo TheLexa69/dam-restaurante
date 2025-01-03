@@ -5,6 +5,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import edu.badpals.damrestaurante.models.ApiConnection;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,17 +18,28 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 650, 400);
-        stage.setTitle("T is Restaurant");
-        stage.setScene(scene);
-        stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("T is Restaurant");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error al cargar la ventana principal" + e.getMessage());
+        }
+
     }
 
     public static void main(String[] args) {
 //        DatabaseConnection db = new DatabaseConnection();
+        ApiConnection apicon = new ApiConnection();
+
 //        db.connect();
         System.out.println("Aplicacion iniciada");
+        System.out.println("URL seleccionada: " + apicon.getSelectedUrl());
+        System.out.println("Respuesta de la API: " + apicon.getApiResponse());
+
         launch();
 //        System.out.println(DatabaseConnection.getMesaPorComensales(DatabaseConnection.connectEm(),3));
     }

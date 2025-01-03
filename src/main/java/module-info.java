@@ -15,6 +15,7 @@ module edu.badpals.damrestaurante {
     exports edu.badpals.damrestaurante;
 
     requires java.sql;
+    requires javafx.media;
 
     opens edu.badpals.damrestaurante.entities to org.hibernate.orm.core;
 
