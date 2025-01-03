@@ -12,6 +12,7 @@ import jakarta.persistence.Query;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class DatabaseConnection {
@@ -77,4 +78,34 @@ public class DatabaseConnection {
         }
         return null;
     }
+
+    public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp, String nuevaImg, String nuevoCorreo, String nuevaContraseña) {
+    try {
+        em.getTransaction().begin();
+
+        UsuarioActual usuario = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
+        if (usuario != null) {
+            Usuario usuarioBase = usuario.getUsuarioByIdUsuario();
+            usuarioBase.setNombre(nuevoNombre);
+            usuarioBase.setApellido1(nuevoApellido1);
+            usuarioBase.setApellido2(nuevoApellido2);
+            usuarioBase.setFecha(nuevaFecha);
+            usuarioBase.setNumTelef(nuevoNumTelef);
+            usuarioBase.setNif(nuevoNif);
+            usuarioBase.setDireccion(nuevaDireccion);
+            usuarioBase.setCp(nuevoCp);
+            usuarioBase.setImg(nuevaImg);
+            usuarioBase.setCorreo(nuevoCorreo);
+            usuarioBase.setContraseña(nuevaContraseña);
+            em.merge(usuarioBase);
+        }
+
+        em.getTransaction().commit();
+    } catch (Exception e) {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+        e.printStackTrace();
+    }
+}
 }
