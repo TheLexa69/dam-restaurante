@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,14 +12,16 @@ public class Carrito {
     @Column(name = "id_carro", nullable = false)
     private int idCarro;
     @Basic
-    @Column(name = "id_usuario", nullable = false)
+    @Column(name = "id_usuario", nullable = false, insertable = false, updatable = false)
     private int idUsuario;
     @Basic
     @Column(name = "comida_cantidad", nullable = true, length = -1)
     private String comidaCantidad;
-    @Basic
-    @Column(name = "id_ped", nullable = true)
-    private Integer idPed;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
+    private Usuario usuarioByIdUsuario;
+    @OneToMany(mappedBy = "carritoByIdCarrito")
+    private Collection<Pedidos> pedidosByIdCarro;
 
     public int getIdCarro() {
         return idCarro;
@@ -44,24 +47,41 @@ public class Carrito {
         this.comidaCantidad = comidaCantidad;
     }
 
-    public Integer getIdPed() {
-        return idPed;
-    }
-
-    public void setIdPed(Integer idPed) {
-        this.idPed = idPed;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Carrito carrito = (Carrito) o;
-        return idCarro == carrito.idCarro && idUsuario == carrito.idUsuario && Objects.equals(comidaCantidad, carrito.comidaCantidad) && Objects.equals(idPed, carrito.idPed);
+        return idCarro == carrito.idCarro && idUsuario == carrito.idUsuario && Objects.equals(comidaCantidad, carrito.comidaCantidad);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCarro, idUsuario, comidaCantidad, idPed);
+        return Objects.hash(idCarro, idUsuario, comidaCantidad);
+    }
+
+    public Usuario getUsuarioByIdUsuario() {
+        return usuarioByIdUsuario;
+    }
+
+    public void setUsuarioByIdUsuario(Usuario usuarioByIdUsuario) {
+        this.usuarioByIdUsuario = usuarioByIdUsuario;
+    }
+
+    public Collection<Pedidos> getPedidosByIdCarro() {
+        return pedidosByIdCarro;
+    }
+
+    public void setPedidosByIdCarro(Collection<Pedidos> pedidosByIdCarro) {
+        this.pedidosByIdCarro = pedidosByIdCarro;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrito{" +
+                "idCarro=" + idCarro +
+                ", idUsuario=" + idUsuario +
+                ", comidaCantidad='" + comidaCantidad + '\'' +
+                '}';
     }
 }

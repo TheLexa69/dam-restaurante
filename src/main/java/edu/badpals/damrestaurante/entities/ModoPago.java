@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class ModoPago {
     @Basic
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
+    @OneToMany(mappedBy = "modoPagoByModoPago")
+    private Collection<Factura> facturasByIdModoPago;
 
     public int getIdModoPago() {
         return idModoPago;
@@ -42,5 +45,21 @@ public class ModoPago {
     @Override
     public int hashCode() {
         return Objects.hash(idModoPago, nombre);
+    }
+
+    public Collection<Factura> getFacturasByIdModoPago() {
+        return facturasByIdModoPago;
+    }
+
+    public void setFacturasByIdModoPago(Collection<Factura> facturasByIdModoPago) {
+        this.facturasByIdModoPago = facturasByIdModoPago;
+    }
+
+    @Override
+    public String toString() {
+        return "ModoPago{" +
+                "idModoPago=" + idModoPago +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

@@ -76,6 +76,7 @@ public class LoginController {
     void onBtnClickUsuarioLogin(ActionEvent event) {
         String username = txtUsuarioLogin.getText();
         String password = txtUsuarioPwd.getText();
+        redirectToIndex();
 
 //        if (sqlCommands.authenticateUser(username, password)) {
 //            showAlert("Inicio de sesión exitoso", "Bienvenido, " + username + "!");
@@ -106,23 +107,23 @@ public class LoginController {
         }
     }
 
-//    private void redirectToIndex() {
-//        try {
-//            // Cargar el archivo FXML de la vista del índice
-//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
-//            Parent root = loader.load();
-//
-//            // Obtener el Stage actual desde cualquier componente
-//            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
-//
-//            // Cambiar la escena del Stage actual
-//            currentStage.setScene(new Scene(root));
-//            currentStage.setTitle("Pantalla Principal");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            showAlert("Error", "No se pudo cargar la pantalla principal.");
-//        }
-//    }
+    private void redirectToIndex() {
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Pantalla Principal");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla principal.");
+        }
+    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

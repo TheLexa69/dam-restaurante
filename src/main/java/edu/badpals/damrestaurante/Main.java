@@ -41,7 +41,6 @@ public class Main extends Application {
         System.out.println("Respuesta de la API: " + apicon.getApiResponse());
 
         launch();
-//        DatabaseConnection db = new DatabaseConnection();
-//        db.getCarta();
+//        System.out.println(DatabaseConnection.getMesaPorComensales(DatabaseConnection.connectEm(),3));
     }
 }

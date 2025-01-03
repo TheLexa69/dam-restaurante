@@ -3,9 +3,11 @@ package edu.badpals.damrestaurante.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy= InheritanceType.JOINED)
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,20 +23,11 @@ public class Usuario {
     @Column(name = "apellido2", nullable = true, length = 40)
     private String apellido2;
     @Basic
-    @Column(name = "correo", nullable = false, length = 40)
-    private String correo;
-    @Basic
     @Column(name = "fecha", nullable = false)
     private Timestamp fecha;
     @Basic
     @Column(name = "num_telef", nullable = false, length = 9)
     private String numTelef;
-    @Basic
-    @Column(name = "id_rol", nullable = false)
-    private int idRol;
-    @Basic
-    @Column(name = "usuario_activado", nullable = false)
-    private byte usuarioActivado;
     @Basic
     @Column(name = "NIF", nullable = true, length = 9)
     private String nif;
@@ -48,8 +41,19 @@ public class Usuario {
     @Column(name = "img", nullable = false, length = 100)
     private String img;
     @Basic
+    @Column(name = "correo", nullable = false, length = 40)
+    private String correo;
+    @Basic
     @Column(name = "contraseña", nullable = false, length = 255)
     private String contraseña;
+    @OneToMany(mappedBy = "usuarioByIdUsuario")
+    private Collection<Carrito> carritosByIdUsuario;
+    @OneToMany(mappedBy = "usuarioByIdUsuario")
+    private Collection<Factura> facturasByIdUsuario;
+    @OneToOne(mappedBy = "usuarioByIdUsuario")
+    private UsuarioActual usuarioActualByIdUsuario;
+    @OneToMany(mappedBy = "usuarioByIdUsuario")
+    private Collection<UsuarioPasado> usuarioPasadosByIdUsuario;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -83,14 +87,6 @@ public class Usuario {
         this.apellido2 = apellido2;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
     public Timestamp getFecha() {
         return fecha;
     }
@@ -105,22 +101,6 @@ public class Usuario {
 
     public void setNumTelef(String numTelef) {
         this.numTelef = numTelef;
-    }
-
-    public int getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
-    }
-
-    public byte getUsuarioActivado() {
-        return usuarioActivado;
-    }
-
-    public void setUsuarioActivado(byte usuarioActivado) {
-        this.usuarioActivado = usuarioActivado;
     }
 
     public String getNif() {
@@ -155,6 +135,14 @@ public class Usuario {
         this.img = img;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public String getContraseña() {
         return contraseña;
     }
@@ -168,11 +156,61 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return idUsuario == usuario.idUsuario && idRol == usuario.idRol && usuarioActivado == usuario.usuarioActivado && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido1, usuario.apellido1) && Objects.equals(apellido2, usuario.apellido2) && Objects.equals(correo, usuario.correo) && Objects.equals(fecha, usuario.fecha) && Objects.equals(numTelef, usuario.numTelef) && Objects.equals(nif, usuario.nif) && Objects.equals(direccion, usuario.direccion) && Objects.equals(cp, usuario.cp) && Objects.equals(img, usuario.img) && Objects.equals(contraseña, usuario.contraseña);
+        return idUsuario == usuario.idUsuario && Objects.equals(nombre, usuario.nombre) && Objects.equals(apellido1, usuario.apellido1) && Objects.equals(apellido2, usuario.apellido2) && Objects.equals(fecha, usuario.fecha) && Objects.equals(numTelef, usuario.numTelef) && Objects.equals(nif, usuario.nif) && Objects.equals(direccion, usuario.direccion) && Objects.equals(cp, usuario.cp) && Objects.equals(img, usuario.img) && Objects.equals(correo, usuario.correo) && Objects.equals(contraseña, usuario.contraseña);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUsuario, nombre, apellido1, apellido2, correo, fecha, numTelef, idRol, usuarioActivado, nif, direccion, cp, img, contraseña);
+        return Objects.hash(idUsuario, nombre, apellido1, apellido2, fecha, numTelef, nif, direccion, cp, img, correo, contraseña);
+    }
+
+    public Collection<Carrito> getCarritosByIdUsuario() {
+        return carritosByIdUsuario;
+    }
+
+    public void setCarritosByIdUsuario(Collection<Carrito> carritosByIdUsuario) {
+        this.carritosByIdUsuario = carritosByIdUsuario;
+    }
+
+    public Collection<Factura> getFacturasByIdUsuario() {
+        return facturasByIdUsuario;
+    }
+
+    public void setFacturasByIdUsuario(Collection<Factura> facturasByIdUsuario) {
+        this.facturasByIdUsuario = facturasByIdUsuario;
+    }
+
+    public UsuarioActual getUsuarioActualByIdUsuario() {
+        return usuarioActualByIdUsuario;
+    }
+
+    public void setUsuarioActualByIdUsuario(UsuarioActual usuarioActualByIdUsuario) {
+        this.usuarioActualByIdUsuario = usuarioActualByIdUsuario;
+    }
+
+    public Collection<UsuarioPasado> getUsuarioPasadosByIdUsuario() {
+        return usuarioPasadosByIdUsuario;
+    }
+
+    public void setUsuarioPasadosByIdUsuario(Collection<UsuarioPasado> usuarioPasadosByIdUsuario) {
+        this.usuarioPasadosByIdUsuario = usuarioPasadosByIdUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombre='" + nombre + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", fecha=" + fecha +
+                ", numTelef='" + numTelef + '\'' +
+                ", nif='" + nif + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", cp='" + cp + '\'' +
+                ", img='" + img + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                '}';
     }
 }

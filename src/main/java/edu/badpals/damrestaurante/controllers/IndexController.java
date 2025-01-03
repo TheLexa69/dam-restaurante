@@ -1,17 +1,31 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.Main;
+import edu.badpals.damrestaurante.entities.UsuarioActual;
+import edu.badpals.damrestaurante.models.DatabaseConnection;
+import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class IndexController {
+
+    private UsuarioActual user;
+
+    private EntityManager em = DatabaseConnection.connectEm();
 
     @FXML
     private Button btnCarrito;
@@ -151,6 +165,7 @@ public class IndexController {
         SliderThread sliderThread = new SliderThread();
         sliderThread.setDaemon(true); // Al cerrar la aplicacion el hilo demonio se detiene
         sliderThread.start();
+        user = DatabaseConnection.getUsers(em).get(0);
     }
 
     @FXML
@@ -168,8 +183,26 @@ public class IndexController {
 
     @FXML
     void onBtnClickPerfil(ActionEvent event) {
-        System.out.println("Botón Perfil pulsado");
-        controlSeparadores(false, false, false, false, true);
+//        System.out.println("Botón Perfil pulsado");
+//        controlSeparadores(false, false, false, false, true);
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("editarPerfil.fxml"));
+            Parent root = loader.load();
+            EditarPerfilController controller = loader.getController();
+            controller.setUser(user);
+            controller.cargarDatosUser();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btnPerfil.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Editar Perfil");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla principal.");
+        }
     }
 
     @FXML
@@ -185,7 +218,7 @@ public class IndexController {
     }
 
     //
-    public void showCarta(){
+    public void showCarta() {
         controlSeparadores(false, true, false, false, false);  //SEPARADOR DE CARTA
 
         showHideHome(false);  //ESCONDEMOS LOS ELEMENTOS DEL INICIO
@@ -197,7 +230,7 @@ public class IndexController {
 
 
     //ESCONDEMOS O ENSEÑAMOS LOS ELEMENTOS DEL INICIO
-    public void showHideHome(Boolean estado){
+    public void showHideHome(Boolean estado) {
         imgCarrousel.setVisible(estado);
         txtCarrousel.setVisible(estado);
         txtInfoCarrousel.setVisible(estado);
@@ -212,12 +245,20 @@ public class IndexController {
     }
 
     //CONTROL SEPARADORES
-    public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil){
+    public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil) {
         sepHome.setVisible(estadoSepHome);
         sepComedor.setVisible(estadoSepComedor);
         sepReservas.setVisible(estadoSepReservas);
         sepCarrito.setVisible(estadoSepCarrito);
         sepPerfil.setVisible(estadoSepPerfil);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }
