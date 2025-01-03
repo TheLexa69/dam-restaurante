@@ -29,7 +29,6 @@ public class Main extends Application {
 //        db.connect();
         System.out.println("Aplicacion iniciada");
         launch();
-//        DatabaseConnection db = new DatabaseConnection();
-//        db.getCarta();
+//        System.out.println(DatabaseConnection.getMesaPorComensales(DatabaseConnection.connectEm(),3));
     }
 }

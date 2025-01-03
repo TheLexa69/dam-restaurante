@@ -14,8 +14,30 @@ public class Mesas {
     @Basic
     @Column(name = "enumMesa", nullable = false, length = 20)
     private String enumMesa;
+    @Basic
+    @Column(name = "cupo", nullable = false, length = 20)
+    private int cupo;
+    @Basic
+    @Column(name = "ocupada", nullable = false, length = 20)
+    private boolean ocupada;
     @OneToMany(mappedBy = "mesasByIdMesa")
     private Collection<Reservas> reservasByIdMesa;
+
+    public int getCupo() {
+        return cupo;
+    }
+
+    public void setCupo(int cupo) {
+        this.cupo = cupo;
+    }
+
+    public boolean isOcupada() {
+        return ocupada;
+    }
+
+    public void setOcupada(boolean ocupada) {
+        this.ocupada = ocupada;
+    }
 
     public int getIdMesa() {
         return idMesa;
@@ -38,12 +60,12 @@ public class Mesas {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesas mesas = (Mesas) o;
-        return idMesa == mesas.idMesa && Objects.equals(enumMesa, mesas.enumMesa);
+        return idMesa == mesas.idMesa && cupo == mesas.cupo && ocupada == mesas.ocupada && Objects.equals(enumMesa, mesas.enumMesa) && Objects.equals(reservasByIdMesa, mesas.reservasByIdMesa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMesa, enumMesa);
+        return Objects.hash(idMesa, enumMesa, cupo, ocupada, reservasByIdMesa);
     }
 
     public Collection<Reservas> getReservasByIdMesa() {
@@ -59,6 +81,8 @@ public class Mesas {
         return "Mesas{" +
                 "idMesa=" + idMesa +
                 ", enumMesa='" + enumMesa + '\'' +
+                ", cupo='" + cupo + '\'' +
+                ", ocupada='" + ocupada + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,8 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.entities.UsuarioActual;
+import edu.badpals.damrestaurante.models.DatabaseConnection;
+import jakarta.persistence.EntityManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class IndexController {
+
+    private UsuarioActual usuarioActual;
+    private EntityManager em = DatabaseConnection.connectEm();
 
     @FXML
     private Button btnCarrito;
@@ -84,6 +90,9 @@ public class IndexController {
         SliderThread sliderThread = new SliderThread();
         sliderThread.setDaemon(true); // Asegura que el hilo se detenga al cerrar la aplicación
         sliderThread.start();
+
+//        Le damos un usuario ala azar por ahora hasta que tengasmo login y poder pasarle el usuario por parametro
+        usuarioActual = DatabaseConnection.getUsers(em).get(0);
     }
 
     @FXML

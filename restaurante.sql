@@ -295,3 +295,16 @@ VALUES
 (1, '1234567890', NOW(), 18.5, 1, 1), -- Factura para el pedido de Juan
 (2, '0987654321', NOW(), 20.0, 2, 2); -- Factura para el pedido de María
 
+
+START TRANSACTION;
+
+	alter table mesas add cupo int not null;
+	alter table mesas add ocupada bool not null;
+    update mesas set cupo = 2 where id_mesa = 1;
+    update mesas set cupo = 4 where id_mesa = 2;
+    update mesas set cupo = 6 where id_mesa = 3;
+    update mesas set ocupada=false;
+    update mesas set ocupada=true where id_mesa = 2;
+
+commit; 
+

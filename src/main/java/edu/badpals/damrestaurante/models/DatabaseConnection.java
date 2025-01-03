@@ -5,9 +5,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import edu.badpals.damrestaurante.entities.Usuario;
-import edu.badpals.damrestaurante.entities.CartaComida;
-import edu.badpals.damrestaurante.entities.Pedidos;
+import edu.badpals.damrestaurante.entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
@@ -42,7 +40,12 @@ public class DatabaseConnection {
     }
 
     public static EntityManager connectEm() {
-        return Persistence.createEntityManagerFactory("default").createEntityManager();
+        try {
+            return Persistence.createEntityManagerFactory("default").createEntityManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static List<CartaComida> getCarta(EntityManager em) {
@@ -53,16 +56,25 @@ public class DatabaseConnection {
         return carta;
     }
 
-    public static List<Usuario> getUsers(EntityManager em) {
+    public static List<UsuarioActual> getUsers(EntityManager em) {
 
-        Query query = null;
-        try {
-            query = em.createQuery("select cc from Usuario cc");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        List<Usuario> carta = query.getResultList();
+        Query query = em.createQuery("select cc from UsuarioActual cc");
+        List<UsuarioActual> carta = query.getResultList();
 
         return carta;
+    }
+
+//    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
+//    mesa con la cantidad de comensales adecuada va a devolver null
+    public static Mesas getMesaPorComensales(EntityManager em, int comensales){
+
+        Query query = em.createQuery("select cc from Mesas cc where ocupada = false order by cc.cupo ASC");
+        List<Mesas> mesas = query.getResultList();
+        for (Mesas mesa : mesas){
+            if(mesa.getCupo() > comensales){
+                return mesa;
+            }
+        }
+        return null;
     }
 }
