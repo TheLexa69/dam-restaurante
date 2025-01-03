@@ -72,6 +72,14 @@ CREATE TABLE IF NOT EXISTS pedidos (
     PRIMARY KEY (id_ped)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table if not exists carrito (
+id_carro int auto_increment,
+id_usuario int not null,
+comida_cantidad longtext,
+id_ped int,
+constraint pk_id primary key (id_carro)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- TABLA RESERVAS
 create table if not exists reservas (
     id_reservas	int auto_increment,
@@ -158,16 +166,6 @@ constraint pk_id_factura primary key (id_factura)
 create table if not exists modo_pago(
   id_modo_pago int not null auto_increment primary key,
   nombre varchar(50) not null
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-create table if not exists carrito (
-id_carro int auto_increment,
-id_usuario int not null,
-comida_cantidad longtext,
-id_ped int,
-constraint pk_id primary key (id_carro)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE if not exists ped_prod (
@@ -307,4 +305,3 @@ START TRANSACTION;
     update mesas set ocupada=true where id_mesa = 2;
 
 commit; 
-

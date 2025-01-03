@@ -3,10 +3,18 @@
     -fx-padding: 10px;
 }
 
-#vboxIndex{
+#vboxIndex,.text-field{
     -fx-background-color: rgba(17, 20, 37, 1);
 }
 
+.text-field{
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.label{
+    -fx-text-fill: white;
+}
 
 #btnInicio, #btnReservas, #btnCarrito, #btnCarta, #btnPerfil{
     -fx-background-color: transparent;
