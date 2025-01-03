@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Inheritance(strategy= InheritanceType.JOINED)
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
