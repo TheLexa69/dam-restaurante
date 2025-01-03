@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("T is Restaurant");
             stage.setResizable(false);
