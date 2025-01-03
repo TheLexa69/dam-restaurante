@@ -52,12 +52,12 @@ public class LoginController {
         try {
             String videoPath = "src/main/resources/edu/badpals/damrestaurante/videos/video_introductorio.mp4";
             File videoFile = new File(videoPath);
-            System.out.println("Absolute path: " + videoFile.getAbsolutePath()); // Print the absolute path for debugging
+            System.out.println("Ruta: " + videoFile.getAbsolutePath());
             if (videoFile.exists()) {
                 Media media = new Media(videoFile.toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Reproducir en bucle
-                mediaPlayer.setMute(true); // Silenciar el audio
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                mediaPlayer.setMute(true);
                 mediaView.setMediaPlayer(mediaPlayer);
                 mediaPlayer.play();
             } else {
