@@ -25,8 +25,6 @@ public class IndexController {
 
     private UsuarioActual user;
 
-    private EntityManager em = DatabaseConnection.connectEm();
-
     @FXML
     private Button btnCarrito;
 
@@ -165,7 +163,7 @@ public class IndexController {
         SliderThread sliderThread = new SliderThread();
         sliderThread.setDaemon(true); // Al cerrar la aplicacion el hilo demonio se detiene
         sliderThread.start();
-        user = DatabaseConnection.getUsers(em).get(0);
+        user = DatabaseConnection.getUsers(MainController.em).get(0);
     }
 
     @FXML
@@ -201,7 +199,7 @@ public class IndexController {
             currentStage.setTitle("Editar Perfil");
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla principal.");
+            MainController.showAlert("Error", "No se pudo cargar la pantalla principal.");
         }
     }
 
@@ -251,14 +249,6 @@ public class IndexController {
         sepReservas.setVisible(estadoSepReservas);
         sepCarrito.setVisible(estadoSepCarrito);
         sepPerfil.setVisible(estadoSepPerfil);
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }

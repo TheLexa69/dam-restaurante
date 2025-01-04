@@ -20,6 +20,9 @@ import javafx.scene.media.MediaView;
 import java.io.File;
 import java.io.IOException;
 
+import static edu.badpals.damrestaurante.controllers.MainController.redirectToIndex;
+import static edu.badpals.damrestaurante.controllers.MainController.showAlert;
+
 public class LoginController {
 
     @FXML
@@ -76,7 +79,7 @@ public class LoginController {
     void onBtnClickUsuarioLogin(ActionEvent event) {
         String username = txtUsuarioLogin.getText();
         String password = txtUsuarioPwd.getText();
-        redirectToIndex();
+        redirectToIndex(txtUsuarioLogin);
 
 //        if (sqlCommands.authenticateUser(username, password)) {
 //            showAlert("Inicio de sesión exitoso", "Bienvenido, " + username + "!");
@@ -107,29 +110,5 @@ public class LoginController {
         }
     }
 
-    private void redirectToIndex() {
-        try {
-            // Cargar el archivo FXML de la vista del índice
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
-            Parent root = loader.load();
 
-            // Obtener el Stage actual desde cualquier componente
-            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
-
-            // Cambiar la escena del Stage actual
-            currentStage.setScene(new Scene(root));
-            currentStage.setTitle("Pantalla Principal");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla principal.");
-        }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

@@ -37,12 +37,12 @@ public class RegisterModalController {
         String contrasenaConfirm = txtContrasenaConfirm.getText();
 
         if (nombre.isEmpty() || contrasena.isEmpty() || contrasenaConfirm.isEmpty()) {
-            showAlert("Error", "Por favor, complete todos los campos.");
+            MainController.showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
 
         if (!contrasena.equals(contrasenaConfirm)) {
-            showAlert("Error", "Las contraseñas no coinciden.");
+            MainController.showAlert("Error", "Las contraseñas no coinciden.");
             return;
         }
 
@@ -53,10 +53,10 @@ public class RegisterModalController {
 //                sqlCommands.updateCodigoUsuario(confirmationCode, nombre, hashedPassword);//ACTUALIZAMOS EN LA BDD EL CODIGO PARA POSTERIORMENTE HACER LA LECTURA
 //                showConfirmationModal();
 //            } else {
-//                showAlert("Error", "No se pudo registrar el usuario. Intente nuevamente.");
+//                MainController.showAlert("Error", "No se pudo registrar el usuario. Intente nuevamente.");
 //            }
 //        } catch (Exception e) {
-//            showAlert("Error", "Ocurrió un error al procesar la contraseña.");
+//            MainController.showAlert("Error", "Ocurrió un error al procesar la contraseña.");
 //            e.printStackTrace();
 //        }
     }
@@ -103,7 +103,7 @@ public class RegisterModalController {
             } else {
                 intentos++;
                 if (intentos < 5) {
-                    showAlert("Código incorrecto", "Código incorrecto, vuelva a intentar. Intento " + (intentos + 1));
+                    MainController.showAlert("Código incorrecto", "Código incorrecto, vuelva a intentar. Intento " + (intentos + 1));
                     // Reiniciar el campo de texto y volver a mostrar el diálogo
                     codeInput.clear();
                     result = dialog.showAndWait(); // Vuelve a mostrar el diálogo
@@ -113,7 +113,7 @@ public class RegisterModalController {
 
         // Si el usuario agotó los intentos
         if (intentos >= 5) {
-            showAlert("Máximo de intentos alcanzado", "Has alcanzado el máximo de intentos. Vuelve a intentarlo en 30 segundos.");
+            MainController.showAlert("Máximo de intentos alcanzado", "Has alcanzado el máximo de intentos. Vuelve a intentarlo en 30 segundos.");
             closeModal(); // Cierra el modal actual
             // Implementar lógica para deshabilitar el registro por 30 segundos, si es necesario
             disableRegistrationTemporarily();
@@ -143,27 +143,15 @@ public class RegisterModalController {
 
     private void activateUserInDatabase(String nombre, String codigo) {
 //        if (sqlCommands.activarUsuario(nombre, codigo)) {
-//            showAlert("Éxito", "Usuario registrado y activado exitosamente. Ahora puedes iniciar sesión.");
+//            MainController.showAlert("Éxito", "Usuario registrado y activado exitosamente. Ahora puedes iniciar sesión.");
 //            closeModal();
 //        } else {
-//            showAlert("Error", "No se pudo activar el usuario. Verifica el código de confirmación.");
+//            MainController.showAlert("Error", "No se pudo activar el usuario. Verifica el código de confirmación.");
 //        }
     }
 
     private void closeModal() {
         Stage stage = (Stage) btnRegistrarse.getScene().getWindow();
         stage.close();
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        // Establece el propietario del diálogo para que sea modal
-        alert.initOwner(btnRegistrarse.getScene().getWindow());
-
-        alert.showAndWait(); // Muestra la alerta y espera a que el usuario la cierre
     }
 }

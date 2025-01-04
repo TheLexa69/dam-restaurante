@@ -11,12 +11,12 @@ CREATE TABLE IF NOT EXISTS usuario (
     apellido2 VARCHAR(40) NULL,
     fecha TIMESTAMP NOT NULL,
     num_telef VARCHAR(9) NOT NULL,
-    NIF VARCHAR(9) NULL UNIQUE,
+    NIF VARCHAR(9) NULL,
     direccion VARCHAR(1000) NULL,
     cp VARCHAR(5) NULL,
     img VARCHAR(100) NOT NULL,
-    correo VARCHAR(40) NOT NULL UNIQUE,
-    contraseña VARCHAR(255) NOT NULL UNIQUE,
+    correo VARCHAR(40) NOT NULL,
+    contraseña VARCHAR(255) NOT NULL,
     PRIMARY KEY (id_usuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

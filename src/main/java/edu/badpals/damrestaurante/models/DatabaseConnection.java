@@ -65,47 +65,79 @@ public class DatabaseConnection {
         return carta;
     }
 
-//    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
+    //    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
 //    mesa con la cantidad de comensales adecuada va a devolver null
-    public static Mesas getMesaPorComensales(EntityManager em, int comensales){
+    public static Mesas getMesaPorComensales(EntityManager em, int comensales) {
 
         Query query = em.createQuery("select cc from Mesas cc where ocupada = false order by cc.cupo ASC");
         List<Mesas> mesas = query.getResultList();
-        for (Mesas mesa : mesas){
-            if(mesa.getCupo() > comensales){
+        for (Mesas mesa : mesas) {
+            if (mesa.getCupo() > comensales) {
                 return mesa;
             }
         }
         return null;
     }
 
-    public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp, String nuevaImg, String nuevoCorreo, String nuevaContraseña) {
-    try {
-        em.getTransaction().begin();
+    public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp) {
+        try {
+            em.getTransaction().begin();
 
-        UsuarioActual usuario = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
-        if (usuario != null) {
-            Usuario usuarioBase = usuario.getUsuarioByIdUsuario();
-            usuarioBase.setNombre(nuevoNombre);
-            usuarioBase.setApellido1(nuevoApellido1);
-            usuarioBase.setApellido2(nuevoApellido2);
-            usuarioBase.setFecha(nuevaFecha);
-            usuarioBase.setNumTelef(nuevoNumTelef);
-            usuarioBase.setNif(nuevoNif);
-            usuarioBase.setDireccion(nuevaDireccion);
-            usuarioBase.setCp(nuevoCp);
-            usuarioBase.setImg(nuevaImg);
-            usuarioBase.setCorreo(nuevoCorreo);
-            usuarioBase.setContraseña(nuevaContraseña);
-            em.merge(usuarioBase);
-        }
+            usuarioActual = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
+            if (usuarioActual != null) {
 
-        em.getTransaction().commit();
-    } catch (Exception e) {
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+                Usuario usuario = usuarioActual.getUsuarioByIdUsuario();
+
+                Usuario usuarioNuevo = crearNuevoUsuarioSobreUsuario(em, usuario);
+
+                crearUsuarioPasadoRefUsuarioNuevo(em, usuarioActual, usuarioNuevo);
+
+                usuario.setNombre(nuevoNombre);
+                usuario.setApellido1(nuevoApellido1);
+                usuario.setApellido2(nuevoApellido2);
+                usuario.setFecha(nuevaFecha);
+                usuario.setNumTelef(nuevoNumTelef);
+                usuario.setNif(nuevoNif);
+                usuario.setDireccion(nuevaDireccion);
+                usuario.setCp(nuevoCp);
+
+                em.merge(usuario);
+
+
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
         }
-        e.printStackTrace();
     }
-}
+
+    private static void crearUsuarioPasadoRefUsuarioNuevo(EntityManager em, UsuarioActual usuarioActual, Usuario usuarioNuevo) {
+        UsuarioPasado usuarioPasado = new UsuarioPasado();
+        usuarioPasado.setUsuarioByIdUsuario(usuarioNuevo);
+        usuarioPasado.setIdUsuario(usuarioNuevo.getIdUsuario());
+        usuarioPasado.setUsuarioActualByIdUsuarioPasado(usuarioActual);
+        usuarioPasado.setIdUsuarioPasado(usuarioActual.getIdUsuario());
+        em.persist(usuarioPasado);
+    }
+
+    private static Usuario crearNuevoUsuarioSobreUsuario(EntityManager em, Usuario usuario) {
+        Usuario usuarioNuevo = new Usuario();
+        usuarioNuevo.setNombre(usuario.getNombre());
+        usuarioNuevo.setApellido1(usuario.getApellido1());
+        usuarioNuevo.setApellido2(usuario.getApellido2());
+        usuarioNuevo.setFecha(usuario.getFecha());
+        usuarioNuevo.setNumTelef(usuario.getNumTelef());
+        usuarioNuevo.setNif(usuario.getNif());
+        usuarioNuevo.setDireccion(usuario.getDireccion());
+        usuarioNuevo.setCp(usuario.getCp());
+        usuarioNuevo.setImg(usuario.getImg());
+        usuarioNuevo.setCorreo(usuario.getCorreo());
+        usuarioNuevo.setContraseña(usuario.getContraseña());
+        em.persist(usuarioNuevo);
+        return usuarioNuevo;
+    }
 }
