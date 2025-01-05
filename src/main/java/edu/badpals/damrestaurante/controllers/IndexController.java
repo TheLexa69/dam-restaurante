@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static edu.badpals.damrestaurante.controllers.MainController.showAlert;
+
 public class IndexController {
 
     private UsuarioActual user;
@@ -168,7 +170,7 @@ public class IndexController {
     @FXML
     void onBtnClickCarta(ActionEvent event) {
         System.out.println("Botón Carta pulsado");
-        showCarta();
+        MainController.redirectToCarta(btnCarta);
     }
 
     @FXML
@@ -198,7 +200,7 @@ public class IndexController {
             currentStage.setTitle("Editar Perfil");
         } catch (IOException e) {
             e.printStackTrace();
-            MainController.showAlert("Error", "No se pudo cargar la pantalla principal.");
+            showAlert("Error", "No se pudo cargar la pantalla principal.");
         }
     }
 
@@ -212,30 +214,6 @@ public class IndexController {
     void onBtnClickCarrito(ActionEvent event) {
         System.out.println("Botón Carrito pulsado");
         controlSeparadores(false, false, false, true, false);
-    }
-
-    //
-    public void showCarta() {
-        try {
-            // Cargar el archivo FXML de la vista de carta
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("carta.fxml"));
-            Parent root = loader.load();
-
-            // Crear un nuevo Stage para la vista de carta
-            Stage cartaStage = new Stage();
-            cartaStage.setScene(new Scene(root));
-            cartaStage.setTitle("Carta");
-
-            // Mostrar el nuevo Stage
-            cartaStage.show();
-
-            // Cerrar el Stage actual
-            Stage currentStage = (Stage) btnCarta.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla de carta.");
-        }
     }
 
 

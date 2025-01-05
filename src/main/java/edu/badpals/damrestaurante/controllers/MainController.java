@@ -63,4 +63,22 @@ public class MainController {
             showAlert("Error", "No se pudo cargar la pantalla principal.");
         }
     }
+
+    static void redirectToCarta(Node btn) {
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("carta.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btn.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Carta");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla de carta.");
+        }
+    }
 }
