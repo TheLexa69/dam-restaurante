@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import edu.badpals.damrestaurante.entities.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
@@ -79,6 +80,26 @@ public class DatabaseConnection {
         return null;
     }
 
+    public static UsuarioActual authenticateUser(EntityManager em, String mail, String pwd){
+        try {
+            List<UsuarioActual> usuariosActuales = DatabaseConnection.getUsers(em);
+            Query query = em.createQuery("select cc from Usuario cc where correo = :mail and contraseña = :pwd");
+            query.setParameter("mail",mail);
+            query.setParameter("pwd",pwd);
+            query.setMaxResults(1);
+            Usuario user = (Usuario) query.getSingleResult();
+            for(UsuarioActual usuarioActual: usuariosActuales){
+                if (usuarioActual.getIdUsuario() == user.getIdUsuario()){
+                    return usuarioActual;
+                }
+            }
+        return null;
+        } catch (NoResultException e) {
+            System.out.println("No se encontro el user con estos datos");
+            return null;
+        }
+    }
+
     public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp) {
         try {
             em.getTransaction().begin();
@@ -135,8 +156,8 @@ public class DatabaseConnection {
         usuarioNuevo.setDireccion(usuario.getDireccion());
         usuarioNuevo.setCp(usuario.getCp());
         usuarioNuevo.setImg(usuario.getImg());
-        usuarioNuevo.setCorreo(usuario.getCorreo());
-        usuarioNuevo.setContraseña(usuario.getContraseña());
+        usuarioNuevo.setCorreo("");
+        usuarioNuevo.setContraseña("");
         em.persist(usuarioNuevo);
         return usuarioNuevo;
     }

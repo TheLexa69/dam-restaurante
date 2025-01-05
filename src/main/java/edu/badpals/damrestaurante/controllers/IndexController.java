@@ -163,7 +163,6 @@ public class IndexController {
         SliderThread sliderThread = new SliderThread();
         sliderThread.setDaemon(true); // Al cerrar la aplicacion el hilo demonio se detiene
         sliderThread.start();
-        user = DatabaseConnection.getUsers(MainController.em).get(0);
     }
 
     @FXML
@@ -251,4 +250,11 @@ public class IndexController {
         sepPerfil.setVisible(estadoSepPerfil);
     }
 
+    public UsuarioActual getUser() {
+        return user;
+    }
+
+    public void setUser(UsuarioActual user) {
+        this.user = user;
+    }
 }

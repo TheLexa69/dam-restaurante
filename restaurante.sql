@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     direccion VARCHAR(1000) NULL,
     cp VARCHAR(5) NULL,
     img VARCHAR(100) NOT NULL,
-    correo VARCHAR(40) NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
+    correo VARCHAR(40) NULL,
+    contraseña VARCHAR(255) NULL,
     PRIMARY KEY (id_usuario)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

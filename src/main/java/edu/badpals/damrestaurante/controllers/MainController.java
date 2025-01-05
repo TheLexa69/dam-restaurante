@@ -1,6 +1,7 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.Main;
+import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,27 @@ public class MainController {
             // Cambiar la escena del Stage actual
             currentStage.setScene(new Scene(root));
             currentStage.setTitle("Pantalla Principal");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla principal.");
+        }
+    }
+
+    static void redirectToIndexChangeUser(Node btn, UsuarioActual user) {
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btn.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Pantalla Principal");
+
+            IndexController controller = loader.getController();
+            controller.setUser(user);
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "No se pudo cargar la pantalla principal.");
