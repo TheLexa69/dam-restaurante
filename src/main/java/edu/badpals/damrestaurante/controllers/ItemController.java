@@ -1,8 +1,16 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.entities.CartaComida;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.io.File;
+import java.net.URL;
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.net.URL;
 
 public class ItemController {
 
@@ -14,5 +22,35 @@ public class ItemController {
 
     @FXML
     private Label priceLabel;
+
+    private CartaComida cartaComida;
+
+
+
+    public void setData(CartaComida cartaComida) {
+        try {
+            this.cartaComida = cartaComida;
+            nameLabel.setText(cartaComida.getNombre());
+            priceLabel.setText(cartaComida.getPrecio() + "€");
+
+            String imagePath = "src/main/resources/edu/badpals/damrestaurante/images/comida/" + cartaComida.getImg();
+            System.out.println("Ruta de la imagen: " + imagePath);
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                URL imageUrl = imageFile.toURI().toURL();
+                System.out.println("URL de la imagen: " + imageUrl);
+                Image image = new Image(imageUrl.openStream());
+                img.setImage(image);
+            } else {
+                System.out.println("Image not found, using default image.");
+                img.setImage(new Image("/edu/badpals/damrestaurante/images/comida/fabada.jpg"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar la imagen: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 }

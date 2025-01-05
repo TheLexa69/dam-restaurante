@@ -16,10 +16,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Main extends Application {
+    public static final String MONEDA = "€";
+
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("T is Restaurant");
             stage.setResizable(false);
