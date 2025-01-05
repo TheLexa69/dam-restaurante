@@ -14,6 +14,7 @@ import jakarta.persistence.Query;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseConnection {
@@ -80,24 +81,49 @@ public class DatabaseConnection {
         return null;
     }
 
-    public static UsuarioActual authenticateUser(EntityManager em, String mail, String pwd){
+    public static UsuarioActual authenticateUser(EntityManager em, String mail, String pwd) {
         try {
             List<UsuarioActual> usuariosActuales = DatabaseConnection.getUsers(em);
             Query query = em.createQuery("select cc from Usuario cc where correo = :mail and contraseña = :pwd");
-            query.setParameter("mail",mail);
-            query.setParameter("pwd",pwd);
+            query.setParameter("mail", mail);
+            query.setParameter("pwd", pwd);
             query.setMaxResults(1);
             Usuario user = (Usuario) query.getSingleResult();
-            for(UsuarioActual usuarioActual: usuariosActuales){
-                if (usuarioActual.getIdUsuario() == user.getIdUsuario()){
+            for (UsuarioActual usuarioActual : usuariosActuales) {
+                if (usuarioActual.getIdUsuario() == user.getIdUsuario()) {
                     return usuarioActual;
                 }
             }
-        return null;
+            return null;
         } catch (NoResultException e) {
             System.out.println("No se encontro el user con estos datos");
             return null;
         }
+    }
+
+    public static UsuarioActual crearUsuairoActual(EntityManager em, String mail, String pwd) {
+        Usuario usuario = new Usuario();
+
+        Date date = new Date();
+
+        usuario.setNombre("");
+        usuario.setApellido1("");
+        usuario.setApellido2("");
+        usuario.setFecha(new Timestamp(date.getTime()));
+        usuario.setNumTelef("");
+        usuario.setNif("");
+        usuario.setDireccion("");
+        usuario.setCp("");
+        usuario.setCorreo(mail);
+        usuario.setContraseña(pwd);
+        usuario.setImg("");
+        em.persist(usuario);
+
+        UsuarioActual usuarioActual = new UsuarioActual();
+        usuarioActual.setUsuarioByIdUsuario(usuario);
+        em.persist(usuarioActual);
+
+        return usuarioActual;
     }
 
     public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp) {
