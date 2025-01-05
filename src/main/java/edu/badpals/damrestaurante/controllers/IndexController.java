@@ -216,13 +216,26 @@ public class IndexController {
 
     //
     public void showCarta() {
-        controlSeparadores(false, true, false, false, false);  //SEPARADOR DE CARTA
+        try {
+            // Cargar el archivo FXML de la vista de carta
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("carta.fxml"));
+            Parent root = loader.load();
 
-        showHideHome(false);  //ESCONDEMOS LOS ELEMENTOS DEL INICIO
-//        showHideCarta(true);
-//        showHideReservas(false);
-//        showHideCarrito(false);
-//        showHidePerfil(false);
+            // Crear un nuevo Stage para la vista de carta
+            Stage cartaStage = new Stage();
+            cartaStage.setScene(new Scene(root));
+            cartaStage.setTitle("Carta");
+
+            // Mostrar el nuevo Stage
+            cartaStage.show();
+
+            // Cerrar el Stage actual
+            Stage currentStage = (Stage) btnCarta.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla de carta.");
+        }
     }
 
 

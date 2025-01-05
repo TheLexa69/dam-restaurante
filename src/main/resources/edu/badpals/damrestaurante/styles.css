@@ -3,7 +3,7 @@
     -fx-padding: 10px;
 }
 
-#vboxIndex,.text-field{
+#vboxIndex,.text-field,GridPane{
     -fx-background-color: rgba(17, 20, 37, 1);
 }
 
@@ -15,6 +15,7 @@
 .label{
     -fx-text-fill: white;
 }
+
 
 #btnInicio, #btnReservas, #btnCarrito, #btnCarta, #btnPerfil{
     -fx-background-color: transparent;
