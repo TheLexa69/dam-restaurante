@@ -2,18 +2,11 @@ package edu.badpals.damrestaurante.controllers;
 
 
 import edu.badpals.damrestaurante.entities.Usuario;
-import edu.badpals.damrestaurante.entities.UsuarioActual;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
-
-import java.util.Optional;
-import java.util.Random;
 
 public class RegisterModalController {
 
@@ -30,6 +23,7 @@ public class RegisterModalController {
     private Button btnRegistrarse;
 
     private String confirmationCode;
+
 //    private SQLCommands sqlCommands = new SQLCommands();
 
     @FXML
@@ -49,10 +43,13 @@ public class RegisterModalController {
         }
 
         try {
-            UsuarioActual user = DatabaseConnection.crearUsuairoActual(MainController.em,nombre,contrasena);
-            MainController.redirectToIndexChangeUser(txtContrasena,user);
+            DatabaseConnection.crearUsuairo(MainController.em,nombre,contrasena);
+
+
+            Stage stage = (Stage) btnRegistrarse.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
-            MainController.showAlert("Error", "Ocurrió un error al procesar la contraseña.");
+            MainController.showAlert("Error", "Ocurrió un error al insertar el usuario.");
             e.printStackTrace();
         }
     }

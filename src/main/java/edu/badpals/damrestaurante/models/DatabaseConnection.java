@@ -13,6 +13,9 @@ import jakarta.persistence.Query;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +88,7 @@ public class DatabaseConnection {
         try {
             List<UsuarioActual> usuariosActuales = DatabaseConnection.getUsers(em);
             Query query = em.createQuery("select cc from Usuario cc where correo = :mail and contraseña = :pwd");
+            pwd = DatabaseConnection.hashPassword(pwd);
             query.setParameter("mail", mail);
             query.setParameter("pwd", pwd);
             query.setMaxResults(1);
@@ -99,31 +103,6 @@ public class DatabaseConnection {
             System.out.println("No se encontro el user con estos datos");
             return null;
         }
-    }
-
-    public static UsuarioActual crearUsuairoActual(EntityManager em, String mail, String pwd) {
-        Usuario usuario = new Usuario();
-
-        Date date = new Date();
-
-        usuario.setNombre("");
-        usuario.setApellido1("");
-        usuario.setApellido2("");
-        usuario.setFecha(new Timestamp(date.getTime()));
-        usuario.setNumTelef("");
-        usuario.setNif("");
-        usuario.setDireccion("");
-        usuario.setCp("");
-        usuario.setCorreo(mail);
-        usuario.setContraseña(pwd);
-        usuario.setImg("");
-        em.persist(usuario);
-
-        UsuarioActual usuarioActual = new UsuarioActual();
-        usuarioActual.setUsuarioByIdUsuario(usuario);
-        em.persist(usuarioActual);
-
-        return usuarioActual;
     }
 
     public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp) {
@@ -162,6 +141,42 @@ public class DatabaseConnection {
         }
     }
 
+    public static Usuario crearUsuairo(EntityManager em, String mail, String pwd) {
+        pwd = DatabaseConnection.hashPassword(pwd);
+
+        Usuario usuario = new Usuario();
+        Date date = new Date();
+
+        usuario.setNombre("");
+        usuario.setApellido1("");
+        usuario.setApellido2("");
+        usuario.setFecha(new Timestamp(date.getTime()));
+        usuario.setNumTelef("");
+        usuario.setNif("");
+        usuario.setDireccion("");
+        usuario.setCp("");
+        usuario.setCorreo(mail);
+        usuario.setContraseña(pwd);
+        usuario.setImg("");
+
+        em.getTransaction().begin();
+        try {
+            em.persist(usuario);
+            em.createNativeQuery("INSERT INTO usuario_actual (id_usuario) VALUES (?)")
+                    .setParameter(1, usuario.getIdUsuario())
+                    .executeUpdate();
+            em.getTransaction().commit();
+            return usuario;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     private static void crearUsuarioPasadoRefUsuarioNuevo(EntityManager em, UsuarioActual usuarioActual, Usuario usuarioNuevo) {
         UsuarioPasado usuarioPasado = new UsuarioPasado();
         usuarioPasado.setUsuarioByIdUsuario(usuarioNuevo);
@@ -186,5 +201,24 @@ public class DatabaseConnection {
         usuarioNuevo.setContraseña("");
         em.persist(usuarioNuevo);
         return usuarioNuevo;
+    }
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
