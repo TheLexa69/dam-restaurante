@@ -221,4 +221,6 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
+
+    public static void addComidaCarrito(EntityManager em, UsuarioActual user){}
 }
