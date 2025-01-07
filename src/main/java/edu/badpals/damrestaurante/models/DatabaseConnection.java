@@ -349,4 +349,26 @@ public class DatabaseConnection {
 
     }
 
+    public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa){
+        Reservas reserva = new Reservas();
+        reserva.setFechaReserva(fecha);
+        reserva.setTurno(turno);
+        reserva.setIdMesa(mesa.getIdMesa());
+        reserva.setIdRestaurante(empresa.getCif());
+        reserva.setIdUsuario(user.getIdUsuario());
+        reserva.setReservaAceptada((byte) 1);
+        em.getTransaction().begin();
+        try {
+            em.persist(reserva);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+
+
+    }
+
 }
