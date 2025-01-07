@@ -57,7 +57,7 @@ create table if not exists carta_comida(
 
 create table if not exists carrito (
 id_carro int auto_increment,
-id_usuario int not null,
+id_usuario int not null unique,
 comida_cantidad longtext,
 id_factura int,
 constraint pk_id primary key (id_carro)

@@ -2,7 +2,6 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,8 +13,6 @@ public class Subtipo {
     @Basic
     @Column(name = "nombre_subtipo", nullable = false, length = 100)
     private String nombreSubtipo;
-    @OneToMany(mappedBy = "subtipoBySubtipo")
-    private Collection<CartaComida> cartaComidasByIdSubtipo;
 
     public int getIdSubtipo() {
         return idSubtipo;
@@ -44,21 +41,5 @@ public class Subtipo {
     @Override
     public int hashCode() {
         return Objects.hash(idSubtipo, nombreSubtipo);
-    }
-
-    public Collection<CartaComida> getCartaComidasByIdSubtipo() {
-        return cartaComidasByIdSubtipo;
-    }
-
-    public void setCartaComidasByIdSubtipo(Collection<CartaComida> cartaComidasByIdSubtipo) {
-        this.cartaComidasByIdSubtipo = cartaComidasByIdSubtipo;
-    }
-
-    @Override
-    public String toString() {
-        return "Subtipo{" +
-                "idSubtipo=" + idSubtipo +
-                ", nombreSubtipo='" + nombreSubtipo + '\'' +
-                '}';
     }
 }

@@ -12,11 +12,12 @@ module edu.badpals.damrestaurante {
 
     opens edu.badpals.damrestaurante to javafx.fxml;
     opens edu.badpals.damrestaurante.controllers to javafx.fxml;
+    opens edu.badpals.damrestaurante.entities to org.hibernate.orm.core; // Add this line
     exports edu.badpals.damrestaurante;
 
     requires java.sql;
+    requires java.base;
     requires javafx.media;
 
-    opens edu.badpals.damrestaurante.entities to org.hibernate.orm.core;
-
+    exports edu.badpals.damrestaurante.entities;
 }

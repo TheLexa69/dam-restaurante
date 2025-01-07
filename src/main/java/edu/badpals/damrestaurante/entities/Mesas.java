@@ -2,7 +2,6 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -15,29 +14,14 @@ public class Mesas {
     @Column(name = "enumMesa", nullable = false, length = 20)
     private String enumMesa;
     @Basic
-    @Column(name = "cupo", nullable = false, length = 20)
+    @Column(name = "id_empresa", nullable = false, length = 10)
+    private String idEmpresa;
+    @Basic
+    @Column(name = "cupo", nullable = false)
     private int cupo;
     @Basic
-    @Column(name = "ocupada", nullable = false, length = 20)
-    private boolean ocupada;
-    @OneToMany(mappedBy = "mesasByIdMesa")
-    private Collection<Reservas> reservasByIdMesa;
-
-    public int getCupo() {
-        return cupo;
-    }
-
-    public void setCupo(int cupo) {
-        this.cupo = cupo;
-    }
-
-    public boolean isOcupada() {
-        return ocupada;
-    }
-
-    public void setOcupada(boolean ocupada) {
-        this.ocupada = ocupada;
-    }
+    @Column(name = "ocupada", nullable = false)
+    private byte ocupada;
 
     public int getIdMesa() {
         return idMesa;
@@ -55,34 +39,40 @@ public class Mesas {
         this.enumMesa = enumMesa;
     }
 
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public int getCupo() {
+        return cupo;
+    }
+
+    public void setCupo(int cupo) {
+        this.cupo = cupo;
+    }
+
+    public byte getOcupada() {
+        return ocupada;
+    }
+
+    public void setOcupada(byte ocupada) {
+        this.ocupada = ocupada;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesas mesas = (Mesas) o;
-        return idMesa == mesas.idMesa && cupo == mesas.cupo && ocupada == mesas.ocupada && Objects.equals(enumMesa, mesas.enumMesa) && Objects.equals(reservasByIdMesa, mesas.reservasByIdMesa);
+        return idMesa == mesas.idMesa && cupo == mesas.cupo && ocupada == mesas.ocupada && Objects.equals(enumMesa, mesas.enumMesa) && Objects.equals(idEmpresa, mesas.idEmpresa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMesa, enumMesa, cupo, ocupada, reservasByIdMesa);
-    }
-
-    public Collection<Reservas> getReservasByIdMesa() {
-        return reservasByIdMesa;
-    }
-
-    public void setReservasByIdMesa(Collection<Reservas> reservasByIdMesa) {
-        this.reservasByIdMesa = reservasByIdMesa;
-    }
-
-    @Override
-    public String toString() {
-        return "Mesas{" +
-                "idMesa=" + idMesa +
-                ", enumMesa='" + enumMesa + '\'' +
-                ", cupo='" + cupo + '\'' +
-                ", ocupada='" + ocupada + '\'' +
-                '}';
+        return Objects.hash(idMesa, enumMesa, idEmpresa, cupo, ocupada);
     }
 }

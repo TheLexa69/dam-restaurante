@@ -74,7 +74,7 @@ public class DatabaseConnection {
 //    mesa con la cantidad de comensales adecuada va a devolver null
     public static Mesas getMesaPorComensales(EntityManager em, int comensales) {
 
-        Query query = em.createQuery("select cc from Mesas cc where ocupada = false order by cc.cupo ASC");
+        Query query = em.createQuery("select cc from Mesas cc where ocupada = 0 order by cc.cupo ASC");
         List<Mesas> mesas = query.getResultList();
         for (Mesas mesa : mesas) {
             if (mesa.getCupo() > comensales) {
@@ -112,7 +112,7 @@ public class DatabaseConnection {
             usuarioActual = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
             if (usuarioActual != null) {
 
-                Usuario usuario = usuarioActual.getUsuarioByIdUsuario();
+                Usuario usuario = em.find(Usuario.class,usuarioActual.getIdUsuario());
 
                 Usuario usuarioNuevo = crearNuevoUsuarioSobreUsuario(em, usuario);
 
@@ -179,9 +179,7 @@ public class DatabaseConnection {
 
     private static void crearUsuarioPasadoRefUsuarioNuevo(EntityManager em, UsuarioActual usuarioActual, Usuario usuarioNuevo) {
         UsuarioPasado usuarioPasado = new UsuarioPasado();
-        usuarioPasado.setUsuarioByIdUsuario(usuarioNuevo);
         usuarioPasado.setIdUsuario(usuarioNuevo.getIdUsuario());
-        usuarioPasado.setUsuarioActualByIdUsuarioPasado(usuarioActual);
         usuarioPasado.setIdUsuarioPasado(usuarioActual.getIdUsuario());
         em.persist(usuarioPasado);
     }
@@ -222,5 +220,25 @@ public class DatabaseConnection {
         }
     }
 
-    public static void addComidaCarrito(EntityManager em, UsuarioActual user){}
+    public static void addToCarrito(EntityManager em, CartaComida cartaComida, UsuarioActual user) {
+        Carrito carrito = getCarrito(em,user);
+    }
+
+    private static Carrito getCarrito(EntityManager em, UsuarioActual user) {
+        try {
+            Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.usuarioByIdUsuario = :userId");
+            query.setParameter("userId", user);
+            return (Carrito) query.getSingleResult();
+        } catch (NoResultException e) {
+//            Carrito carritoNuevo = new Carrito();
+//            carritoNuevo.setUsuarioByIdUsuario(user.getUsuarioByIdUsuario());
+//            carritoNuevo.setComidaCantidad("");
+            return null;
+
+        }
+    }
+
+    public static Usuario getUserByUserActual(EntityManager em, UsuarioActual user) {
+        return em.find(Usuario.class,user.getIdUsuario());
+    }
 }

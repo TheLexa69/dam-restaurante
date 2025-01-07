@@ -2,7 +2,6 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -32,12 +31,6 @@ public class Empresa {
     @Basic
     @Column(name = "logo", nullable = false, length = 100)
     private String logo;
-    @OneToMany(mappedBy = "empresaByCifEmpresa")
-    private Collection<Factura> facturasByCif;
-    @OneToMany(mappedBy = "empresaByRestaurante")
-    private Collection<Pedidos> pedidosByCif;
-    @OneToMany(mappedBy = "empresaByIdRestaurante")
-    private Collection<Reservas> reservasByCif;
 
     public String getCif() {
         return cif;
@@ -114,43 +107,5 @@ public class Empresa {
     @Override
     public int hashCode() {
         return Objects.hash(cif, nombreLocal, nombreSociedad, direccion, ciudad, cp, telefono, logo);
-    }
-
-    public Collection<Factura> getFacturasByCif() {
-        return facturasByCif;
-    }
-
-    public void setFacturasByCif(Collection<Factura> facturasByCif) {
-        this.facturasByCif = facturasByCif;
-    }
-
-    public Collection<Pedidos> getPedidosByCif() {
-        return pedidosByCif;
-    }
-
-    public void setPedidosByCif(Collection<Pedidos> pedidosByCif) {
-        this.pedidosByCif = pedidosByCif;
-    }
-
-    public Collection<Reservas> getReservasByCif() {
-        return reservasByCif;
-    }
-
-    public void setReservasByCif(Collection<Reservas> reservasByCif) {
-        this.reservasByCif = reservasByCif;
-    }
-
-    @Override
-    public String toString() {
-        return "Empresa{" +
-                "cif='" + cif + '\'' +
-                ", nombreLocal='" + nombreLocal + '\'' +
-                ", nombreSociedad='" + nombreSociedad + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", cp=" + cp +
-                ", telefono=" + telefono +
-                ", logo='" + logo + '\'' +
-                '}';
     }
 }
