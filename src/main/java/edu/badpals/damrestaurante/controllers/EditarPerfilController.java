@@ -1,7 +1,10 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.Main;
+import edu.badpals.damrestaurante.entities.Usuario;
 import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -59,13 +62,14 @@ public class EditarPerfilController {
 
     public void cargarDatosUser() {
         if (user != null) {
-            txtDni.setText(user.getUsuarioByIdUsuario().getNif());
-            txtNombre.setText(user.getUsuarioByIdUsuario().getNombre());
-            txtApellido.setText(user.getUsuarioByIdUsuario().getApellido1());
-            txtSegundoApellido.setText(user.getUsuarioByIdUsuario().getApellido2());
-            txtDireccion.setText(user.getUsuarioByIdUsuario().getDireccion());
-            txtCP.setText(user.getUsuarioByIdUsuario().getCp());
-            txtTelef.setText(user.getUsuarioByIdUsuario().getNumTelef());
+            Usuario user = DatabaseConnection.getUserByUserActual(MainController.em,this.user);
+            txtDni.setText(user.getNif());
+            txtNombre.setText(user.getNombre());
+            txtApellido.setText(user.getApellido1());
+            txtSegundoApellido.setText(user.getApellido2());
+            txtDireccion.setText(user.getDireccion());
+            txtCP.setText(user.getCp());
+            txtTelef.setText(user.getNumTelef());
         }
     }
 

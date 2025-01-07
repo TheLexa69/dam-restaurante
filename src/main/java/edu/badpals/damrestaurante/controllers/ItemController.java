@@ -1,6 +1,8 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.entities.CartaComida;
+import edu.badpals.damrestaurante.entities.UsuarioActual;
+import edu.badpals.damrestaurante.models.DatabaseConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,11 +30,11 @@ public class ItemController {
     private Label priceLabel;
 
     private CartaComida cartaComida;
+    private UsuarioActual user;
 
     @FXML
     void onBtnClickAddComida(ActionEvent event) {
-        System.out.println(this.cartaComida.getIdComida() + " añadido al carrito.");
-
+        DatabaseConnection.addToCarrito(MainController.em,cartaComida,user);
     }
 
     public void setData(CartaComida cartaComida) {
@@ -60,5 +62,11 @@ public class ItemController {
         }
     }
 
+    public UsuarioActual getUser() {
+        return user;
+    }
 
+    public void setUser(UsuarioActual user) {
+        this.user = user;
+    }
 }

@@ -3,7 +3,6 @@ package edu.badpals.damrestaurante.entities;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -20,10 +19,10 @@ public class CartaComida {
     @Column(name = "descripcion", nullable = true, length = 300)
     private String descripcion;
     @Basic
-    @Column(name = "tipo", nullable = false, insertable = false, updatable = false)
+    @Column(name = "tipo", nullable = false)
     private int tipo;
     @Basic
-    @Column(name = "subtipo", nullable = true, insertable = false, updatable = false)
+    @Column(name = "subtipo", nullable = true)
     private Integer subtipo;
     @Basic
     @Column(name = "fecha_inicio", nullable = false)
@@ -38,18 +37,11 @@ public class CartaComida {
     @Column(name = "disponible", nullable = false)
     private byte disponible;
     @Basic
-    @Column(name = "img", nullable = false, length = 100)
+    @Column(name = "img", nullable = true, length = 100)
     private String img;
-    @OneToMany(mappedBy = "cartaComidaByIdComida")
-    private Collection<CartaAlergenos> cartaAlergenosByIdComida;
-    @ManyToOne
-    @JoinColumn(name = "tipo", referencedColumnName = "id_tipo", nullable = false)
-    private Tipo tipoByTipo;
-    @ManyToOne
-    @JoinColumn(name = "subtipo", referencedColumnName = "id_subtipo")
-    private Subtipo subtipoBySubtipo;
-    @OneToMany(mappedBy = "cartaComidaByIdProd")
-    private Collection<PedProd> pedProdsByIdComida;
+    @Basic
+    @Column(name = "id_empresa", nullable = false, length = 10)
+    private String idEmpresa;
 
     public int getIdComida() {
         return idComida;
@@ -131,64 +123,24 @@ public class CartaComida {
         this.img = img;
     }
 
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartaComida that = (CartaComida) o;
-        return idComida == that.idComida && tipo == that.tipo && Double.compare(precio, that.precio) == 0 && disponible == that.disponible && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(subtipo, that.subtipo) && Objects.equals(fechaInicio, that.fechaInicio) && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(img, that.img);
+        return idComida == that.idComida && tipo == that.tipo && Double.compare(precio, that.precio) == 0 && disponible == that.disponible && Objects.equals(nombre, that.nombre) && Objects.equals(descripcion, that.descripcion) && Objects.equals(subtipo, that.subtipo) && Objects.equals(fechaInicio, that.fechaInicio) && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(img, that.img) && Objects.equals(idEmpresa, that.idEmpresa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idComida, nombre, descripcion, tipo, subtipo, fechaInicio, fechaFin, precio, disponible, img);
-    }
-
-    public Collection<CartaAlergenos> getCartaAlergenosByIdComida() {
-        return cartaAlergenosByIdComida;
-    }
-
-    public void setCartaAlergenosByIdComida(Collection<CartaAlergenos> cartaAlergenosByIdComida) {
-        this.cartaAlergenosByIdComida = cartaAlergenosByIdComida;
-    }
-
-    public Tipo getTipoByTipo() {
-        return tipoByTipo;
-    }
-
-    public void setTipoByTipo(Tipo tipoByTipo) {
-        this.tipoByTipo = tipoByTipo;
-    }
-
-    public Subtipo getSubtipoBySubtipo() {
-        return subtipoBySubtipo;
-    }
-
-    public void setSubtipoBySubtipo(Subtipo subtipoBySubtipo) {
-        this.subtipoBySubtipo = subtipoBySubtipo;
-    }
-
-    public Collection<PedProd> getPedProdsByIdComida() {
-        return pedProdsByIdComida;
-    }
-
-    public void setPedProdsByIdComida(Collection<PedProd> pedProdsByIdComida) {
-        this.pedProdsByIdComida = pedProdsByIdComida;
-    }
-
-    @Override
-    public String toString() {
-        return "CartaComida{" +
-                "idComida=" + idComida +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", tipo=" + tipo +
-                ", subtipo=" + subtipo +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFin=" + fechaFin +
-                ", precio=" + precio +
-                ", disponible=" + disponible +
-                ", img='" + img + '\'' +
-                '}';
+        return Objects.hash(idComida, nombre, descripcion, tipo, subtipo, fechaInicio, fechaFin, precio, disponible, img, idEmpresa);
     }
 }

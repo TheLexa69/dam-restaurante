@@ -3,10 +3,10 @@ package edu.badpals.damrestaurante.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "usuario", schema = "luachea", catalog = "")
 @Inheritance(strategy= InheritanceType.JOINED)
 public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,19 +41,11 @@ public class Usuario {
     @Column(name = "img", nullable = false, length = 100)
     private String img;
     @Basic
-    @Column(name = "correo", nullable = false, length = 40)
+    @Column(name = "correo", nullable = true, length = 40)
     private String correo;
     @Basic
-    @Column(name = "contraseña", nullable = false, length = 255)
+    @Column(name = "contraseña", nullable = true, length = 255)
     private String contraseña;
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
-    private Collection<Carrito> carritosByIdUsuario;
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
-    private Collection<Factura> facturasByIdUsuario;
-    @OneToOne(mappedBy = "usuarioByIdUsuario")
-    private UsuarioActual usuarioActualByIdUsuario;
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
-    private Collection<UsuarioPasado> usuarioPasadosByIdUsuario;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -162,55 +154,5 @@ public class Usuario {
     @Override
     public int hashCode() {
         return Objects.hash(idUsuario, nombre, apellido1, apellido2, fecha, numTelef, nif, direccion, cp, img, correo, contraseña);
-    }
-
-    public Collection<Carrito> getCarritosByIdUsuario() {
-        return carritosByIdUsuario;
-    }
-
-    public void setCarritosByIdUsuario(Collection<Carrito> carritosByIdUsuario) {
-        this.carritosByIdUsuario = carritosByIdUsuario;
-    }
-
-    public Collection<Factura> getFacturasByIdUsuario() {
-        return facturasByIdUsuario;
-    }
-
-    public void setFacturasByIdUsuario(Collection<Factura> facturasByIdUsuario) {
-        this.facturasByIdUsuario = facturasByIdUsuario;
-    }
-
-    public UsuarioActual getUsuarioActualByIdUsuario() {
-        return usuarioActualByIdUsuario;
-    }
-
-    public void setUsuarioActualByIdUsuario(UsuarioActual usuarioActualByIdUsuario) {
-        this.usuarioActualByIdUsuario = usuarioActualByIdUsuario;
-    }
-
-    public Collection<UsuarioPasado> getUsuarioPasadosByIdUsuario() {
-        return usuarioPasadosByIdUsuario;
-    }
-
-    public void setUsuarioPasadosByIdUsuario(Collection<UsuarioPasado> usuarioPasadosByIdUsuario) {
-        this.usuarioPasadosByIdUsuario = usuarioPasadosByIdUsuario;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "idUsuario=" + idUsuario +
-                ", nombre='" + nombre + '\'' +
-                ", apellido1='" + apellido1 + '\'' +
-                ", apellido2='" + apellido2 + '\'' +
-                ", fecha=" + fecha +
-                ", numTelef='" + numTelef + '\'' +
-                ", nif='" + nif + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", cp='" + cp + '\'' +
-                ", img='" + img + '\'' +
-                ", correo='" + correo + '\'' +
-                ", contraseña='" + contraseña + '\'' +
-                '}';
     }
 }

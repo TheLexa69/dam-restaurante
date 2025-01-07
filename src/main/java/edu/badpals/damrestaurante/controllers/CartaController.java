@@ -1,12 +1,8 @@
 package edu.badpals.damrestaurante.controllers;
 
-import edu.badpals.damrestaurante.Main;
 import edu.badpals.damrestaurante.entities.CartaComida;
 import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -144,6 +140,7 @@ public class CartaController {
 
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new javafx.geometry.Insets(10));
+                itemController.setUser(user);
             }
         } catch (Exception e) {
             System.out.println("Error al cargar la carta: " + e.getMessage());
@@ -151,7 +148,6 @@ public class CartaController {
         }
     }
 
-}
     public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil) {
         sepHome.setVisible(estadoSepHome);
         sepComedor.setVisible(estadoSepComedor);
@@ -160,10 +156,11 @@ public class CartaController {
         sepPerfil.setVisible(estadoSepPerfil);
     }
 
-}
+
     public UsuarioActual getUser() {
         return user;
     }
+
     public void setUser(UsuarioActual user) {
         this.user = user;
     }
