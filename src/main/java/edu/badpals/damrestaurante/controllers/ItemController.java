@@ -36,6 +36,7 @@ public class ItemController {
 
     @FXML
     void onBtnClickAddComida(ActionEvent event) {
+        DatabaseConnection.comprobarCarrito(MainController.em,empresa,user);
         DatabaseConnection.addToCarrito(MainController.em,cartaComida,user,empresa);
     }
 

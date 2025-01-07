@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CartaController {
 
@@ -120,14 +121,26 @@ public class CartaController {
 
     @FXML
     void onBtnClickPontevedra(ActionEvent event) {
+        if(Objects.equals(this.getEmpresa().getNombreLocal(), "Pontevedra")){
+            return;
+        }
         this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Pontevedra"));
         cargarCarta();
+        eliminarCarrito();
     }
 
     @FXML
     void onBtnClickVigo(ActionEvent event) {
+        if(Objects.equals(this.getEmpresa().getNombreLocal(), "Vigo")){
+            return;
+        }
         this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Vigo"));
         cargarCarta();
+        eliminarCarrito();
+    }
+
+    private void eliminarCarrito() {
+        DatabaseConnection.eliminarCarrito(MainController.em,user);
     }
 
     @FXML
@@ -142,6 +155,7 @@ public class CartaController {
 
         int column = 0;
         int row = 0;
+        grid.getChildren().clear();
         try {
             for (int i = 0; i < comidas.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
