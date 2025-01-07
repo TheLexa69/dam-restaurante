@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -36,6 +37,14 @@
                   <Image url="@../damrestaurante/images/cherry.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnAddComida" mnemonicParsing="false" onAction="#onBtnClickAddComida" text="Añadir">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </children>

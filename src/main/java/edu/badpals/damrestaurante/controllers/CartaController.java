@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
@@ -58,6 +59,9 @@ public class CartaController {
 
     @FXML
     private ScrollPane scroll;
+
+    @FXML
+    private ChoiceBox<String> selectRestaurant;
 
     @FXML
     private Separator sepCarrito;
@@ -110,8 +114,14 @@ public class CartaController {
     @FXML
     public void initialize() {
         System.out.println("CartaController inicializado");
+        controlSeparadores(false, true, false, false, false);
         comidas = DatabaseConnection.getCarta(MainController.em);
         System.out.println(comidas);
+
+        // Añadir items al ChoiceBox
+        selectRestaurant.getItems().addAll("Vigo", "Pontevedra");
+        selectRestaurant.setValue("Vigo");
+
 
         int column = 0;
         int row = 0;
@@ -141,10 +151,19 @@ public class CartaController {
         }
     }
 
+}
+    public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil) {
+        sepHome.setVisible(estadoSepHome);
+        sepComedor.setVisible(estadoSepComedor);
+        sepReservas.setVisible(estadoSepReservas);
+        sepCarrito.setVisible(estadoSepCarrito);
+        sepPerfil.setVisible(estadoSepPerfil);
+    }
+
+}
     public UsuarioActual getUser() {
         return user;
     }
-
     public void setUser(UsuarioActual user) {
         this.user = user;
     }

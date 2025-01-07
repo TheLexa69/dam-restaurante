@@ -132,6 +132,10 @@ public class IndexController {
 
     @FXML
     public void initialize() {
+        setUser(DatabaseConnection.getUsers(MainController.em).get(0));
+
+
+
         System.out.println("Inicializando...");
         controlSeparadores(true, false, false, false, false);
         images = new String[]{
@@ -170,7 +174,7 @@ public class IndexController {
     @FXML
     void onBtnClickCarta(ActionEvent event) {
         System.out.println("Botón Carta pulsado");
-        MainController.redirectToCarta(btnCarta,user);
+        MainController.redirectToCarta(btnCarta, user);
     }
 
     @FXML

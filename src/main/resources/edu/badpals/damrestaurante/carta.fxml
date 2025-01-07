@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -39,6 +40,7 @@
          </children></StackPane>
         <AnchorPane prefHeight="100.0" prefWidth="640.0">
             <children>
+            <ChoiceBox fx:id="selectRestaurant" layoutX="2.0" layoutY="3.0" prefWidth="150.0" />
                 <Button fx:id="btnInicio" layoutX="10.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
                     <graphic>
                         <ImageView fx:id="imgIndexHome" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
