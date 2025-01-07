@@ -215,18 +215,22 @@ VALUES
 ('0987654321', 'Pontevedra', 'Norte Gourmet S.L.', 'Calle Sur 45', 'Pontevedra', 36001, 933456789, 'norte_logo.jpg');
 
 -- Insertar datos en la tabla carta_comida
-INSERT INTO carta_comida (nombre, descripcion, tipo, subtipo, fecha_inicio, fecha_fin, precio, disponible, img,id_empresa)
+INSERT INTO carta_comida (nombre, descripcion, tipo, subtipo, fecha_inicio, fecha_fin, precio, disponible, img, id_empresa)
 VALUES 
-('Pizza Margarita', 'Pizza con tomate, mozzarella y albahaca', 1, NULL, '2024-01-01', NULL, 8.5, TRUE, 'pizza_margarita.jpg',0987654321),
-('Hamburguesa Clásica', 'Hamburguesa con queso y lechuga', 2, 2, '2024-01-01', NULL, 10.0, TRUE, 'hamburguesa_clasica.png',1234567890);
+('Pizza Margarita', 'Pizza con tomate, mozzarella y albahaca', 1, NULL, '2024-01-01', NULL, 8.5, TRUE, 'pizza_margarita.jpg','0987654321'),
+('Hamburguesa Clásica', 'Hamburguesa con queso y lechuga', 2, 2, '2024-01-01', NULL, 10.0, TRUE, 'hamburguesa_clasica.png','1234567890');
 
 -- Insertar datos en la tabla mesas
 INSERT INTO mesas (enumMesa,id_empresa,cupo) 
 VALUES 
-('Mesa 1',1234567890,2), 
-('Mesa 2',1234567890,2),
-('Mesa 1',1234567890,5), 
-('Mesa 2',1234567890,9);
+('Mesa 1','1234567890',2), 
+('Mesa 2','1234567890',2),
+('Mesa 1','1234567890',5), 
+('Mesa 2','1234567890',9),
+('Mesa 1','0987654321',2), 
+('Mesa 2','0987654321',2),
+('Mesa 1','0987654321',5), 
+('Mesa 2','0987654321',9);
 
 -- Insertar datos en la tabla alergenos
 INSERT INTO alergenos (nombre_alergeno, descripcion, img) 
