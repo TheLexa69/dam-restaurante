@@ -1,5 +1,6 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.entities.CartaComida;
 import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import javafx.event.ActionEvent;
@@ -8,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+
+import java.util.List;
 
 public class CarritoController {
     private UsuarioActual user;
@@ -39,7 +42,6 @@ public class CarritoController {
 
     @FXML
     public void initialize() {
-        setUser(DatabaseConnection.getUsers(MainController.em).get(0));
     }
 
     public UsuarioActual getUser() {
@@ -50,4 +52,7 @@ public class CarritoController {
         this.user = user;
     }
 
+    public void cargarCarrito() {
+        List<CartaComida> cartaComidas = DatabaseConnection.getComidaCarrito();
+    }
 }

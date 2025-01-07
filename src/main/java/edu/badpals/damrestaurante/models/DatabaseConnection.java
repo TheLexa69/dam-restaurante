@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -324,4 +325,21 @@ public class DatabaseConnection {
 
         return (Empresa) query.getSingleResult();
     }
+
+    public static List<CarritoComida> getCarritoComida(EntityManager em, UsuarioActual usera) {
+        List<CartaComida> comidas = new ArrayList<>();
+        Usuario user = em.find(Usuario.class, usera.getIdUsuario());
+        Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.idUsuario = :userId");
+        query.setParameter("userId", user.getIdUsuario());
+        Carrito carrito = (Carrito) query.getSingleResult();
+        query = em.createQuery("SELECT c FROM CarritoComida c WHERE c.idCarrito = :carritoId");
+        query.setParameter("carritoId", carrito.getIdCarro());
+        List<CarritoComida> carritoComidas = query.getResultList();
+        return carritoComidas;
+    }
+
+    public static CartaComida getComida(EntityManager em, int idComida){
+        return em.find(CartaComida.class, idComida);
+    }
+
 }

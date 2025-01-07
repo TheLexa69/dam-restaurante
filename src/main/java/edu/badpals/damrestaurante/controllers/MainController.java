@@ -102,11 +102,9 @@ public class MainController {
             currentStage.setScene(new Scene(root));
             currentStage.setTitle("Carrito");
 
-            CartaController controller = loader.getController();
+            CarritoController controller = loader.getController();
             controller.setUser(user);
-            Empresa empresa = DatabaseConnection.getEmpresa(em,"Restaurante Central");
-            controller.setEmpresa(empresa);
-            controller.cargarCarta();
+            controller.cargarCarrito();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "No se pudo cargar la pantalla de carta.");
