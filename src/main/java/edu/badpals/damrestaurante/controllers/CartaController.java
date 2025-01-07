@@ -121,22 +121,14 @@ public class CartaController {
 
     @FXML
     void onBtnClickPontevedra(ActionEvent event) {
-        if(Objects.equals(this.getEmpresa().getNombreLocal(), "Pontevedra")){
-            return;
-        }
         this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Pontevedra"));
         cargarCarta();
-        eliminarCarrito();
     }
 
     @FXML
     void onBtnClickVigo(ActionEvent event) {
-        if(Objects.equals(this.getEmpresa().getNombreLocal(), "Vigo")){
-            return;
-        }
         this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Vigo"));
         cargarCarta();
-        eliminarCarrito();
     }
 
     private void eliminarCarrito() {
