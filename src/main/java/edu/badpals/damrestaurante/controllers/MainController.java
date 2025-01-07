@@ -64,7 +64,7 @@ public class MainController {
         }
     }
 
-    static void redirectToCarta(Node btn) {
+    static void redirectToCarta(Node btn, UsuarioActual user) {
         try {
             // Cargar el archivo FXML de la vista del índice
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("carta.fxml"));
@@ -76,6 +76,9 @@ public class MainController {
             // Cambiar la escena del Stage actual
             currentStage.setScene(new Scene(root));
             currentStage.setTitle("Carta");
+
+            CartaController controller = loader.getController();
+            controller.setUser(user);
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "No se pudo cargar la pantalla de carta.");

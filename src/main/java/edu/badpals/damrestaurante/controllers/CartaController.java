@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.Main;
 import edu.badpals.damrestaurante.entities.CartaComida;
+import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -78,6 +79,8 @@ public class CartaController {
 
     private List<CartaComida> comidas = new ArrayList<>();
 
+    private UsuarioActual user;
+
 
     @FXML
     void onBtnClickCarrito(ActionEvent event) {
@@ -138,4 +141,11 @@ public class CartaController {
         }
     }
 
+    public UsuarioActual getUser() {
+        return user;
+    }
+
+    public void setUser(UsuarioActual user) {
+        this.user = user;
+    }
 }

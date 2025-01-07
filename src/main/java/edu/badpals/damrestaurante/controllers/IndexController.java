@@ -170,7 +170,7 @@ public class IndexController {
     @FXML
     void onBtnClickCarta(ActionEvent event) {
         System.out.println("Botón Carta pulsado");
-        MainController.redirectToCarta(btnCarta);
+        MainController.redirectToCarta(btnCarta,user);
     }
 
     @FXML
