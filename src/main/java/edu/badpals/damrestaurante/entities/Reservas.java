@@ -86,6 +86,7 @@ public class Reservas {
         this.reservaAceptada = reservaAceptada;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

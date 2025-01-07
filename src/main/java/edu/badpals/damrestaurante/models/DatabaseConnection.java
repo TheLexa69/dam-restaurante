@@ -72,20 +72,6 @@ public class DatabaseConnection {
         return carta;
     }
 
-    //    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
-//    mesa con la cantidad de comensales adecuada va a devolver null
-    public static Mesas getMesaPorComensales(EntityManager em, int comensales) {
-
-        Query query = em.createQuery("select cc from Mesas cc where ocupada = 0 order by cc.cupo ASC");
-        List<Mesas> mesas = query.getResultList();
-        for (Mesas mesa : mesas) {
-            if (mesa.getCupo() > comensales) {
-                return mesa;
-            }
-        }
-        return null;
-    }
-
     public static UsuarioActual authenticateUser(EntityManager em, String mail, String pwd) {
         try {
             List<UsuarioActual> usuariosActuales = DatabaseConnection.getUsers(em);
@@ -338,8 +324,29 @@ public class DatabaseConnection {
         return carritoComidas;
     }
 
-    public static CartaComida getComida(EntityManager em, int idComida){
+    public static CartaComida getComida(EntityManager em, int idComida) {
         return em.find(CartaComida.class, idComida);
+    }
+
+    public static List<Mesas> getMesasPorFechaTurno(EntityManager em, Turno turno, java.sql.Date fecha, int comensales, Empresa empresa) {
+        Query query = em.createQuery(
+                "SELECT m FROM Mesas m WHERE m.idEmpresa = :empresa AND m.cupo >= :comensales " +
+                        "AND m.idMesa NOT IN (SELECT r.idMesa FROM Reservas r WHERE r.idRestaurante = :idrestaurante AND r.fechaReserva = :fecha AND r.turno = :turno)"
+        );
+        query.setParameter("empresa", empresa.getCif());
+        query.setParameter("comensales", comensales);
+        query.setParameter("idrestaurante", empresa.getCif());
+        query.setParameter("fecha", fecha);
+        query.setParameter("turno", turno);
+
+
+        try {
+            List<Mesas> mesasLibres = query.getResultList();
+            return mesasLibres;
+        } catch (NoResultException e) {
+            return new ArrayList<>();
+        }
+
     }
 
 }

@@ -58,7 +58,7 @@ public class CarritoController {
             for (int i = 0; i < comidas.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
 //                fxmlLoader.setLocation(Main.class.getResource("item.fxml"));
-                fxmlLoader.setLocation(getClass().getResource("/edu/badpals/damrestaurante/carrito.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/edu/badpals/damrestaurante/itemCardPayment.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 // Obtén el controlador del fxmlLoader

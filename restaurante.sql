@@ -70,7 +70,7 @@ create table if not exists reservas (
     id_restaurante varchar(10),
     id_mesa int,
     fecha_reserva date not null,
-    turno enum('comer', 'cenar'),
+    turno enum('MANANA', 'TARDE', 'NOCHE'),
     reservaAceptada boolean DEFAULT false,
     constraint pk_id primary key (id_reservas)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
