@@ -349,7 +349,7 @@ public class DatabaseConnection {
 
     }
 
-    public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa){
+    public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa) {
         Reservas reserva = new Reservas();
         reserva.setFechaReserva(fecha);
         reserva.setTurno(turno);
@@ -371,18 +371,63 @@ public class DatabaseConnection {
 
     }
 
-    public static List<Empresa> getEmpresas(EntityManager em){
+    public static List<Empresa> getEmpresas(EntityManager em) {
         Query query = em.createQuery("select cc from Empresa cc");
         List<Empresa> empresas = query.getResultList();
 
         return empresas;
     }
 
-    public static Empresa getEmpresaPorNombre(EntityManager em,String nombre){
+    public static Empresa getEmpresaPorNombre(EntityManager em, String nombre) {
         Query query = em.createQuery("select cc from Empresa cc where nombreLocal = :nomrbe");
-        query.setParameter("nomrbe",nombre);
+        query.setParameter("nomrbe", nombre);
         Empresa empresa = (Empresa) query.getSingleResult();
         return empresa;
     }
 
+    public static void eliminarUser(EntityManager em, UsuarioActual usuarioActual) {
+        Usuario usuario = em.find(Usuario.class, usuarioActual.getIdUsuario());
+        if (usuario == null) {
+            System.out.println("Usuario not found");
+            return;
+        }
+        borrarUsuariosPasados(em, usuarioActual);
+        em.getTransaction().begin();
+        try {
+            em.remove(usuarioActual);
+            em.remove(usuario);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    private static void borrarUsuariosPasados(EntityManager em, UsuarioActual usuarioActual) {
+        List<UsuarioPasado> usuarioPasados = null;
+        try {
+            Query query = em.createQuery("select c from UsuarioPasado c where idUsuarioPasado = :userAct");
+            query.setParameter("userAct", usuarioActual.getIdUsuario());
+            usuarioPasados = query.getResultList();
+        } catch (NoResultException e) {
+            return;
+        }
+
+        em.getTransaction().begin();
+        try {
+            for(UsuarioPasado usuarioPasado: usuarioPasados){
+                Usuario usuario = em.find(Usuario.class,usuarioPasado.getIdUsuario());
+                em.remove(usuarioPasado);
+                em.remove(usuario);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }

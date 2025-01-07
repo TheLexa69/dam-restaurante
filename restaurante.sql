@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS usuario_actual (
 CREATE TABLE IF NOT EXISTS usuario_pasado (
     id_datos_usuario INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
-    id_usuario_pasado INT NOT NULL,
+    id_usuario_pasado INT NULL,
     PRIMARY KEY (id_datos_usuario),
     CONSTRAINT fk_usuario_pasado_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     CONSTRAINT fk_usuario_pasado_usuario_actual FOREIGN KEY (id_usuario_pasado) REFERENCES usuario_actual(id_usuario)

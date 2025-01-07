@@ -1,129 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="663.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.EditarPerfilController">
+<?import java.net.URL?>
+<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="663.0" prefWidth="676.0"
+      xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="edu.badpals.damrestaurante.controllers.EditarPerfilController">
     <stylesheets>
-        <URL value="@./styles.css" />
+        <URL value="@./styles.css"/>
     </stylesheets>
     <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <VBox prefHeight="488.0" prefWidth="656.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="30.0" prefWidth="57.0" text="Perfil" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="364.0" prefWidth="656.0">
-                     <children>
-                        <HBox prefHeight="364.0" prefWidth="475.0">
-                           <children>
-                              <VBox prefHeight="364.0" prefWidth="176.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="200.0" text="DNI:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="174.0" text="Nombre:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="174.0" text="Apellido:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="56.0" prefWidth="174.0" text="Segundo Apellido:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="174.0" text="Dirección:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="174.0" text="Codigo Postal:" textFill="WHITE" />
-                                    <Label alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="174.0" text="Telefono:" textFill="WHITE" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox prefHeight="364.0" prefWidth="285.0">
-                                 <children>
-                                    <TextField fx:id="txtDni" prefHeight="46.0" prefWidth="97.0" stylesheets="@styles.css" text="77550032N" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtNombre" prefHeight="44.0" prefWidth="100.0" stylesheets="@styles.css" text="Victor" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtApellido" prefHeight="43.0" prefWidth="100.0" stylesheets="@styles.css" text="Sanchez" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtSegundoApellido" prefHeight="48.0" prefWidth="100.0" stylesheets="@styles.css" text="Nogueira" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtDireccion" prefHeight="41.0" prefWidth="100.0" stylesheets="@styles.css" text="Rua Da Laxe 10 1B" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtCP" prefHeight="46.0" prefWidth="97.0" stylesheets="@styles.css" text="36800" />
-                                    <Separator prefWidth="200.0" />
-                                    <TextField fx:id="txtTelef" prefHeight="46.0" prefWidth="97.0" stylesheets="@styles.css" text="684022890" />
-                                    <Separator prefWidth="200.0" />
-                                 </children>
-                              </VBox>
-                           </children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <VBox prefHeight="488.0" prefWidth="656.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <Label prefHeight="30.0" prefWidth="57.0" text="Perfil" textAlignment="CENTER"
+                                       textFill="WHITE">
+                                    <font>
+                                        <Font size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets top="10.0"/>
+                            </padding>
                         </HBox>
-                        <VBox prefHeight="445.0" prefWidth="162.0">
-                           <children>
-                              <ImageView fitHeight="163.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/perfil.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <padding>
-                              <Insets right="35.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-<!--        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">-->
-<!--            <content>-->
-<!--                <GridPane fx:id="gridPaneMenu">-->
-<!--                    <columnConstraints>-->
-<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
-<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
-<!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
-<!--                    </columnConstraints>-->
-<!--                    <rowConstraints>-->
-<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
-<!--                    </rowConstraints>-->
-<!--                </GridPane>-->
-<!--            </content>-->
-<!--        </ScrollPane>-->
+                        <HBox prefHeight="364.0" prefWidth="656.0">
+                            <children>
+                                <HBox prefHeight="364.0" prefWidth="475.0">
+                                    <children>
+                                        <VBox prefHeight="364.0" prefWidth="176.0">
+                                            <children>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="200.0"
+                                                       text="DNI:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="174.0"
+                                                       text="Nombre:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="174.0"
+                                                       text="Apellido:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="56.0" prefWidth="174.0"
+                                                       text="Segundo Apellido:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="174.0"
+                                                       text="Dirección:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="174.0"
+                                                       text="Codigo Postal:" textFill="WHITE"/>
+                                                <Label alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="174.0"
+                                                       text="Telefono:" textFill="WHITE"/>
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets/>
+                                            </opaqueInsets>
+                                            <HBox.margin>
+                                                <Insets right="10.0"/>
+                                            </HBox.margin>
+                                        </VBox>
+                                        <VBox prefHeight="364.0" prefWidth="285.0">
+                                            <children>
+                                                <TextField fx:id="txtDni" prefHeight="46.0" prefWidth="97.0"
+                                                           stylesheets="@styles.css" text="77550032N"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtNombre" prefHeight="44.0" prefWidth="100.0"
+                                                           stylesheets="@styles.css" text="Victor"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtApellido" prefHeight="43.0" prefWidth="100.0"
+                                                           stylesheets="@styles.css" text="Sanchez"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtSegundoApellido" prefHeight="48.0"
+                                                           prefWidth="100.0" stylesheets="@styles.css" text="Nogueira"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtDireccion" prefHeight="41.0" prefWidth="100.0"
+                                                           stylesheets="@styles.css" text="Rua Da Laxe 10 1B"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtCP" prefHeight="46.0" prefWidth="97.0"
+                                                           stylesheets="@styles.css" text="36800"/>
+                                                <Separator prefWidth="200.0"/>
+                                                <TextField fx:id="txtTelef" prefHeight="46.0" prefWidth="97.0"
+                                                           stylesheets="@styles.css" text="684022890"/>
+                                                <Separator prefWidth="200.0"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <VBox prefHeight="445.0" prefWidth="162.0">
+                                    <children>
+                                        <ImageView fitHeight="163.0" fitWidth="234.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@images/perfil.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                    <padding>
+                                        <Insets right="35.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <!--        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">-->
+        <!--            <content>-->
+        <!--                <GridPane fx:id="gridPaneMenu">-->
+        <!--                    <columnConstraints>-->
+        <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+        <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+        <!--                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+        <!--                    </columnConstraints>-->
+        <!--                    <rowConstraints>-->
+        <!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+        <!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+        <!--                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />-->
+        <!--                    </rowConstraints>-->
+        <!--                </GridPane>-->
+        <!--            </content>-->
+        <!--        </ScrollPane>-->
         <AnchorPane prefHeight="100.0" prefWidth="640.0">
             <children>
-                
-            <Separator fx:id="sepHome" layoutX="186.0" layoutY="86.0" prefHeight="3.0" prefWidth="67.0" visible="false" />
-            <Separator fx:id="sepPerfil" layoutX="391.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" visible="false" />
-            <Separator fx:id="sepHome1" layoutX="295.0" orientation="VERTICAL" prefHeight="102.0" prefWidth="67.0" />
-                  <ImageView fx:id="imgEditarPerfilUpdate" fitHeight="62.0" fitWidth="60.0" layoutX="394.0" layoutY="22.0" onMouseClicked="#updateProfile" onMouseEntered="#setVisibilityReload" onMouseExited="#setInvisibilityReload" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="@images/update.png" />
-                      </image>
-                  </ImageView>
-                  <ImageView fx:id="imgEditarPerfilHome" fitHeight="69.0" fitWidth="84.0" layoutX="187.0" layoutY="17.0" onMouseClicked="#goIndex" onMouseEntered="#setVisibilityHouse" onMouseExited="#setInvisibilityHouse" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/64/home_106630.png" />
-                      </image>
-                  </ImageView>
+                <Separator fx:id="sepHome1" layoutX="221.0" layoutY="1.0" orientation="VERTICAL" prefHeight="102.0"
+                           prefWidth="67.0"/>
+                <ImageView fx:id="imgEditarPerfilUpdate" fitHeight="62.0" fitWidth="60.0" layoutX="288.0" layoutY="22.0"
+                           onMouseClicked="#updateProfile" onMouseEntered="#setVisibilityReload"
+                           onMouseExited="#setInvisibilityReload" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/update.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="imgEditarPerfilHome" fitHeight="69.0" fitWidth="84.0" layoutX="152.0" layoutY="17.0"
+                           onMouseClicked="#goIndex" onMouseEntered="#setVisibilityHouse"
+                           onMouseExited="#setInvisibilityHouse" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="https://cdn.icon-icons.com/icons2/1527/PNG/64/home_106630.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="imgEditarPerfilDelete" fitHeight="62.0" fitWidth="60.0" layoutX="416.0" layoutY="22.0"
+                           onMouseClicked="#deleteProfile" onMouseEntered="#setVisibilityDelete"
+                           onMouseExited="#setInvisibilityDelete" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/trash.png"/>
+                    </image>
+                </ImageView>
+                <Separator fx:id="sepHome11" layoutX="348.0" layoutY="1.0" orientation="VERTICAL" prefHeight="102.0"
+                           prefWidth="67.0"/>
+                <Separator fx:id="separatorHome" visible="false" layoutX="155.0" layoutY="85.0" prefHeight="3.0"
+                           prefWidth="60.0"/>
+                <Separator fx:id="separatorUpdate" visible="false" layoutX="284.0" layoutY="88.0" prefHeight="3.0"
+                           prefWidth="67.0"/>
+                <Separator fx:id="separatorDelete" visible="false" layoutX="420.0" layoutY="90.0" prefHeight="3.0"
+                           prefWidth="51.0"/>
             </children>
         </AnchorPane>
     </children>
