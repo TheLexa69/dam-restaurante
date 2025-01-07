@@ -29,6 +29,9 @@ public class Reservas {
     @Basic
     @Column(name = "reservaAceptada", nullable = true)
     private Byte reservaAceptada;
+    @ManyToOne
+    @JoinColumn(name = "id_mesa", referencedColumnName = "id_mesa", insertable = false, updatable = false)
+    private Mesas mesa;
 
     public int getIdReservas() {
         return idReservas;
@@ -86,6 +89,13 @@ public class Reservas {
         this.reservaAceptada = reservaAceptada;
     }
 
+    public Mesas getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesas mesa) {
+        this.mesa = mesa;
+    }
 
     @Override
     public boolean equals(Object o) {

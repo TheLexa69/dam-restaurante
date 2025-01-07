@@ -43,10 +43,13 @@ public class EditarPerfilController {
     private TextField txtTelef;
 
     @FXML
-    private Separator sepHome;
+    private Separator separatorHome;
 
     @FXML
-    private Separator sepPerfil;
+    private Separator separatorUpdate;
+
+    @FXML
+    private Separator separatorDelete;
 
     @FXML
     private ImageView imgEditarPerfilUpdate;
@@ -101,19 +104,19 @@ public class EditarPerfilController {
     }
 
     public void setVisibilityReload(MouseEvent mouseEvent) {
-        sepPerfil.setVisible(true);
+        separatorUpdate.setVisible(true);
     }
 
     public void setInvisibilityReload(MouseEvent mouseEvent) {
-        sepPerfil.setVisible(false);
+        separatorUpdate.setVisible(false);
     }
 
     public void setVisibilityHouse(MouseEvent mouseEvent) {
-        sepHome.setVisible(true);
+        separatorHome.setVisible(true);
     }
 
     public void setInvisibilityHouse(MouseEvent mouseEvent) {
-        sepHome.setVisible(false);
+        separatorHome.setVisible(false);
     }
 
     public static boolean isValidDni(String dni) {
@@ -146,5 +149,23 @@ public class EditarPerfilController {
     public static boolean isValidPostalCode(String postalCode) {
         // Verify that the postal code has exactly 5 digits
         return postalCode != null && postalCode.matches("\\d{5}");
+    }
+
+    public void deleteProfile(MouseEvent mouseEvent) {
+        String nombre = DatabaseConnection.getUserByUserActual(MainController.em,user).getNombre();
+        String message = "Estas seguro que quieres eliminar el usuario " + nombre;
+        String title = "Eliminar Usuario";
+        if (MainController.showConfirmationDialog(title, message)){
+            DatabaseConnection.eliminarUser(MainController.em,user);
+            MainController.redirectToLogin(txtNombre);
+        }
+    }
+
+    public void setVisibilityDelete(MouseEvent mouseEvent) {
+        separatorDelete.setVisible(true);
+    }
+
+    public void setInvisibilityDelete(MouseEvent mouseEvent) {
+        separatorDelete.setVisible(false);
     }
 }

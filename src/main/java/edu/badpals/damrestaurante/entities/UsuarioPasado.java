@@ -15,7 +15,7 @@ public class UsuarioPasado {
     @Column(name = "id_usuario", nullable = false)
     private int idUsuario;
     @Basic
-    @Column(name = "id_usuario_pasado", nullable = false)
+    @Column(name = "id_usuario_pasado")
     private int idUsuarioPasado;
 
     public int getIdDatosUsuario() {
@@ -38,7 +38,7 @@ public class UsuarioPasado {
         return idUsuarioPasado;
     }
 
-    public void setIdUsuarioPasado(int idUsuarioPasado) {
+    public void setIdUsuarioPasado(Integer idUsuarioPasado) {
         this.idUsuarioPasado = idUsuarioPasado;
     }
 

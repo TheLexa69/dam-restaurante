@@ -2,6 +2,7 @@ package edu.badpals.damrestaurante.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +23,16 @@ public class Mesas {
     @Basic
     @Column(name = "ocupada", nullable = false)
     private byte ocupada;
+    @OneToMany(mappedBy = "mesa")
+    private List<Reservas> reservas;
+
+    public List<Reservas> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reservas> reservas) {
+        this.reservas = reservas;
+    }
 
     public int getIdMesa() {
         return idMesa;

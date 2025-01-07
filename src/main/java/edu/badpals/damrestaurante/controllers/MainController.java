@@ -10,9 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController {
     static EntityManager em = DatabaseConnection.connectEm();
@@ -24,6 +26,16 @@ public class MainController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    static boolean showConfirmationDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     static void redirectToIndex(Node btn) {
@@ -41,6 +53,20 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "No se pudo cargar la pantalla principal.");
+        }
+    }
+
+    static void redirectToLogin(Node btn) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SceneLogin.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) btn.getScene().getWindow();
+            stage.setTitle("T is Restaurant");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error al cargar la ventana principal" + e.getMessage());
         }
     }
 
