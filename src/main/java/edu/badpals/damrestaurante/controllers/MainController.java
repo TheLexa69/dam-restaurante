@@ -106,7 +106,7 @@ public class MainController {
 
             CartaController controller = loader.getController();
             controller.setUser(user);
-            Empresa empresa = DatabaseConnection.getEmpresa(em,"Restaurante Central");
+            Empresa empresa = DatabaseConnection.getEmpresa(em,"Vigo");
             controller.setEmpresa(empresa);
             controller.cargarCarta();
         } catch (IOException e) {

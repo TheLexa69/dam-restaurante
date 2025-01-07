@@ -313,15 +313,19 @@ public class DatabaseConnection {
     }
 
     public static List<CarritoComida> getCarritoComida(EntityManager em, UsuarioActual usera) {
-        List<CartaComida> comidas = new ArrayList<>();
-        Usuario user = em.find(Usuario.class, usera.getIdUsuario());
-        Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.idUsuario = :userId");
-        query.setParameter("userId", user.getIdUsuario());
-        Carrito carrito = (Carrito) query.getSingleResult();
-        query = em.createQuery("SELECT c FROM CarritoComida c WHERE c.idCarrito = :carritoId");
-        query.setParameter("carritoId", carrito.getIdCarro());
-        List<CarritoComida> carritoComidas = query.getResultList();
-        return carritoComidas;
+        try {
+            List<CartaComida> comidas = new ArrayList<>();
+            Usuario user = em.find(Usuario.class, usera.getIdUsuario());
+            Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.idUsuario = :userId");
+            query.setParameter("userId", user.getIdUsuario());
+            Carrito carrito = (Carrito) query.getSingleResult();
+            query = em.createQuery("SELECT c FROM CarritoComida c WHERE c.idCarrito = :carritoId");
+            query.setParameter("carritoId", carrito.getIdCarro());
+            List<CarritoComida> carritoComidas = query.getResultList();
+            return carritoComidas;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public static CartaComida getComida(EntityManager em, int idComida) {
@@ -351,7 +355,7 @@ public class DatabaseConnection {
     }
 
     //EN ESTA RESERVAMOS LAS MESAS
-    public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa){
+    public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa) {
         Reservas reserva = new Reservas();
         reserva.setFechaReserva(fecha);
         reserva.setTurno(turno);
@@ -380,9 +384,9 @@ public class DatabaseConnection {
         return empresas;
     }
 
-    public static Empresa getEmpresaPorNombre(EntityManager em,String nombre){
+    public static Empresa getEmpresaPorNombre(EntityManager em, String nombre) {
         Query query = em.createQuery("select cc from Empresa cc where nombreLocal = :nombre");
-        query.setParameter("nombre",nombre);
+        query.setParameter("nombre", nombre);
         Empresa empresa = (Empresa) query.getSingleResult();
         return empresa;
     }
@@ -419,8 +423,8 @@ public class DatabaseConnection {
 
         em.getTransaction().begin();
         try {
-            for(UsuarioPasado usuarioPasado: usuarioPasados){
-                Usuario usuario = em.find(Usuario.class,usuarioPasado.getIdUsuario());
+            for (UsuarioPasado usuarioPasado : usuarioPasados) {
+                Usuario usuario = em.find(Usuario.class, usuarioPasado.getIdUsuario());
                 em.remove(usuarioPasado);
                 em.remove(usuario);
             }
@@ -434,31 +438,32 @@ public class DatabaseConnection {
     }
 
     public static CartaComida getInfoComida(EntityManager em, int id_comida) {
-
-        Query query = em.createQuery("select cc from CartaComida cc where idComida = :id_comida");
-        query.setParameter("id_comida", id_comida);
-        CartaComida cartaComida = (CartaComida) query.getSingleResult();
-        return cartaComida;
-
+        return em.find(CartaComida.class, id_comida);
     }
 
     public static CartaAlergenos getInfoComidaAlergenos(EntityManager em, int id_comida) {
-
-        Query query = em.createQuery("select ca from CartaAlergenos ca where idComida = :id_comida");
-        query.setParameter("id_comida", id_comida);
-        CartaAlergenos CartaAlergenos = (CartaAlergenos) query.getSingleResult();
-        return CartaAlergenos;
-
+        return em.find(CartaAlergenos.class, id_comida);
     }
 
     public static Alergenos getInfoAlergenos(EntityManager em, int id_alergeno) {
-
-        Query query = em.createQuery("select al from Alergenos al where idAlergeno = :id_alergeno");
-        query.setParameter("id_alergeno", id_alergeno);
-        Alergenos alergenos = (Alergenos) query.getSingleResult();
-        return alergenos;
-
+        return em.find(Alergenos.class, id_alergeno);
     }
 
 
+    public static CarritoComida setCantidadCarritoComida(EntityManager em, int idCarritoComida, int cantidadNueva) {
+        CarritoComida carritoComida = em.find(CarritoComida.class, idCarritoComida);
+        em.getTransaction().begin();
+        try {
+            carritoComida.setCantidad(cantidadNueva);
+            em.merge(carritoComida);
+            em.getTransaction().commit();
+            return carritoComida;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

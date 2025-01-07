@@ -51,6 +51,11 @@ public class CarritoController {
 
     public void cargarCarrito() {
         comidas = DatabaseConnection.getCarritoComida(MainController.em,user);
+        if(comidas == null){
+            MainController.showAlert("No existe Carrito","No has añadido nada al carrito aun, prueba a añadirlo desde la carta");
+            MainController.redirectToIndexChangeUser(btnClickPagar,user);
+            return;
+        }
         System.out.println(comidas);
         int column = 0;
         int row = 0;

@@ -36,7 +36,7 @@
                   </Label>
                   <HBox prefHeight="68.0" prefWidth="400.0">
                      <children>
-                        <Button fx:id="cntdComidaRestar" mnemonicParsing="false" prefHeight="21.0" prefWidth="15.0">
+                        <Button fx:id="cntdComidaRestar" mnemonicParsing="false" prefHeight="21.0" prefWidth="15.0" onAction="#restarComida">
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -50,7 +50,7 @@
                               <Insets left="5.0" right="5.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="cntdComidaSumar" mnemonicParsing="false">
+                        <Button fx:id="cntdComidaSumar" mnemonicParsing="false" onAction="#sumarComida">
                            <graphic>
                               <ImageView fitHeight="150.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

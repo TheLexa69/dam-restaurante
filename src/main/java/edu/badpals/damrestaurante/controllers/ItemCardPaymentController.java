@@ -1,7 +1,9 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.Main;
 import edu.badpals.damrestaurante.entities.*;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,6 +42,8 @@ public class ItemCardPaymentController {
     @FXML
     private Label comidaPrecio;
 
+    private double total;
+
 
     public void setData(CarritoComida carritoComida) {
         try {
@@ -55,7 +59,8 @@ public class ItemCardPaymentController {
 
             comidaNombre.setText(comida.getNombre());
             comidaCantidad.setText(String.valueOf(carritoComida.getCantidad()));
-            comidaPrecio.setText("Subtotal: " + (comida.getPrecio() * carritoComida.getCantidad()) + "€"); //SUBTOTAL
+            total = comida.getPrecio() * carritoComida.getCantidad();
+            comidaPrecio.setText("Subtotal: " + total + "€"); //SUBTOTAL
             comidaDescripcion.setText(comida.getDescripcion());
             comidaAlergenos.setText(alergenos.getNombreAlergeno());
 
@@ -93,5 +98,25 @@ public class ItemCardPaymentController {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+
+
+    public void restarComida(ActionEvent actionEvent) {
+        CarritoComida carritoComidaNuevo = DatabaseConnection.setCantidadCarritoComida(MainController.em,carritoComida.getId_carritoComida(),carritoComida.getCantidad()-1);
+        if (carritoComidaNuevo != null){
+            this.setData(carritoComidaNuevo);
+        } else {
+            MainController.showAlert("Error al añadir","No se pudo añadir al carrito");
+        }
+    }
+
+    public void sumarComida(ActionEvent actionEvent) {
+        CarritoComida carritoComidaNuevo = DatabaseConnection.setCantidadCarritoComida(MainController.em,carritoComida.getId_carritoComida(),carritoComida.getCantidad()+1);
+        if (carritoComidaNuevo != null){
+            this.setData(carritoComidaNuevo);
+        } else {
+            MainController.showAlert("Error al añadir","No se pudo añadir al carrito");
+        }
     }
 }
