@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
@@ -57,6 +58,9 @@ public class CartaController {
 
     @FXML
     private ScrollPane scroll;
+
+    @FXML
+    private ChoiceBox<String> selectRestaurant;
 
     @FXML
     private Separator sepCarrito;
@@ -110,6 +114,11 @@ public class CartaController {
         controlSeparadores(false, true, false, false, false);
         comidas = DatabaseConnection.getCarta(MainController.em);
         System.out.println(comidas);
+
+        // Añadir items al ChoiceBox
+        selectRestaurant.getItems().addAll("Vigo", "Pontevedra");
+        selectRestaurant.setValue("Vigo");
+
 
         int column = 0;
         int row = 0;

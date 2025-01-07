@@ -22,3 +22,32 @@
     -fx-border-color: transparent;
     -fx-text-fill: white;
 }
+
+
+/* Estilo para el ChoiceBox */
+.choice-box {
+    -fx-background-color: rgba(17, 20, 37, 1);
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+}
+
+/* Estilo para los items del ChoiceBox */
+.choice-box .list-view {
+    -fx-background-color: rgba(17, 20, 37, 1);
+}
+
+.choice-box .list-view .list-cell {
+    -fx-padding: 10; /* Espaciado interno */
+    -fx-background-color: transparent; /* Fondo transparente para los items */
+}
+
+/* Estilo para cuando se pasa el mouse sobre un item */
+.choice-box .list-view .list-cell:hover {
+    -fx-background-color: #e0e0e0; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilo para el item seleccionado */
+.choice-box .list-view .list-cell:filled:selected {
+    -fx-background-color: #a0a0a0; /* Color de fondo del item seleccionado */
+    -fx-text-fill: white; /* Color del texto del item seleccionado */
+}

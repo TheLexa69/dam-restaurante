@@ -31,7 +31,7 @@ public class ItemController {
 
     @FXML
     void onBtnClickAddComida(ActionEvent event) {
-        System.out.println(this.nameLabel.getText() + " añadido al carrito.");
+        System.out.println(this.cartaComida.getIdComida() + " añadido al carrito.");
 
     }
 
