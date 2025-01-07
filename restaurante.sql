@@ -180,7 +180,7 @@ ALTER TABLE carta_comida ADD FOREIGN KEY (id_empresa) references empresa(cif);
 -- Insertar datos en la tabla usuario
 INSERT INTO usuario (nombre, apellido1, apellido2, fecha, num_telef, NIF, direccion, cp, img, correo, contraseña) 
 VALUES 
-('Juan', 'Pérez', 'Gómez', NOW(), '600123456', '12345678A', 'Calle Falsa 123', '28080', 'juan.jpg', 'juan@gmail.com', 'contraseña1'),
+('Juan', 'Pérez', 'Gómez', NOW(), '600123456', '12345678A', 'Calle Falsa 123', '28080', 'juan.jpg', 'juan@gmail.com', '5a63e75a6e7a09f1f2bbded46dd2acae2211c972f09f109c822cd7cc06db0db6'),
 ('María', 'López', 'Martínez', NOW(), '600987654', '87654321B', 'Avenida Real 45', '28081', 'maria.jpg', 'maria@gmail.com', 'contraseña2'),
 ('Carlos', 'Hernández', 'Ruiz', NOW(), '600112233', '11223344C', 'Calle Luna 67', '28082', 'carlos.jpg', 'carlos@gmail.com', 'contraseña3');
 

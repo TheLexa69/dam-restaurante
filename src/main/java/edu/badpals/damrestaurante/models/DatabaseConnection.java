@@ -387,4 +387,49 @@ public class DatabaseConnection {
         return empresa;
     }
 
+    public static void eliminarUser(EntityManager em, UsuarioActual usuarioActual) {
+        Usuario usuario = em.find(Usuario.class, usuarioActual.getIdUsuario());
+        if (usuario == null) {
+            System.out.println("Usuario not found");
+            return;
+        }
+        borrarUsuariosPasados(em, usuarioActual);
+        em.getTransaction().begin();
+        try {
+            em.remove(usuarioActual);
+            em.remove(usuario);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    private static void borrarUsuariosPasados(EntityManager em, UsuarioActual usuarioActual) {
+        List<UsuarioPasado> usuarioPasados = null;
+        try {
+            Query query = em.createQuery("select c from UsuarioPasado c where idUsuarioPasado = :userAct");
+            query.setParameter("userAct", usuarioActual.getIdUsuario());
+            usuarioPasados = query.getResultList();
+        } catch (NoResultException e) {
+            return;
+        }
+
+        em.getTransaction().begin();
+        try {
+            for(UsuarioPasado usuarioPasado: usuarioPasados){
+                Usuario usuario = em.find(Usuario.class,usuarioPasado.getIdUsuario());
+                em.remove(usuarioPasado);
+                em.remove(usuario);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }
