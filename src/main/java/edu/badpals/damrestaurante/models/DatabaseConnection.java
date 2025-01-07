@@ -373,7 +373,7 @@ public class DatabaseConnection {
 
     }
 
-    public static List<Empresa> getEmpresas(EntityManager em){
+    public static List<Empresa> getEmpresas(EntityManager em) {
         Query query = em.createQuery("select cc from Empresa cc");
         List<Empresa> empresas = query.getResultList();
 
@@ -432,4 +432,33 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
+
+    public static CartaComida getInfoComida(EntityManager em, int id_comida) {
+
+        Query query = em.createQuery("select cc from CartaComida cc where idComida = :id_comida");
+        query.setParameter("id_comida", id_comida);
+        CartaComida cartaComida = (CartaComida) query.getSingleResult();
+        return cartaComida;
+
+    }
+
+    public static CartaAlergenos getInfoComidaAlergenos(EntityManager em, int id_comida) {
+
+        Query query = em.createQuery("select ca from CartaAlergenos ca where idComida = :id_comida");
+        query.setParameter("id_comida", id_comida);
+        CartaAlergenos CartaAlergenos = (CartaAlergenos) query.getSingleResult();
+        return CartaAlergenos;
+
+    }
+
+    public static Alergenos getInfoAlergenos(EntityManager em, int id_alergeno) {
+
+        Query query = em.createQuery("select al from Alergenos al where idAlergeno = :id_alergeno");
+        query.setParameter("id_alergeno", id_alergeno);
+        Alergenos alergenos = (Alergenos) query.getSingleResult();
+        return alergenos;
+
+    }
+
+
 }
