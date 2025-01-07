@@ -218,7 +218,7 @@ VALUES
 INSERT INTO carta_comida (nombre, descripcion, tipo, subtipo, fecha_inicio, fecha_fin, precio, disponible, img,id_empresa)
 VALUES 
 ('Pizza Margarita', 'Pizza con tomate, mozzarella y albahaca', 1, NULL, '2024-01-01', NULL, 8.5, TRUE, 'pizza_margarita.jpg',1234567890),
-('Hamburguesa Clásica', 'Hamburguesa con queso y lechuga', 2, 2, '2024-01-01', NULL, 10.0, TRUE, 'hamburguesa_clasica.jpg',1234567890);
+('Hamburguesa Clásica', 'Hamburguesa con queso y lechuga', 2, 2, '2024-01-01', NULL, 10.0, TRUE, 'hamburguesa_clasica.png',1234567890);
 
 -- Insertar datos en la tabla mesas
 INSERT INTO mesas (enumMesa,id_empresa,cupo) 
