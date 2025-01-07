@@ -82,11 +82,12 @@ public class LoginController {
     void onBtnClickUsuarioLogin(ActionEvent event) {
         String username = txtUsuarioLogin.getText();
         String password = txtUsuarioPwd.getText();
-        UsuarioActual user = DatabaseConnection.authenticateUser(em,username, password);
+        UsuarioActual userA = DatabaseConnection.authenticateUser(em,username, password);
 
-        if (!username.isBlank() && !password.isBlank() && user != null) {
-            showAlert("Inicio de sesión exitoso", "Bienvenido, " + username + "!");
-            redirectToIndexChangeUser(txtUsuarioLogin,user);
+        if (!username.isBlank() && !password.isBlank() && userA != null) {
+            Usuario user = DatabaseConnection.getUserByUserActual(em,userA);
+            showAlert("Inicio de sesión exitoso", "Bienvenido " + user.getNombre() + "!");
+            redirectToIndexChangeUser(txtUsuarioLogin,userA);
         } else {
             showAlert("Error de inicio de sesión", "Usuario o contraseña incorrectos.");
         }

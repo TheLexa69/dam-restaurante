@@ -1,5 +1,6 @@
 package edu.badpals.damrestaurante.controllers;
 
+import edu.badpals.damrestaurante.Main;
 import edu.badpals.damrestaurante.entities.CarritoComida;
 import edu.badpals.damrestaurante.entities.CartaComida;
 import edu.badpals.damrestaurante.entities.Empresa;
@@ -37,7 +38,9 @@ public class CarritoController {
 
     @FXML
     void onBtnClickPagar(ActionEvent event) {
-
+        DatabaseConnection.eliminarCarrito(MainController.em,user);
+            MainController.showAlert("Compra Exitosa","Gracias por la compra, tu pedido llegara pronto");
+            MainController.redirectToIndexChangeUser(btnClickPagar,user);
     }
 
     @FXML
