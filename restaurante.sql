@@ -81,14 +81,13 @@ create table if not exists mesas (
     enumMesa varchar(20) not null,
     id_empresa varchar(10) not null,
 	cupo int not null,
-	ocupada bool not null DEFAULT false,
     constraint pk_id primary key (id_mesa)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- TABLA EMPRESA
 create table if not exists empresa(
     cif varchar(10) not null,
-    nombreLocal varchar(120) not null,
+    nombreLocal varchar(120) not null unique ,
     nombre_sociedad varchar(120) not null,
     direccion varchar(60) not null,
     ciudad varchar(20) not null,
@@ -212,8 +211,8 @@ VALUES
 -- Insertar datos en la tabla empresa
 INSERT INTO empresa (cif, nombreLocal, nombre_sociedad, direccion, ciudad, cp, telefono, logo)
 VALUES 
-('1234567890', 'Restaurante Central', 'Central Foods S.A.', 'Calle Mayor 12', 'Madrid', 28013, 911234567, 'central_logo.jpg'),
-('0987654321', 'Bistro Norte', 'Norte Gourmet S.L.', 'Calle Sur 45', 'Barcelona', 08001, 933456789, 'norte_logo.jpg');
+('1234567890', 'Vigo', 'Central Foods S.A.', 'Calle Mayor 12', 'Madrid', 28013, 911234567, 'central_logo.jpg'),
+('0987654321', 'Pontevedra', 'Norte Gourmet S.L.', 'Calle Sur 45', 'Barcelona', 08001, 933456789, 'norte_logo.jpg');
 
 -- Insertar datos en la tabla carta_comida
 INSERT INTO carta_comida (nombre, descripcion, tipo, subtipo, fecha_inicio, fecha_fin, precio, disponible, img,id_empresa)

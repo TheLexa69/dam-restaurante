@@ -371,4 +371,18 @@ public class DatabaseConnection {
 
     }
 
+    public static List<Empresa> getEmpresas(EntityManager em){
+        Query query = em.createQuery("select cc from Empresa cc");
+        List<Empresa> empresas = query.getResultList();
+
+        return empresas;
+    }
+
+    public static Empresa getEmpresaPorNombre(EntityManager em,String nombre){
+        Query query = em.createQuery("select cc from Empresa cc where nombreLocal = :nomrbe");
+        query.setParameter("nomrbe",nombre);
+        Empresa empresa = (Empresa) query.getSingleResult();
+        return empresa;
+    }
+
 }
