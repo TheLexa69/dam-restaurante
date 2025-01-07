@@ -54,9 +54,10 @@ public class DatabaseConnection {
         return null;
     }
 
-    public static List<CartaComida> getCarta(EntityManager em) {
+    public static List<CartaComida> getCarta(EntityManager em, Empresa empresa) {
 
-        Query query = em.createQuery("select cc from CartaComida cc");
+        Query query = em.createQuery("select cc from CartaComida cc where cc.idEmpresa = :idEmpresa");
+        query.setParameter("idEmpresa", empresa.getCif());
         List<CartaComida> carta = query.getResultList();
 
         return carta;
@@ -112,7 +113,7 @@ public class DatabaseConnection {
             usuarioActual = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
             if (usuarioActual != null) {
 
-                Usuario usuario = em.find(Usuario.class,usuarioActual.getIdUsuario());
+                Usuario usuario = em.find(Usuario.class, usuarioActual.getIdUsuario());
 
                 Usuario usuarioNuevo = crearNuevoUsuarioSobreUsuario(em, usuario);
 
@@ -220,25 +221,107 @@ public class DatabaseConnection {
         }
     }
 
-    public static void addToCarrito(EntityManager em, CartaComida cartaComida, UsuarioActual user) {
-        Carrito carrito = getCarrito(em,user);
+    public static void addToCarrito(EntityManager em, CartaComida cartaComida, UsuarioActual user, Empresa empresa) {
+        Carrito carrito = getCarrito(em, user, empresa);
+        CarritoComida carritoComida = getCarritoComida(em, carrito, cartaComida);
+        if (carritoComida != null) {
+            carritoComida.setCantidad(carritoComida.getCantidad() + 1);
+            em.getTransaction().begin();
+            try {
+                em.merge(carritoComida);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                e.printStackTrace();
+            }
+        }
     }
 
-    private static Carrito getCarrito(EntityManager em, UsuarioActual user) {
+    private static CarritoComida getCarritoComida(EntityManager em, Carrito carrito, CartaComida cartaComida) {
         try {
-            Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.usuarioByIdUsuario = :userId");
-            query.setParameter("userId", user);
+            Query query = em.createQuery("SELECT cc FROM CarritoComida cc WHERE cc.idCarrito = :idCarrito AND cc.idComida = :idComida");
+            query.setParameter("idCarrito", carrito.getIdCarro());
+            query.setParameter("idComida", cartaComida.getIdComida());
+            return (CarritoComida) query.getSingleResult();
+        } catch (NoResultException e) {
+            crearCarritoComida(em, carrito, cartaComida);
+            return getCarritoComida(em, carrito, cartaComida);
+        }
+    }
+
+    private static void crearCarritoComida(EntityManager em, Carrito carrito, CartaComida cartaComida) {
+        CarritoComida carritoComida = new CarritoComida();
+        carritoComida.setIdComida(cartaComida.getIdComida());
+        carritoComida.setIdCarrito(carrito.getIdCarro());
+        carritoComida.setCantidad(0);
+        em.getTransaction().begin();
+        try {
+            em.persist(carritoComida);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    private static Carrito getCarrito(EntityManager em, UsuarioActual usera, Empresa empresa) {
+        Usuario user = em.find(Usuario.class, usera.getIdUsuario());
+        try {
+            Query query = em.createQuery("SELECT c FROM Carrito c WHERE c.idUsuario = :userId");
+            query.setParameter("userId", user.getIdUsuario());
             return (Carrito) query.getSingleResult();
         } catch (NoResultException e) {
-//            Carrito carritoNuevo = new Carrito();
-//            carritoNuevo.setUsuarioByIdUsuario(user.getUsuarioByIdUsuario());
-//            carritoNuevo.setComidaCantidad("");
-            return null;
+            crearCarrito(em, user, empresa);
+            return getCarrito(em, usera, empresa);
 
         }
     }
 
+    private static void crearCarrito(EntityManager em, Usuario user, Empresa empresa) {
+        Date date = new Date();
+
+        Factura factura = new Factura();
+        factura.setIdUsuario(user.getIdUsuario());
+        factura.setFecha(new Timestamp(date.getTime()));
+        factura.setTotal(0);
+        factura.setCifEmpresa(empresa.getCif());
+
+
+        Carrito carritoNuevo = new Carrito();
+        carritoNuevo.setIdUsuario(user.getIdUsuario());
+        carritoNuevo.setComidaCantidad("");
+        carritoNuevo.setIdFactura(factura.getIdFactura());
+
+        em.getTransaction().begin();
+        try {
+            em.persist(factura);
+            em.createNativeQuery("INSERT INTO carrito (id_usuario,comida_cantidad,id_factura) VALUES (?,?,?)")
+                    .setParameter(1, user.getIdUsuario())
+                    .setParameter(2, "")
+                    .setParameter(3, factura.getIdFactura())
+                    .executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+
+    }
+
     public static Usuario getUserByUserActual(EntityManager em, UsuarioActual user) {
-        return em.find(Usuario.class,user.getIdUsuario());
+        return em.find(Usuario.class, user.getIdUsuario());
+    }
+
+    public static Empresa getEmpresa(EntityManager em, String nombre) {
+        Query query = em.createQuery("SELECT c FROM Empresa c WHERE c.nombreLocal = :nombre");
+        query.setParameter("nombre", nombre);
+
+        return (Empresa) query.getSingleResult();
     }
 }

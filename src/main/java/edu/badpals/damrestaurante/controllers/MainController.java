@@ -1,6 +1,7 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.Main;
+import edu.badpals.damrestaurante.entities.Empresa;
 import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import jakarta.persistence.EntityManager;
@@ -79,6 +80,9 @@ public class MainController {
 
             CartaController controller = loader.getController();
             controller.setUser(user);
+            Empresa empresa = DatabaseConnection.getEmpresa(em,"Restaurante Central");
+            controller.setEmpresa(empresa);
+            controller.cargarCarta();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "No se pudo cargar la pantalla de carta.");

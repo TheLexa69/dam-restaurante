@@ -1,6 +1,7 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.entities.CartaComida;
+import edu.badpals.damrestaurante.entities.Empresa;
 import edu.badpals.damrestaurante.entities.UsuarioActual;
 import edu.badpals.damrestaurante.models.DatabaseConnection;
 import javafx.event.ActionEvent;
@@ -81,6 +82,8 @@ public class CartaController {
 
     private UsuarioActual user;
 
+    private Empresa empresa;
+
 
     @FXML
     void onBtnClickCarrito(ActionEvent event) {
@@ -111,7 +114,10 @@ public class CartaController {
     public void initialize() {
         System.out.println("CartaController inicializado");
         controlSeparadores(false, true, false, false, false);
-        comidas = DatabaseConnection.getCarta(MainController.em);
+    }
+
+    public void cargarCarta() {
+        comidas = DatabaseConnection.getCarta(MainController.em,empresa);
         System.out.println(comidas);
 
         // Añadir items al ChoiceBox
@@ -141,6 +147,7 @@ public class CartaController {
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new javafx.geometry.Insets(10));
                 itemController.setUser(user);
+                itemController.setEmpresa(empresa);
             }
         } catch (Exception e) {
             System.out.println("Error al cargar la carta: " + e.getMessage());
@@ -163,5 +170,13 @@ public class CartaController {
 
     public void setUser(UsuarioActual user) {
         this.user = user;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }
