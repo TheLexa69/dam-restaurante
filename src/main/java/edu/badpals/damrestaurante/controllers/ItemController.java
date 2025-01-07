@@ -1,8 +1,10 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.entities.CartaComida;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.File;
@@ -13,6 +15,8 @@ import java.io.File;
 import java.net.URL;
 
 public class ItemController {
+    @FXML
+    private Button btnAddComida;
 
     @FXML
     private ImageView img;
@@ -25,7 +29,11 @@ public class ItemController {
 
     private CartaComida cartaComida;
 
+    @FXML
+    void onBtnClickAddComida(ActionEvent event) {
+        System.out.println(this.nameLabel.getText() + " añadido al carrito.");
 
+    }
 
     public void setData(CartaComida cartaComida) {
         try {

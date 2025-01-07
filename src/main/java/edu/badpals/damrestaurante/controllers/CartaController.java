@@ -107,6 +107,7 @@ public class CartaController {
     @FXML
     public void initialize() {
         System.out.println("CartaController inicializado");
+        controlSeparadores(false, true, false, false, false);
         comidas = DatabaseConnection.getCarta(MainController.em);
         System.out.println(comidas);
 
@@ -136,6 +137,14 @@ public class CartaController {
             System.out.println("Error al cargar la carta: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public void controlSeparadores(Boolean estadoSepHome, Boolean estadoSepComedor, Boolean estadoSepReservas, Boolean estadoSepCarrito, Boolean estadoSepPerfil) {
+        sepHome.setVisible(estadoSepHome);
+        sepComedor.setVisible(estadoSepComedor);
+        sepReservas.setVisible(estadoSepReservas);
+        sepCarrito.setVisible(estadoSepCarrito);
+        sepPerfil.setVisible(estadoSepPerfil);
     }
 
 }
