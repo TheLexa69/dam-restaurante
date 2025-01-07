@@ -186,26 +186,8 @@ public class IndexController {
 
     @FXML
     void onBtnClickPerfil(ActionEvent event) {
-//        System.out.println("Botón Perfil pulsado");
-//        controlSeparadores(false, false, false, false, true);
-        try {
-            // Cargar el archivo FXML de la vista del índice
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("editarPerfil.fxml"));
-            Parent root = loader.load();
-            EditarPerfilController controller = loader.getController();
-            controller.setUser(user);
-            controller.cargarDatosUser();
 
-            // Obtener el Stage actual desde cualquier componente
-            Stage currentStage = (Stage) btnPerfil.getScene().getWindow();
-
-            // Cambiar la escena del Stage actual
-            currentStage.setScene(new Scene(root));
-            currentStage.setTitle("Editar Perfil");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla principal.");
-        }
+        MainController.redirectToChagePerfil(btnPerfil,user);
     }
 
     @FXML

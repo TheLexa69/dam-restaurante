@@ -109,7 +109,7 @@ public class CartaController {
 
     @FXML
     void onBtnClickPerfil(ActionEvent event) {
-
+        MainController.redirectToChagePerfil(btnInicio, user);
     }
 
     @FXML

@@ -110,4 +110,27 @@ public class MainController {
             showAlert("Error", "No se pudo cargar la pantalla de carta.");
         }
     }
+
+
+
+    static void redirectToChagePerfil(Node btn,UsuarioActual user) {
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("editarPerfil.fxml"));
+            Parent root = loader.load();
+            EditarPerfilController controller = loader.getController();
+            controller.setUser(user);
+            controller.cargarDatosUser();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btn.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Editar Perfil");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla principal.");
+        }
+    }
 }
