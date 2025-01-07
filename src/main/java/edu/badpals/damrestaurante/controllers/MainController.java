@@ -77,7 +77,7 @@ public class MainController {
             currentStage.setScene(new Scene(root));
             currentStage.setTitle("Carta");
 
-            IndexController controller = loader.getController();
+            CartaController controller = loader.getController();
             controller.setUser(user);
         } catch (IOException e) {
             e.printStackTrace();
