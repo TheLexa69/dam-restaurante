@@ -113,19 +113,21 @@ public class CartaController {
     }
 
     @FXML
-    void onBtnClickPontevedra(ActionEvent event) {
-        System.out.println("Has hecho clic en Pontevedra");
-    }
-
-    @FXML
     void onBtnClickReservas(ActionEvent event) {
         System.out.println("Botón Reservas pulsado");
         MainController.redirectToReservas(btnReservas, user);
     }
 
     @FXML
+    void onBtnClickPontevedra(ActionEvent event) {
+        this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Pontevedra"));
+        cargarCarta();
+    }
+
+    @FXML
     void onBtnClickVigo(ActionEvent event) {
-        System.out.println("Has hecho clic en Vigo");
+        this.setEmpresa(DatabaseConnection.getEmpresaPorNombre(MainController.em, "Vigo"));
+        cargarCarta();
     }
 
     @FXML

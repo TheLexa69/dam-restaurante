@@ -16,8 +16,8 @@ module edu.badpals.damrestaurante {
     exports edu.badpals.damrestaurante;
 
     requires java.sql;
-    requires java.base;
     requires javafx.media;
+    requires jdk.compiler;
 
     exports edu.badpals.damrestaurante.entities;
 }
