@@ -328,6 +328,7 @@ public class DatabaseConnection {
         return em.find(CartaComida.class, idComida);
     }
 
+    //ENSEÑAMOS EN EL LIST VIEW LAS MESAS LIBRES PARA ESE TURNO Y FECHA
     public static List<Mesas> getMesasPorFechaTurno(EntityManager em, Turno turno, java.sql.Date fecha, int comensales, Empresa empresa) {
         Query query = em.createQuery(
                 "SELECT m FROM Mesas m WHERE m.idEmpresa = :empresa AND m.cupo >= :comensales " +
@@ -349,6 +350,7 @@ public class DatabaseConnection {
 
     }
 
+    //EN ESTA RESERVAMOS LAS MESAS
     public static void reservarMesa(EntityManager em, Turno turno, java.sql.Date fecha, Empresa empresa, UsuarioActual user, Mesas mesa){
         Reservas reserva = new Reservas();
         reserva.setFechaReserva(fecha);
@@ -369,6 +371,20 @@ public class DatabaseConnection {
         }
 
 
+    }
+
+    public static List<Empresa> getEmpresas(EntityManager em){
+        Query query = em.createQuery("select cc from Empresa cc");
+        List<Empresa> empresas = query.getResultList();
+
+        return empresas;
+    }
+
+    public static Empresa getEmpresaPorNombre(EntityManager em,String nombre){
+        Query query = em.createQuery("select cc from Empresa cc where nombreLocal = :nombre");
+        query.setParameter("nombre",nombre);
+        Empresa empresa = (Empresa) query.getSingleResult();
+        return empresa;
     }
 
 }

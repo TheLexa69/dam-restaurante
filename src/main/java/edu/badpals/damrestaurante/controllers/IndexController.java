@@ -193,6 +193,8 @@ public class IndexController {
     @FXML
     void onBtnClickReservas(ActionEvent event) {
         System.out.println("Botón Reservas pulsado");
+
+        MainController.redirectToReservas(btnReservas, user);
         controlSeparadores(false, false, true, false, false);
     }
 

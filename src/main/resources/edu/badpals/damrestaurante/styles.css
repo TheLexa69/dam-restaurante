@@ -3,7 +3,7 @@
     -fx-padding: 10px;
 }
 
-#vboxIndex, #apCarrito,.text-field, #concello_pontevedra, #concello_vigo,GridPane{
+#vboxIndex, #apCarrito, #apReservas,.text-field, #concello_pontevedra, #concello_vigo,GridPane{
     -fx-background-color: rgba(17, 20, 37, 1);
 }
 
@@ -50,4 +50,8 @@
 .choice-box .list-view .list-cell:filled:selected {
     -fx-background-color: #a0a0a0; /* Color de fondo del item seleccionado */
     -fx-text-fill: white; /* Color del texto del item seleccionado */
+}
+
+.date-picker .month-label {
+    -fx-text-fill: black;
 }

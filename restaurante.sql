@@ -81,7 +81,6 @@ create table if not exists mesas (
     enumMesa varchar(20) not null,
     id_empresa varchar(10) not null,
 	cupo int not null,
-	ocupada bool not null DEFAULT false,
     constraint pk_id primary key (id_mesa)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
