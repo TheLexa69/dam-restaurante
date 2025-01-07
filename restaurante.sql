@@ -211,13 +211,13 @@ VALUES
 -- Insertar datos en la tabla empresa
 INSERT INTO empresa (cif, nombreLocal, nombre_sociedad, direccion, ciudad, cp, telefono, logo)
 VALUES 
-('1234567890', 'Vigo', 'Central Foods S.A.', 'Calle Mayor 12', 'Madrid', 28013, 911234567, 'central_logo.jpg'),
-('0987654321', 'Pontevedra', 'Norte Gourmet S.L.', 'Calle Sur 45', 'Barcelona', 08001, 933456789, 'norte_logo.jpg');
+('1234567890', 'Vigo', 'Central Foods S.A.', 'Calle Mayor 12', 'Vigo', 36208, 911234567, 'central_logo.jpg'),
+('0987654321', 'Pontevedra', 'Norte Gourmet S.L.', 'Calle Sur 45', 'Pontevedra', 36001, 933456789, 'norte_logo.jpg');
 
 -- Insertar datos en la tabla carta_comida
 INSERT INTO carta_comida (nombre, descripcion, tipo, subtipo, fecha_inicio, fecha_fin, precio, disponible, img,id_empresa)
 VALUES 
-('Pizza Margarita', 'Pizza con tomate, mozzarella y albahaca', 1, NULL, '2024-01-01', NULL, 8.5, TRUE, 'pizza_margarita.jpg',1234567890),
+('Pizza Margarita', 'Pizza con tomate, mozzarella y albahaca', 1, NULL, '2024-01-01', NULL, 8.5, TRUE, 'pizza_margarita.jpg',0987654321),
 ('Hamburguesa Clásica', 'Hamburguesa con queso y lechuga', 2, 2, '2024-01-01', NULL, 10.0, TRUE, 'hamburguesa_clasica.png',1234567890);
 
 -- Insertar datos en la tabla mesas
