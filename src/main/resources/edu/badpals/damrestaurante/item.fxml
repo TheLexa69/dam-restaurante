@@ -7,7 +7,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -15,28 +14,27 @@
    <children>
       <VBox alignment="TOP_CENTER" layoutX="63.0" layoutY="8.0" prefHeight="215.0" prefWidth="225.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="51.0" prefWidth="185.0">
-               <children>
-                  <Label fx:id="nameLabel" prefHeight="49.0" prefWidth="137.0" text="Cherry">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="priceLabel" prefHeight="49.0" prefWidth="101.0" text="\$0.99">
-                     <font>
-                        <Font name="Arial Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
+            <Label fx:id="nameLabel" alignment="CENTER" prefHeight="30.0" prefWidth="225.0" text="Cherry">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
                <VBox.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets bottom="5.0" top="30.0" />
                </VBox.margin>
-            </HBox>
+            </Label>
             <ImageView fx:id="img" fitHeight="115.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../damrestaurante/images/cherry.png" />
                </image>
             </ImageView>
+            <Label fx:id="priceLabel" prefHeight="47.0" prefWidth="48.0" text="\$0.99">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
             <Button fx:id="btnAddComida" mnemonicParsing="false" onAction="#onBtnClickAddComida" text="Añadir">
                <font>
                   <Font name="Arial" size="12.0" />
