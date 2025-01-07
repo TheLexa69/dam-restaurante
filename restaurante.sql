@@ -148,11 +148,6 @@ id_ped int not null,
 constraint pk_id_factura primary key (id_factura)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table if not exists modo_pago(
-  id_modo_pago int not null auto_increment primary key,
-  nombre varchar(50) not null
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE if not exists carrito_comida (
   id_carrito int NOT NULL auto_increment,
   id_comida int NOT NULL,
@@ -165,6 +160,9 @@ ALTER TABLE factura ADD FOREIGN KEY (cif_empresa) REFERENCES empresa(cif);
 
 ALTER TABLE carrito ADD FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
 ALTER TABLE carrito ADD FOREIGN KEY (id_factura) REFERENCES factura(id_factura);
+
+ALTER TABLE carrito_comida ADD FOREIGN KEY (id_carrito) REFERENCES carrito(id_carro);
+ALTER TABLE carrito_comida ADD FOREIGN KEY (id_comida) REFERENCES carta_comida(id_comida);
 
 ALTER TABLE reservas ADD FOREIGN KEY (id_usuario) REFERENCES usuario_actual(id_usuario);
 ALTER TABLE reservas ADD FOREIGN KEY (id_restaurante) REFERENCES empresa(cif);
