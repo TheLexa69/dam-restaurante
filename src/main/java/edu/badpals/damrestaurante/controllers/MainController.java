@@ -133,7 +133,28 @@ public class MainController {
             controller.cargarCarrito();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla de carta.");
+            showAlert("Error", "No se pudo cargar la pantalla de carrito.");
+        }
+    }
+
+    static void redirectToReservas(Node btn, UsuarioActual user){
+        try {
+            // Cargar el archivo FXML de la vista del índice
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("reservas.fxml"));
+            Parent root = loader.load();
+
+            // Obtener el Stage actual desde cualquier componente
+            Stage currentStage = (Stage) btn.getScene().getWindow();
+
+            // Cambiar la escena del Stage actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Reservas");
+
+            ReservasController controller = loader.getController();
+            controller.setUser(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo cargar la pantalla de reservas.");
         }
     }
 
