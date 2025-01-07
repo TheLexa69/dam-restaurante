@@ -1,9 +1,7 @@
 package edu.badpals.damrestaurante.controllers;
 
-import edu.badpals.damrestaurante.entities.CarritoComida;
-import edu.badpals.damrestaurante.entities.CartaComida;
-import edu.badpals.damrestaurante.entities.Empresa;
-import edu.badpals.damrestaurante.entities.UsuarioActual;
+import edu.badpals.damrestaurante.entities.*;
+import edu.badpals.damrestaurante.models.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,24 +44,35 @@ public class ItemCardPaymentController {
     public void setData(CarritoComida carritoComida) {
         try {
             this.carritoComida = carritoComida;
+            CartaComida comida = DatabaseConnection.getInfoComida(MainController.em, carritoComida.getIdComida());
+            CartaAlergenos cartaalergenos = DatabaseConnection.getInfoComidaAlergenos(MainController.em, carritoComida.getIdComida()); //NOS DEVUELVE EL ID DE LA COMIDA Y DEL ALERGENO
+            Alergenos alergenos = DatabaseConnection.getInfoAlergenos(MainController.em, cartaalergenos.getIdAlergeno()); //NOS DEVUELVE EL ID DEL ALERGENO Y EL NOMBRE DEL ALERGENO
 
-//
-//            nameLabel.setText(cartaComida.getNombre());
-//            priceLabel.setText(cartaComida.getPrecio() + "€");
-//
-//            String imagePath = "src/main/resources/edu/badpals/damrestaurante/images/comida/" + cartaComida.getImg();
-//            System.out.println("Ruta de la imagen: " + imagePath);
-//
-//            File imageFile = new File(imagePath);
-//            if (imageFile.exists()) {
-//                URL imageUrl = imageFile.toURI().toURL();
-//                System.out.println("URL de la imagen: " + imageUrl);
-//                Image image = new Image(imageUrl.openStream());
-//                img.setImage(image);
-//            } else {
-//                System.out.println("Image not found, using default image.");
-//                img.setImage(new Image("/edu/badpals/damrestaurante/images/comida/fabada.jpg"));
-//            }
+            System.out.println(cartaalergenos.getIdAlergeno());
+            System.out.println(comida.getIdComida());
+            System.out.println(comida.getNombre());
+            System.out.println(comida.getPrecio());
+
+            comidaNombre.setText(comida.getNombre());
+            comidaCantidad.setText(String.valueOf(carritoComida.getCantidad()));
+            comidaPrecio.setText("Subtotal: " + (comida.getPrecio() * carritoComida.getCantidad()) + "€"); //SUBTOTAL
+            comidaDescripcion.setText(comida.getDescripcion());
+            comidaAlergenos.setText(alergenos.getNombreAlergeno());
+
+
+            String imagePath = "src/main/resources/edu/badpals/damrestaurante/images/comida/" + comida.getImg();
+            System.out.println("Ruta de la imagen: " + imagePath);
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                URL imageUrl = imageFile.toURI().toURL();
+                System.out.println("URL de la imagen: " + imageUrl);
+                Image image = new Image(imageUrl.openStream());
+                comidaImagen.setImage(image);
+            } else {
+                System.out.println("Image not found, using default image.");
+                comidaImagen.setImage(new Image("/edu/badpals/damrestaurante/images/comida/fabada.jpg"));
+            }
         } catch (Exception e) {
             System.out.println("Error al cargar la imagen: " + e.getMessage());
             e.printStackTrace();
