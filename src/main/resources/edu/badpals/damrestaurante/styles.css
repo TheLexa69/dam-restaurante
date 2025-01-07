@@ -3,7 +3,7 @@
     -fx-padding: 10px;
 }
 
-#vboxIndex,.text-field,GridPane{
+#vboxIndex, #apCarrito,.text-field, #concello_pontevedra, #concello_vigo,GridPane{
     -fx-background-color: rgba(17, 20, 37, 1);
 }
 
@@ -17,7 +17,7 @@
 }
 
 
-#btnInicio, #btnReservas, #btnCarrito, #btnCarta, #btnPerfil{
+#btnInicio, #btnReservas, #btnCarrito, #btnCarta, #btnPerfil, #cntdComidaRestar, #cntdComidaSumar{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-text-fill: white;

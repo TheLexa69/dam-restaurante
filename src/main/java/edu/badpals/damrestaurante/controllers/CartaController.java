@@ -36,6 +36,13 @@ public class CartaController {
     @FXML
     private Button btnReservas;
 
+
+    @FXML
+    private Button concello_pontevedra;
+
+    @FXML
+    private Button concello_vigo;
+
     @FXML
     private GridPane grid;
 
@@ -87,7 +94,7 @@ public class CartaController {
 
     @FXML
     void onBtnClickCarrito(ActionEvent event) {
-
+        MainController.redirectToCarrito(btnCarrito, user);
     }
 
     @FXML
@@ -97,7 +104,7 @@ public class CartaController {
 
     @FXML
     void onBtnClickInicio(ActionEvent event) {
-
+        MainController.redirectToIndexChangeUser(btnInicio, user);
     }
 
     @FXML
@@ -106,8 +113,18 @@ public class CartaController {
     }
 
     @FXML
+    void onBtnClickPontevedra(ActionEvent event) {
+        System.out.println("Has hecho clic en Pontevedra");
+    }
+
+    @FXML
     void onBtnClickReservas(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBtnClickVigo(ActionEvent event) {
+        System.out.println("Has hecho clic en Vigo");
     }
 
     @FXML
@@ -119,11 +136,6 @@ public class CartaController {
     public void cargarCarta() {
         comidas = DatabaseConnection.getCarta(MainController.em,empresa);
         System.out.println(comidas);
-
-        // Añadir items al ChoiceBox
-        selectRestaurant.getItems().addAll("Vigo", "Pontevedra");
-        selectRestaurant.setValue("Vigo");
-
 
         int column = 0;
         int row = 0;

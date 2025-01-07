@@ -24,6 +24,7 @@ public class Factura {
     @Column(name = "total", nullable = false, precision = 0)
     private double total;
 
+
     public int getIdFactura() {
         return idFactura;
     }
@@ -63,6 +64,8 @@ public class Factura {
     public void setTotal(double total) {
         this.total = total;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

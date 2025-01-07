@@ -217,6 +217,7 @@ public class IndexController {
     @FXML
     void onBtnClickCarrito(ActionEvent event) {
         System.out.println("Botón Carrito pulsado");
+        MainController.redirectToCarrito(btnCarrito, user);
         controlSeparadores(false, false, false, true, false);
     }
 

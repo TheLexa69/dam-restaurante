@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="663.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.CartaController">
+<VBox fx:id="vboxIndex" maxHeight="Infinity" maxWidth="Infinity" prefHeight="734.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.badpals.damrestaurante.controllers.CartaController">
     <stylesheets>
         <URL value="@./styles.css" />
     </stylesheets>
     <children>
-        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="545.0" prefWidth="656.0" VBox.vgrow="NEVER">
+        <StackPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="654.0" prefWidth="693.0" VBox.vgrow="NEVER">
          <children>
-            <ScrollPane fx:id="scroll" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane fx:id="scroll" prefHeight="603.0" prefWidth="656.0">
                <content>
                   <GridPane fx:id="grid" prefHeight="542.0" prefWidth="654.0">
                     <columnConstraints>
@@ -38,9 +38,33 @@
                </content>
             </ScrollPane>
          </children></StackPane>
-        <AnchorPane prefHeight="100.0" prefWidth="640.0">
+      <AnchorPane prefHeight="0.0" prefWidth="656.0">
+         <children>
+            <Button fx:id="concello_vigo" mnemonicParsing="false" onAction="#onBtnClickVigo" prefHeight="51.0" prefWidth="120.0">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/concello_vigo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="concello_pontevedra" layoutX="529.0" mnemonicParsing="false" onAction="#onBtnClickPontevedra">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/concello_pontevedra.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </AnchorPane>
+        <AnchorPane prefHeight="101.0" prefWidth="656.0">
             <children>
-            <ChoiceBox fx:id="selectRestaurant" layoutX="2.0" layoutY="3.0" prefWidth="150.0" />
                 <Button fx:id="btnInicio" layoutX="10.0" layoutY="32.0" mnemonicParsing="false" onAction="#onBtnClickInicio">
                     <graphic>
                         <ImageView fx:id="imgIndexHome" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
@@ -92,6 +116,9 @@
                 <Separator fx:id="sepCarrito" layoutX="311.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
                 <Separator fx:id="sepPerfil" layoutX="573.0" layoutY="85.0" prefHeight="3.0" prefWidth="67.0" />
             </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
         </AnchorPane>
     </children>
 </VBox>
