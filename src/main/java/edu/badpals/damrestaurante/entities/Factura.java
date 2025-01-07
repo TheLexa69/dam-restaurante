@@ -23,9 +23,6 @@ public class Factura {
     @Basic
     @Column(name = "total", nullable = false, precision = 0)
     private double total;
-    @Basic
-    @Column(name = "id_ped", nullable = false)
-    private int idPed;
 
     public int getIdFactura() {
         return idFactura;
@@ -67,24 +64,16 @@ public class Factura {
         this.total = total;
     }
 
-    public int getIdPed() {
-        return idPed;
-    }
-
-    public void setIdPed(int idPed) {
-        this.idPed = idPed;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Factura factura = (Factura) o;
-        return idFactura == factura.idFactura && idUsuario == factura.idUsuario && Double.compare(total, factura.total) == 0 && idPed == factura.idPed && Objects.equals(cifEmpresa, factura.cifEmpresa) && Objects.equals(fecha, factura.fecha);
+        return idFactura == factura.idFactura && idUsuario == factura.idUsuario && Double.compare(total, factura.total) == 0 && Objects.equals(cifEmpresa, factura.cifEmpresa) && Objects.equals(fecha, factura.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idFactura, idUsuario, cifEmpresa, fecha, total, idPed);
+        return Objects.hash(idFactura, idUsuario, cifEmpresa, fecha, total);
     }
 }

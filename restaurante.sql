@@ -143,16 +143,16 @@ id_usuario int not null,
 cif_empresa varchar(10) not null,
 fecha TIMESTAMP not null,
 total float not null,
-id_ped int not null,
 
 constraint pk_id_factura primary key (id_factura)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE if not exists carrito_comida (
-  id_carrito int NOT NULL auto_increment,
+  id_carritoComida int AUTO_INCREMENT not null,
+  id_carrito int NOT NULL,
   id_comida int NOT NULL,
   cantidad int NOT NULL DEFAULT 1,
-  constraint pk_id_ped_prod primary key (id_carrito,id_comida)
+  constraint pk_id_ped_prod primary key (id_carritoComida)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE factura ADD FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);

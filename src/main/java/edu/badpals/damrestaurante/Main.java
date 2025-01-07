@@ -41,7 +41,6 @@ public class Main extends Application {
         System.out.println("Aplicacion iniciada");
         System.out.println("URL seleccionada: " + apicon.getSelectedUrl());
         System.out.println("Respuesta de la API: " + apicon.getApiResponse());
-
         launch();
 //        System.out.println(DatabaseConnection.getMesaPorComensales(DatabaseConnection.connectEm(),3));
     }
