@@ -21,11 +21,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static edu.badpals.damrestaurante.controllers.MainController.showAlert;
+
 public class IndexController {
 
     private UsuarioActual user;
-
-    private EntityManager em = DatabaseConnection.connectEm();
 
     @FXML
     private Button btnCarrito;
@@ -165,13 +165,12 @@ public class IndexController {
         SliderThread sliderThread = new SliderThread();
         sliderThread.setDaemon(true); // Al cerrar la aplicacion el hilo demonio se detiene
         sliderThread.start();
-        user = DatabaseConnection.getUsers(em).get(0);
     }
 
     @FXML
     void onBtnClickCarta(ActionEvent event) {
         System.out.println("Botón Carta pulsado");
-        showCarta();
+        MainController.redirectToCarta(btnCarta);
     }
 
     @FXML
@@ -217,30 +216,6 @@ public class IndexController {
         controlSeparadores(false, false, false, true, false);
     }
 
-    //
-    public void showCarta() {
-        try {
-            // Cargar el archivo FXML de la vista de carta
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("carta.fxml"));
-            Parent root = loader.load();
-
-            // Crear un nuevo Stage para la vista de carta
-            Stage cartaStage = new Stage();
-            cartaStage.setScene(new Scene(root));
-            cartaStage.setTitle("Carta");
-
-            // Mostrar el nuevo Stage
-            cartaStage.show();
-
-            // Cerrar el Stage actual
-            Stage currentStage = (Stage) btnCarta.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla de carta.");
-        }
-    }
-
 
     //ESCONDEMOS O ENSEÑAMOS LOS ELEMENTOS DEL INICIO
     public void showHideHome(Boolean estado) {
@@ -266,12 +241,11 @@ public class IndexController {
         sepPerfil.setVisible(estadoSepPerfil);
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public UsuarioActual getUser() {
+        return user;
     }
 
+    public void setUser(UsuarioActual user) {
+        this.user = user;
+    }
 }

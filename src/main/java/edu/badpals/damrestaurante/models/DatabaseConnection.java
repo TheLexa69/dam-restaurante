@@ -7,12 +7,17 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import edu.badpals.damrestaurante.entities.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseConnection {
@@ -65,47 +70,155 @@ public class DatabaseConnection {
         return carta;
     }
 
-//    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
+    //    Esta funcion se debe usar teniendo en cuenta que si no se encuentra una
 //    mesa con la cantidad de comensales adecuada va a devolver null
-    public static Mesas getMesaPorComensales(EntityManager em, int comensales){
+    public static Mesas getMesaPorComensales(EntityManager em, int comensales) {
 
         Query query = em.createQuery("select cc from Mesas cc where ocupada = false order by cc.cupo ASC");
         List<Mesas> mesas = query.getResultList();
-        for (Mesas mesa : mesas){
-            if(mesa.getCupo() > comensales){
+        for (Mesas mesa : mesas) {
+            if (mesa.getCupo() > comensales) {
                 return mesa;
             }
         }
         return null;
     }
 
-    public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp, String nuevaImg, String nuevoCorreo, String nuevaContraseña) {
-    try {
-        em.getTransaction().begin();
-
-        UsuarioActual usuario = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
-        if (usuario != null) {
-            Usuario usuarioBase = usuario.getUsuarioByIdUsuario();
-            usuarioBase.setNombre(nuevoNombre);
-            usuarioBase.setApellido1(nuevoApellido1);
-            usuarioBase.setApellido2(nuevoApellido2);
-            usuarioBase.setFecha(nuevaFecha);
-            usuarioBase.setNumTelef(nuevoNumTelef);
-            usuarioBase.setNif(nuevoNif);
-            usuarioBase.setDireccion(nuevaDireccion);
-            usuarioBase.setCp(nuevoCp);
-            usuarioBase.setImg(nuevaImg);
-            usuarioBase.setCorreo(nuevoCorreo);
-            usuarioBase.setContraseña(nuevaContraseña);
-            em.merge(usuarioBase);
+    public static UsuarioActual authenticateUser(EntityManager em, String mail, String pwd) {
+        try {
+            List<UsuarioActual> usuariosActuales = DatabaseConnection.getUsers(em);
+            Query query = em.createQuery("select cc from Usuario cc where correo = :mail and contraseña = :pwd");
+            pwd = DatabaseConnection.hashPassword(pwd);
+            query.setParameter("mail", mail);
+            query.setParameter("pwd", pwd);
+            query.setMaxResults(1);
+            Usuario user = (Usuario) query.getSingleResult();
+            for (UsuarioActual usuarioActual : usuariosActuales) {
+                if (usuarioActual.getIdUsuario() == user.getIdUsuario()) {
+                    return usuarioActual;
+                }
+            }
+            return null;
+        } catch (NoResultException e) {
+            System.out.println("No se encontro el user con estos datos");
+            return null;
         }
-
-        em.getTransaction().commit();
-    } catch (Exception e) {
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
-        }
-        e.printStackTrace();
     }
-}
+
+    public static void updatePerfil(EntityManager em, UsuarioActual usuarioActual, String nuevoNombre, String nuevoApellido1, String nuevoApellido2, Timestamp nuevaFecha, String nuevoNumTelef, String nuevoNif, String nuevaDireccion, String nuevoCp) {
+        try {
+            em.getTransaction().begin();
+
+            usuarioActual = em.find(UsuarioActual.class, usuarioActual.getIdUsuario());
+            if (usuarioActual != null) {
+
+                Usuario usuario = usuarioActual.getUsuarioByIdUsuario();
+
+                Usuario usuarioNuevo = crearNuevoUsuarioSobreUsuario(em, usuario);
+
+                crearUsuarioPasadoRefUsuarioNuevo(em, usuarioActual, usuarioNuevo);
+
+                usuario.setNombre(nuevoNombre);
+                usuario.setApellido1(nuevoApellido1);
+                usuario.setApellido2(nuevoApellido2);
+                usuario.setFecha(nuevaFecha);
+                usuario.setNumTelef(nuevoNumTelef);
+                usuario.setNif(nuevoNif);
+                usuario.setDireccion(nuevaDireccion);
+                usuario.setCp(nuevoCp);
+
+                em.merge(usuario);
+
+
+            }
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public static Usuario crearUsuairo(EntityManager em, String mail, String pwd) {
+        pwd = DatabaseConnection.hashPassword(pwd);
+
+        Usuario usuario = new Usuario();
+        Date date = new Date();
+
+        usuario.setNombre("");
+        usuario.setApellido1("");
+        usuario.setApellido2("");
+        usuario.setFecha(new Timestamp(date.getTime()));
+        usuario.setNumTelef("");
+        usuario.setNif("");
+        usuario.setDireccion("");
+        usuario.setCp("");
+        usuario.setCorreo(mail);
+        usuario.setContraseña(pwd);
+        usuario.setImg("");
+
+        em.getTransaction().begin();
+        try {
+            em.persist(usuario);
+            em.createNativeQuery("INSERT INTO usuario_actual (id_usuario) VALUES (?)")
+                    .setParameter(1, usuario.getIdUsuario())
+                    .executeUpdate();
+            em.getTransaction().commit();
+            return usuario;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    private static void crearUsuarioPasadoRefUsuarioNuevo(EntityManager em, UsuarioActual usuarioActual, Usuario usuarioNuevo) {
+        UsuarioPasado usuarioPasado = new UsuarioPasado();
+        usuarioPasado.setUsuarioByIdUsuario(usuarioNuevo);
+        usuarioPasado.setIdUsuario(usuarioNuevo.getIdUsuario());
+        usuarioPasado.setUsuarioActualByIdUsuarioPasado(usuarioActual);
+        usuarioPasado.setIdUsuarioPasado(usuarioActual.getIdUsuario());
+        em.persist(usuarioPasado);
+    }
+
+    private static Usuario crearNuevoUsuarioSobreUsuario(EntityManager em, Usuario usuario) {
+        Usuario usuarioNuevo = new Usuario();
+        usuarioNuevo.setNombre(usuario.getNombre());
+        usuarioNuevo.setApellido1(usuario.getApellido1());
+        usuarioNuevo.setApellido2(usuario.getApellido2());
+        usuarioNuevo.setFecha(usuario.getFecha());
+        usuarioNuevo.setNumTelef(usuario.getNumTelef());
+        usuarioNuevo.setNif(usuario.getNif());
+        usuarioNuevo.setDireccion(usuario.getDireccion());
+        usuarioNuevo.setCp(usuario.getCp());
+        usuarioNuevo.setImg(usuario.getImg());
+        usuarioNuevo.setCorreo("");
+        usuarioNuevo.setContraseña("");
+        em.persist(usuarioNuevo);
+        return usuarioNuevo;
+    }
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

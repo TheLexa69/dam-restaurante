@@ -1,6 +1,10 @@
 package edu.badpals.damrestaurante.controllers;
 
 import edu.badpals.damrestaurante.Main;
+import edu.badpals.damrestaurante.entities.Usuario;
+import edu.badpals.damrestaurante.entities.UsuarioActual;
+import edu.badpals.damrestaurante.models.DatabaseConnection;
+import jakarta.persistence.EntityManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +23,8 @@ import javafx.scene.media.MediaView;
 
 import java.io.File;
 import java.io.IOException;
+
+import static edu.badpals.damrestaurante.controllers.MainController.*;
 
 public class LoginController {
 
@@ -43,7 +49,7 @@ public class LoginController {
     @FXML
     private PasswordField txtUsuarioPwd;
 
-//    private SQLCommands sqlCommands = new SQLCommands();
+    private EntityManager em = DatabaseConnection.connectEm();
 
     private MediaPlayer mediaPlayer;
 
@@ -76,14 +82,14 @@ public class LoginController {
     void onBtnClickUsuarioLogin(ActionEvent event) {
         String username = txtUsuarioLogin.getText();
         String password = txtUsuarioPwd.getText();
-        redirectToIndex();
+        UsuarioActual user = DatabaseConnection.authenticateUser(em,username, password);
 
-//        if (sqlCommands.authenticateUser(username, password)) {
-//            showAlert("Inicio de sesión exitoso", "Bienvenido, " + username + "!");
-//            redirectToIndex();
-//        } else {
-//            showAlert("Error de inicio de sesión", "Usuario o contraseña incorrectos.");
-//        }
+        if (!username.isBlank() && !password.isBlank() && user != null) {
+            showAlert("Inicio de sesión exitoso", "Bienvenido, " + username + "!");
+            redirectToIndexChangeUser(txtUsuarioLogin,user);
+        } else {
+            showAlert("Error de inicio de sesión", "Usuario o contraseña incorrectos.");
+        }
     }
 
     @FXML
@@ -107,29 +113,5 @@ public class LoginController {
         }
     }
 
-    private void redirectToIndex() {
-        try {
-            // Cargar el archivo FXML de la vista del índice
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("inicio.fxml"));
-            Parent root = loader.load();
 
-            // Obtener el Stage actual desde cualquier componente
-            Stage currentStage = (Stage) btnUsuarioLogin.getScene().getWindow();
-
-            // Cambiar la escena del Stage actual
-            currentStage.setScene(new Scene(root));
-            currentStage.setTitle("Pantalla Principal");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "No se pudo cargar la pantalla principal.");
-        }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }
